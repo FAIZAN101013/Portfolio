@@ -95,11 +95,51 @@
                         <div class="text-pretitle with-line">
                             Welcome
                         </div>
-
-                       <h1 class="text-huge-title">
+<h1 class="text-huge-title">
     Hi, I'm Faizan<br>
-    <span class="role">Software Developer</span>
+    <span class="role">
+        <span id="software">Software</span>
+        <span id="developer">Developer</span>
+    </span>
 </h1>
+
+<style>
+    #software, #developer {
+        opacity: 0;
+        display: inline-block;
+        margin-right: 10px;
+        position: relative;
+        animation: slideIn 4s infinite;
+    }
+
+    #developer {
+        animation-delay: 0.5s;
+    }
+
+    @keyframes slideIn {
+        0% {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        20% {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        80% {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        100% {
+            opacity: 0;
+            transform: translateY(-20px);
+        }
+    }
+
+    .role {
+        position: relative;
+        display: inline-block;
+    }
+</style>
 
                     </div>
 
@@ -329,8 +369,8 @@
                             Here are some of my favorite projects I've worked on. Feel free to check them out.
                         </p>
     
-                        <ul class="folio-list row block-lg-one-half block-stack-on-1000">
-                            <li class="folio-list__item column" data-animate-el>
+                        <div class="folio-list" data-animate-el>
+                            <div class="folio-list__item column" data-animate-el>
                                 <a class="folio-list__item-link" href="#modal-01">
                                     <div class="folio-list__item-text">
                                         <div class="folio-list__item-cat">
@@ -344,9 +384,9 @@
                                 <a class="folio-list__proj-link" href="https://github.com/FAIZAN101013/ShopNGo" title="View on GitHub">
                                     <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8.14645 3.14645C8.34171 2.95118 8.65829 2.95118 8.85355 3.14645L12.8536 7.14645C13.0488 7.34171 13.0488 7.65829 12.8536 7.85355L8.85355 11.8536C8.65829 12.0488 8.34171 12.0488 8.14645 11.8536C7.95118 11.6583 7.95118 11.3417 8.14645 11.1464L11.2929 8H2.5C2.22386 8 2 7.77614 2 7.5C2 7.22386 2.22386 7 2.5 7H11.2929L8.14645 3.85355C7.95118 3.65829 7.95118 3.34171 8.14645 3.14645Z" fill="currentColor" fill-rule="evenodd" clip-rule="evenodd"></path></svg>
                                 </a>
-                            </li>
+                            </div>
 
-                            <li class="folio-list__item column" data-animate-el>
+                            <div class="folio-list__item column" data-animate-el>
                                 <a class="folio-list__item-link" href="#modal-02">
                                     <div class="folio-list__item-text">
                                         <div class="folio-list__item-cat">
@@ -360,9 +400,9 @@
                                 <a class="folio-list__proj-link" href="#" title="project link">
                                     <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8.14645 3.14645C8.34171 2.95118 8.65829 2.95118 8.85355 3.14645L12.8536 7.14645C13.0488 7.34171 13.0488 7.65829 12.8536 7.85355L8.85355 11.8536C8.65829 12.0488 8.34171 12.0488 8.14645 11.8536C7.95118 11.6583 7.95118 11.3417 8.14645 11.1464L11.2929 8H2.5C2.22386 8 2 7.77614 2 7.5C2 7.22386 2.22386 7 2.5 7H11.2929L8.14645 3.85355C7.95118 3.65829 7.95118 3.34171 8.14645 3.14645Z" fill="currentColor" fill-rule="evenodd" clip-rule="evenodd"></path></svg>
                                 </a>
-                            </li>
+                            </div>
 
-                            <li class="folio-list__item column" data-animate-el>
+                            <div class="folio-list__item column" data-animate-el>
                                 <a class="folio-list__item-link" href="#modal-03">
                                     <div class="folio-list__item-text">
                                         <div class="folio-list__item-cat">
@@ -376,8 +416,8 @@
                                 <a class="folio-list__proj-link" href="#" title="project link">
                                     <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8.14645 3.14645C8.34171 2.95118 8.65829 2.95118 8.85355 3.14645L12.8536 7.14645C13.0488 7.34171 13.0488 7.65829 12.8536 7.85355L8.85355 11.8536C8.65829 12.0488 8.34171 12.0488 8.14645 11.8536C7.95118 11.6583 7.95118 11.3417 8.14645 11.1464L11.2929 8H2.5C2.22386 8 2 7.77614 2 7.5C2 7.22386 2.22386 7 2.5 7H11.2929L8.14645 3.85355C7.95118 3.65829 7.95118 3.34171 8.14645 3.14645Z" fill="currentColor" fill-rule="evenodd" clip-rule="evenodd"></path></svg>
                                 </a>
-                            </li>
-                        </ul>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </section>
@@ -852,6 +892,139 @@
     ================================================== -->
     <script src="js/plugins.js"></script>
     <script src="js/main.js"></script>
+   
+</script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // The animation is now handled by CSS
+        // No need for JavaScript animation
+    });
+</script>
+
+<style>
+    /* Project Section Styling - Alternative Version */
+    .folio-list {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 0.5rem;
+        padding: 2rem 0;
+        max-width: 100%;
+        margin: 0 auto;
+    }
+
+    @media (max-width: 1000px) {
+        .folio-list {
+            grid-template-columns: 1fr;
+            gap: 0.5rem;
+        }
+    }
+
+    .folio-list__item {
+        background: rgba(255, 255, 255, 0.05);
+        overflow: hidden;
+        position: relative;
+        height: 400px;
+        width: 100%;
+    }
+
+    .folio-list__item-link {
+        display: block;
+        height: 100%;
+        width: 100%;
+        position: relative;
+    }
+
+    .folio-list__item-text {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        padding: 2rem;
+        background: linear-gradient(to top, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.8) 50%, transparent 100%);
+        transform: translateY(100%);
+        transition: transform 0.4s ease;
+    }
+
+    .folio-list__item:hover .folio-list__item-text {
+        transform: translateY(0);
+    }
+
+    .folio-list__item-cat {
+        font-size: 1rem;
+        color: var(--color-1);
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        margin-bottom: 0.8rem;
+        transform: translateY(20px);
+        opacity: 0;
+        transition: all 0.4s ease 0.1s;
+        text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        font-weight: 500;
+    }
+
+    .folio-list__item:hover .folio-list__item-cat {
+        transform: translateY(0);
+        opacity: 1;
+    }
+
+    .folio-list__item-title {
+        font-size: 2.2rem;
+        font-weight: 700;
+        color: white;
+        transform: translateY(20px);
+        opacity: 0;
+        transition: all 0.4s ease 0.2s;
+        text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        margin-bottom: 0.5rem;
+    }
+
+    .folio-list__item:hover .folio-list__item-title {
+        transform: translateY(0);
+        opacity: 1;
+    }
+
+    .folio-list__proj-link {
+        position: absolute;
+        top: 2rem;
+        right: -50px;
+        width: 45px;
+        height: 45px;
+        background: var(--color-1);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.4s ease;
+        z-index: 3;
+    }
+
+    .folio-list__item:hover .folio-list__proj-link {
+        right: 2rem;
+    }
+
+    .folio-list__proj-link svg {
+        width: 20px;
+        height: 20px;
+    }
+
+    .folio-list__proj-link svg path {
+        fill: white;
+    }
+
+    /* Project Images */
+    .folio-list__item:nth-child(1) {
+        background-image: url('images/ShopNGo1.png');
+        background-size: cover;
+        background-position: center;
+    }
+
+    .folio-list__item:nth-child(2) {
+        background-image: url('images/ShopNGo2.png');
+        background-size: cover;
+        background-position: center;
+    }
+</style>
 
 </body>
 </html>

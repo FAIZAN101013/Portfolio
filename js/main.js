@@ -419,7 +419,13 @@
             // Start observing the skills section
             sectionObserver.observe(skillsSection);
         });
-
+        document.addEventListener('DOMContentLoaded', function () {
+            // Make sure the animation is triggered when the page loads
+            const roleWords = document.querySelectorAll('.role-word');
+            roleWords.forEach(word => {
+                word.style.animationPlayState = 'running';
+            });
+        });
         const triggers = document.querySelectorAll('.smoothscroll');
 
         const moveTo = new MoveTo({

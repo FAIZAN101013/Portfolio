@@ -137,6 +137,13 @@
     transition-delay: 0.3s;
 }
 
+
+
+@keyframes simpleFade {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
 @media screen and (max-width: 800px) {
     .skills-grid {
         grid-template-columns: repeat(3, 1fr);
