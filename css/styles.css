@@ -483,6 +483,26 @@ details {
 summary {
     display: list-item;
 }
+@media (max-width: 900px) {
+    .contact-bottom {
+      flex-direction: column !important;
+      display: flex !important;
+      gap: 2rem;
+    }
+    .contact-block {
+      width: 100% !important;
+      max-width: 100% !important;
+      margin-bottom: 1.5rem;
+    }
+    .contact-block h3,
+    .contact-block p,
+    .contact-block ul {
+      text-align: left !important;
+    }
+    .contact-btn {
+      width: 100% !important;
+    }
+  }
 
 template {
     display: none;
