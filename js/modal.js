@@ -1,3 +1,17 @@
+// Import the media navigation functions
+import { prevMedia, nextMedia } from './projects-manager.js';
+
+// Make media navigation functions globally available
+window.prevMedia = (modalId) => {
+    console.log('prevMedia called for modal:', modalId);
+    prevMedia(modalId);
+};
+
+window.nextMedia = (modalId) => {
+    console.log('nextMedia called for modal:', modalId);
+    nextMedia(modalId);
+};
+
 // Define media items with your specific image paths
 const mediaItems = [
     {
@@ -67,32 +81,51 @@ function updateMedia() {
     }
 }
 
-// Next media function
-function nextMedia() {
-    currentMediaIndex = (currentMediaIndex + 1) % mediaItems.length;
-    updateMedia();
-    updateDots();
-}
+// Modal functionality
+document.addEventListener('DOMContentLoaded', () => {
+    console.log('DOM loaded, initializing modal functionality');
+    
+    const modalLinks = document.querySelectorAll('.folio-list__item-link');
+    console.log('Found modal links:', modalLinks.length);
+    
+    modalLinks.forEach(link => {
+        link.addEventListener('click', (e) => {
+            e.preventDefault();
+            const modalId = link.getAttribute('href').substring(1);
+            console.log('Modal link clicked, opening modal:', modalId);
+            
+            const modal = document.getElementById(modalId);
+            if (modal) {
+                console.log('Modal found, showing:', modalId);
+                modal.removeAttribute('hidden');
+                document.body.style.overflow = 'hidden';
+            } else {
+                console.error('Modal not found:', modalId);
+            }
+        });
+    });
 
-// Previous media function
-function prevMedia() {
-    currentMediaIndex = (currentMediaIndex - 1 + mediaItems.length) % mediaItems.length;
-    updateMedia();
-    updateDots();
-}
+    // Close modal when clicking outside
+    document.addEventListener('click', (e) => {
+        if (e.target.classList.contains('modals-container')) {
+            console.log('Closing modal by clicking outside');
+            const visibleModal = document.querySelector('.modals-container [id^="modal-"]:not([hidden])');
+            if (visibleModal) {
+                visibleModal.setAttribute('hidden', '');
+                document.body.style.overflow = '';
+            }
+        }
+    });
 
-// Initialize the modal on page load
-document.addEventListener('DOMContentLoaded', function () {
-    // Initial media load
-    updateMedia();
-    updateDots();
-
-    // Add keyboard navigation
-    document.addEventListener('keydown', function (e) {
-        if (e.key === 'ArrowRight') {
-            nextMedia();
-        } else if (e.key === 'ArrowLeft') {
-            prevMedia();
+    // Close modal with escape key
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+            console.log('Closing modal with escape key');
+            const visibleModal = document.querySelector('.modals-container [id^="modal-"]:not([hidden])');
+            if (visibleModal) {
+                visibleModal.setAttribute('hidden', '');
+                document.body.style.overflow = '';
+            }
         }
     });
 });

@@ -137,7 +137,14 @@
     transition-delay: 0.3s;
 }
 
-
+/* Force all headings and text to be visible */
+#skills h2.text-pretitle, 
+#skills p.attention-getter {
+    opacity: 1 !important;
+    visibility: visible !important;
+    display: block !important;
+    transform: none !important;
+}
 
 @keyframes simpleFade {
   0% { opacity: 0; }
