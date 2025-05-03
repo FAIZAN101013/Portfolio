@@ -2,7 +2,7 @@
 const projectsData = [
     {
         id: 'modal-01',
-        title: 'Shongo',
+        title: 'ShoNgo',
         category: 'E-commerce Project (In Progress)',
         githubLink: 'https://github.com/FAIZAN101013/ShopNGo',
         media: [
