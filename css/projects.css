@@ -21,6 +21,12 @@
     position: relative;
     height: 400px;
     width: 100%;
+    /* Fallback background in case image doesn't load */
+    background-color: #2a2a2a;
+    /* Essential visibility fixes */
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
 }
 
 .folio-list__item-link {
@@ -107,27 +113,67 @@
     fill: white;
 }
 
-/* Project Images */
-.folio-list__item:nth-child(1) {
-    background-image: url('../images/ShopNGo1.png');
-    background-size: cover;
-    background-position: center;
+/* Project Images - Removed hardcoded backgrounds since they're applied dynamically */
+/* The background images are now applied via inline styles in JavaScript */
+
+/* Project Tabs Styles */
+.project-tabs {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 3rem;
+    gap: 1rem;
 }
 
- .folio-list__item:nth-child(2) {
-        background-image: url('../images/portiflito.png');
-        background-size: cover;
-        background-position: center;
-    } 
+.tab-btn {
+    background: transparent;
+    border: 2px solid var(--color-1);
+    color: var(--color-1);
+    padding: 12px 24px;
+    border-radius: 0;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    text-align: center;
+    min-width: 150px;
+}
 
-.folio-list__item:nth-child(3) {
-        background-image: url('../images/moviesx/Screenshot(176).png');
-        background-size: cover;
-        background-position: center;
-    } 
+.tab-btn:hover {
+    background: var(--color-1);
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
 
-.folio-list__item:nth-child(4) {
-        background-image: url('../images/moviesx/mov1.png');
-        background-size: cover;
-        background-position: center;
-    } 
+.tab-btn.active {
+    background: var(--color-1);
+    color: white;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.tab-content {
+    display: none;
+    min-height: 200px;
+}
+
+.tab-content.active {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+}
+
+/* Responsive tabs */
+@media (max-width: 768px) {
+    .project-tabs {
+        flex-direction: column;
+        align-items: center;
+        gap: 0.5rem;
+    }
+    
+    .tab-btn {
+        width: 200px;
+        text-align: center;
+    }
+}

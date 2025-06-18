@@ -5,6 +5,7 @@ const projectsData = [
         title: 'ShoNgo',
         category: 'E-commerce Project (In Progress)',
         githubLink: 'https://github.com/FAIZAN101013/ShopNGo',
+        tags: ['project'],
         media: [
             { type: 'video', src: 'Project video/ShopNGo.mp4' },
             { type: 'image', src: 'images/ShopNGo1.png' },
@@ -33,6 +34,7 @@ const projectsData = [
         title: 'Portfolio Website',
         category: 'Web Application',
         githubLink: 'https://faziansportfolio.netlify.app/',
+        tags: ['project'],
         media: [
             { type: 'image', src: 'images/portiflito.png' }
         ],
@@ -59,6 +61,7 @@ It is a responsive website that is built using Bootstrap.`,
         title: 'HandyMan',
         category: 'Web Application',
         githubLink: 'https://github.com/FAIZAN101013/handyman',
+        tags: ['project'],
         media: [
             { type: 'image', src: 'images/ShopNGo2.png' }
         ],
@@ -82,6 +85,7 @@ It is a responsive website that is built using Bootstrap.`,
         title: 'MoviesX',
         category: 'Web Application',
         githubLink: 'https://github.com/FAIZAN101013/handyman',
+        tags: ['project'],
         media: [
             { type: 'image', src: 'images/moviesx/mov1.png' },
             { type: 'image', src: 'images/moviesx/mov2.png' },
@@ -102,7 +106,55 @@ MOVIEX - Movie Explorer App 🎬 A simple movie explorer web app built with Reac
             'LocalStorage '
             
         ]
-    }, 
+    },
+    // Add some design projects as examples
+    {
+        id: 'modal-05',
+        title: 'Mobile App UI Design',
+        category: 'UI/UX Design',
+        githubLink: 'https://www.behance.net/your-profile',
+        tags: ['design'],
+        media: [
+            { type: 'image', src: 'images/ShopNGo1.png' },
+            { type: 'image', src: 'images/ShopNGo2.png' },
+        ],
+        description: 'A modern mobile app UI design focusing on user experience and clean aesthetics.',
+        features: [
+            'User-centered design approach',
+            'Responsive mobile interface',
+            'Intuitive navigation flow',
+            'Modern design system'
+        ],
+        techStack: [
+            'Figma',
+            'Adobe XD',
+            'Sketch',
+            'Prototyping'
+        ]
+    },
+    {
+        id: 'modal-06',
+        title: 'Website Redesign',
+        category: 'Web Design',
+        githubLink: 'https://www.behance.net/your-profile',
+        tags: ['design'],
+        media: [
+            { type: 'image', src: 'images/portiflito.png' },
+        ],
+        description: 'Complete website redesign project with focus on modern aesthetics and improved user experience.',
+        features: [
+            'Modern visual design',
+            'Improved user flow',
+            'Accessibility considerations',
+            'Brand consistency'
+        ],
+        techStack: [
+            'Figma',
+            'Adobe Photoshop',
+            'Adobe Illustrator',
+            'User Research'
+        ]
+    }
 ];
 
 // Export the data

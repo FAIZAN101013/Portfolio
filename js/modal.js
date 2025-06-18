@@ -81,29 +81,9 @@ function updateMedia() {
     }
 }
 
-// Modal functionality
+// Modal functionality - Only handle global modal events, not project-specific ones
 document.addEventListener('DOMContentLoaded', () => {
-    console.log('DOM loaded, initializing modal functionality');
-    
-    const modalLinks = document.querySelectorAll('.folio-list__item-link');
-    console.log('Found modal links:', modalLinks.length);
-    
-    modalLinks.forEach(link => {
-        link.addEventListener('click', (e) => {
-            e.preventDefault();
-            const modalId = link.getAttribute('href').substring(1);
-            console.log('Modal link clicked, opening modal:', modalId);
-            
-            const modal = document.getElementById(modalId);
-            if (modal) {
-                console.log('Modal found, showing:', modalId);
-                modal.removeAttribute('hidden');
-                document.body.style.overflow = 'hidden';
-            } else {
-                console.error('Modal not found:', modalId);
-            }
-        });
-    });
+    console.log('DOM loaded, initializing global modal functionality');
 
     // Close modal when clicking outside
     document.addEventListener('click', (e) => {
