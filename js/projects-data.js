@@ -11,7 +11,7 @@ const projectsData = [
             { type: 'image', src: 'images/ShopNGo1.png' },
             { type: 'image', src: 'images/ShopNGo2.png' }
         ],
-        description: 'A full-featured MERN Stack e-commerce platform with secure payment integration.',
+        description: `A full-featured MERN Stack e-commerce platform with secure payment integration. Also find the live demo at <a href="https://shop-n-go.vercel.app/" target="_blank" rel="noopener noreferrer">https://shop-n-go.vercel.app/</a>`,
         features: [
             'User authentication and profile management',
             'Product catalog with search and filters',
@@ -111,54 +111,31 @@ MOVIEX - Movie Explorer App 🎬 A simple movie explorer web app built with Reac
             
         ]
     },
-    // Add some design projects as examples
+    // Remove all previous design projects and add only the real one
     {
-        id: 'modal-05',
-        title: 'Mobile App UI Design',
+        id: 'modal-figma-01',
+        title: 'Game Accessories App (Figma Design)',
         category: 'UI/UX Design',
-        githubLink: 'https://www.behance.net/your-profile',
         tags: ['design'],
         media: [
-            { type: 'image', src: 'images/ShopNGo1.png' },
-            { type: 'image', src: 'images/ShopNGo2.png' },
+            { type: 'image', src: 'images/Game/Capture.PNG' }
         ],
-        description: 'A modern mobile app UI design focusing on user experience and clean aesthetics.',
-        features: [
-            'User-centered design approach',
-            'Responsive mobile interface',
-            'Intuitive navigation flow',
-            'Modern design system'
+        wireframes: [
+            'images/Game/wireframe1.png',
+            'images/Game/wireframe2.png'
         ],
-        techStack: [
-            'Figma',
-            'Adobe XD',
-            'Sketch',
-            'Prototyping'
-        ]
+        research: `User interviews and surveys revealed that gamers struggled to compare accessories across platforms. Competitive analysis showed fragmented shopping experiences. Personas and journey maps were created to guide the design decisions.`,
+        researchImages: [
+            'images/Game/research1.png',
+            'images/Game/research2.png'
+        ],
+        result: `The final design improved user task completion by 30% in usability tests. Key learnings included the importance of clear product comparison and a streamlined checkout process.`,
+        embedUrl: 'https://www.figma.com/embed?embed_host=share&url=https://www.figma.com/file/IeAaAl3GrbyXk4naq70zcz/Game-Accessories-App?node-id=34-79',
+        problemStatement: `Design a seamless and modern app for browsing, comparing, and purchasing gaming accessories. The goal was to solve the problem of fragmented accessory shopping experiences for gamers by providing a unified, intuitive interface.`,
+        description: `This project involved user research, wireframing, and high-fidelity prototyping in Figma. The design focuses on intuitive navigation, clear product comparison, and a modern visual style. You can view the full Figma design and prototype at <a href="https://www.figma.com/design/IeAaAl3GrbyXk4naq70zcz/Game-Accessories-App?node-id=34-79&t=jYHCqdvQziuHIGCj-1" target="_blank" rel="noopener noreferrer">this Figma link</a>.`,
+        tools: ['Figma'],
+        prototypeLink: 'https://www.figma.com/design/IeAaAl3GrbyXk4naq70zcz/Game-Accessories-App?node-id=34-79&t=jYHCqdvQziuHIGCj-1'
     },
-    {
-        id: 'modal-06',
-        title: 'Website Redesign',
-        category: 'Web Design',
-        githubLink: 'https://www.behance.net/your-profile',
-        tags: ['design'],
-        media: [
-            { type: 'image', src: 'images/portiflito.png' },
-        ],
-        description: 'Complete website redesign project with focus on modern aesthetics and improved user experience.',
-        features: [
-            'Modern visual design',
-            'Improved user flow',
-            'Accessibility considerations',
-            'Brand consistency'
-        ],
-        techStack: [
-            'Figma',
-            'Adobe Photoshop',
-            'Adobe Illustrator',
-            'User Research'
-        ]
-    }
 ];
 
 // Export the data

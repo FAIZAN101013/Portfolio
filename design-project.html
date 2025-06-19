@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Design Project</title>
+    <link rel="stylesheet" href="css/projects.css">
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        .design-project-container {
+            max-width: 900px;
+            margin: 3rem auto;
+            background: #232323;
+            border-radius: 12px;
+            padding: 2rem;
+            color: #fff;
+        }
+        .design-project-title {
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+        .design-project-images {
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+            margin-bottom: 2rem;
+        }
+        .design-project-images img {
+            max-width: 350px;
+            width: 100%;
+            border-radius: 8px;
+            background: #fff;
+        }
+        .design-project-section {
+            margin-bottom: 1.5rem;
+        }
+        .design-project-section strong {
+            color: var(--color-1, #6C63FF);
+        }
+        .design-project-tools {
+            margin-bottom: 1.5rem;
+        }
+        .design-project-figma {
+            margin-top: 2rem;
+        }
+        .design-project-figma a {
+            display: inline-block;
+            background: var(--color-1, #6C63FF);
+            color: #fff;
+            padding: 0.7rem 1.5rem;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: background 0.2s;
+        }
+        .design-project-figma a:hover {
+            background: #4b47c3;
+        }
+        .back-btn:hover {
+            background: #4b47c3;
+        }
+    </style>
+</head>
+<body>
+    <div class="design-project-container" id="design-project-root">
+        <!-- Content will be loaded by JS -->
+    </div>
+    <script type="module">
+        import projectsData from './js/projects-data.js';
+        // Get id from URL
+        const params = new URLSearchParams(window.location.search);
+        const id = params.get('id');
+        const project = projectsData.find(p => p.id === id);
+        const root = document.getElementById('design-project-root');
+        if (!project) {
+            root.innerHTML = '<h2>Project not found</h2>';
+        } else {
+            // --- CUSTOMIZE YOUR LAYOUT BELOW ---
+            // Use first image as cover
+            const coverImage = project.media && project.media.length > 0 ? project.media[0].src : '';
+            // Wireframes: array of image URLs (optional)
+            const wireframes = project.wireframes || [];
+            // Research: text and images (optional)
+            const research = project.research || '';
+            const researchImages = project.researchImages || [];
+            // Result/Learning (optional)
+            const result = project.result || project.learning || '';
+            // Figma embed URL (optional)
+            const embedUrl = project.embedUrl || '';
+
+            root.innerHTML = `
+                <a href="index.html" class="back-btn" style="display:inline-block;margin-bottom:1.5rem;padding:0.5rem 1.2rem;background:var(--color-1,#6C63FF);color:#fff;border-radius:6px;text-decoration:none;font-weight:600;transition:background 0.2s;">&larr; Back</a>
+                <!-- Title -->
+                <div class="design-project-title" style="font-size:2.2rem;font-weight:700;margin-bottom:1.2rem;">${project.title}</div>
+                <!-- Main Cover Image -->
+                ${coverImage ? `<div style='margin-bottom:2rem;'><img src='${coverImage}' alt='${project.title}' style='width:100%;max-width:350px;border-radius:8px;background:#fff;display:block;margin:auto;'></div>` : ''}
+                <!-- Problem Statement -->
+                <div class="design-project-section" style="margin-bottom:1.5rem;"><strong>Problem Statement:</strong><br>${project.problemStatement || ''}</div>
+                <!-- Wireframe Images -->
+                ${wireframes.length > 0 ? `<div class='design-project-wireframes' style='margin-bottom:2rem;'><strong>Wireframes:</strong><div style='display:flex;gap:1.2rem;flex-wrap:wrap;margin-top:0.5rem;'>${wireframes.map(src => `<img src='${src}' alt='Wireframe' style='width:140px;max-width:100%;border-radius:6px;background:#fff;margin-bottom:0.5rem;'>`).join('')}</div></div>` : ''}
+                <!-- Research Details -->
+                ${research ? `<div class='design-project-research' style='margin-bottom:1.5rem;'><strong>Research:</strong><br>${research}</div>` : ''}
+                ${researchImages.length > 0 ? `<div style='display:flex;gap:1.2rem;flex-wrap:wrap;margin-bottom:1.5rem;'>${researchImages.map(src => `<img src='${src}' alt='Research' style='width:140px;max-width:100%;border-radius:6px;background:#fff;margin-bottom:0.5rem;'>`).join('')}</div>` : ''}
+                <!-- All Other Details -->
+                <div class="design-project-section" style="margin-bottom:1.2rem;"><strong>Description:</strong><br>${project.description || ''}</div>
+                <div class="design-project-tools" style="margin-bottom:1.2rem;"><strong>Tools Used:</strong> ${(project.tools || []).join(', ')}</div>
+                <!-- Hi-Fi Prototype Embedded -->
+                ${embedUrl ? `<div class='design-project-figma-embed' style='margin:2rem 0;'><strong>Hi-Fi Prototype:</strong><br><iframe style='border:1px solid #ccc;border-radius:8px;width:100%;max-width:700px;height:450px;' src='${embedUrl}' allowfullscreen></iframe></div>` : ''}
+                <!-- Result or Learning -->
+                ${result ? `<div class='design-project-result' style='margin-bottom:1.5rem;'><strong>Result / Learning:</strong><br>${result}</div>` : ''}
+                <!-- View Prototype Button -->
+                <div class="design-project-figma" style="margin-top:1.5rem;">
+                    <a href="${project.prototypeLink}" target="_blank" rel="noopener noreferrer" style="display:inline-block;background:var(--color-1,#6C63FF);color:#fff;padding:0.7rem 1.5rem;border-radius:6px;text-decoration:none;font-weight:600;transition:background 0.2s;">View Figma Prototype</a>
+                </div>
+            `;
+            // --- END CUSTOM LAYOUT ---
+        }
+    </script>
+</body>
+</html> 
