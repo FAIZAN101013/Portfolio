@@ -130,7 +130,7 @@ MOVIEX - Movie Explorer App 🎬 A simple movie explorer web app built with Reac
             'images/Game/research2.png'
         ],
         result: `The final design improved user task completion by 30% in usability tests. Key learnings included the importance of clear product comparison and a streamlined checkout process.`,
-        embedUrl: 'https://www.figma.com/embed?embed_host=share&url=https://www.figma.com/file/IeAaAl3GrbyXk4naq70zcz/Game-Accessories-App?node-id=34-79',
+        embedUrl: 'https://embed.figma.com/proto/IeAaAl3GrbyXk4naq70zcz/Game-Accessories-App?node-id=26-2&p=f&scaling=min-zoom&content-scaling=fixed&page-id=34%3A79&starting-point-node-id=26%3A2&embed-host=share',
         problemStatement: `Design a seamless and modern app for browsing, comparing, and purchasing gaming accessories. The goal was to solve the problem of fragmented accessory shopping experiences for gamers by providing a unified, intuitive interface.`,
         description: `This project involved user research, wireframing, and high-fidelity prototyping in Figma. The design focuses on intuitive navigation, clear product comparison, and a modern visual style. You can view the full Figma design and prototype at <a href="https://www.figma.com/design/IeAaAl3GrbyXk4naq70zcz/Game-Accessories-App?node-id=34-79&t=jYHCqdvQziuHIGCj-1" target="_blank" rel="noopener noreferrer">this Figma link</a>.`,
         tools: ['Figma'],
