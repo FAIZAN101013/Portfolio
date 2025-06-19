@@ -177,3 +177,78 @@
         text-align: center;
     }
 }
+
+/* Modal Popup Responsive Fix */
+.modal-popup {
+    max-width: 95vw !important;
+    width: 100%;
+    min-width: 0 !important;
+    margin: 40px auto !important;
+    background: #181818;
+    border-radius: 0 !important;
+    position: relative;
+    z-index: 1002;
+    padding: 2rem 1.5rem;
+    box-sizing: border-box;
+    overflow-y: auto;
+}
+
+.modal-popup video,
+.modal-popup img {
+    max-width: 100%;
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+@media (max-width: 600px) {
+    .modal-popup {
+        max-width: 98vw;
+        width: 98vw;
+        min-width: 0;
+        margin: 10px auto;
+        padding: 1rem 0.5rem;
+        border-radius: 8px;
+        left: 0;
+        right: 0;
+    }
+    .modal-popup__desc,
+    .media-content {
+        padding: 0 !important;
+    }
+}
+
+/* Ensure modal overlay covers the whole screen */
+.modals-container {
+    position: fixed !important;
+    top: 0; left: 0; right: 0; bottom: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 1001;
+    background: rgba(0,0,0,0.85);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow-y: auto;
+}
+
+.modal-header {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.modal-content {
+    width: 100%;
+}
+
+.modal-close {
+    font-size: 2rem;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #fff;
+    padding: 0.5rem 1rem;
+}

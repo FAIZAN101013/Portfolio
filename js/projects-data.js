@@ -63,7 +63,11 @@ It is a responsive website that is built using Bootstrap.`,
         githubLink: 'https://github.com/FAIZAN101013/handyman',
         tags: ['project'],
         media: [
-            { type: 'image', src: 'images/ShopNGo2.png' }
+            { type: 'image', src: 'images/handyman/Screenshot (341).png' },
+            {type: 'video', src: 'Project video/handyman.mp4'},
+            { type: 'image', src: 'images/handyman/Screenshot (342).png' },
+            { type: 'image', src: 'images/handyman/Screenshot (343).png' },
+            { type: 'image', src: 'images/handyman/Screenshot (344).png' },
         ],
         description: 'Handyman is a web application that connects skilled workers such as plumbers, electricians, and carpenters with consumers seeking their services.',
         features: [

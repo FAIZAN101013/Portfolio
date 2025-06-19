@@ -122,40 +122,44 @@ function generateProjectModals() {
         modal.setAttribute('data-current-index', '0');
         modal.innerHTML = `
             <div class="modal-popup">
-                <button class="modal-close" aria-label="Close modal" onclick="(function(){document.getElementById('${project.id}').setAttribute('hidden','');document.body.style.overflow='';})()">&times;</button>
-                <div class="media-content">
-                    <div class="media-container">
-                        ${project.media[0].type === 'video' ? 
-                            `<video width="100%" controls controlsList="nodownload" playsinline>
-                                <source src="${project.media[0].src}" type="video/mp4">
-                                Your browser doesn't support this video format.
-                            </video>` :
-                            `<img src="${project.media[0].src}" alt="${project.title}">`
-                        }
-                    </div>
-                    <div class="media-nav">
-                        <button class="prev" onclick="prevMedia('${project.id}')">❮</button>
-                        <button class="next" onclick="nextMedia('${project.id}')">❯</button>
-                    </div>
+                <div class="modal-header">
+                    <button class="modal-close" aria-label="Close modal" onclick="(function(){document.getElementById('${project.id}').setAttribute('hidden','');document.body.style.overflow='';})()">&times;</button>
                 </div>
-                <div class="modal-popup__desc">
-                    <h5 class="modal-title">${project.title}</h5>
-                    <p class="project-intro">${project.description}</p>
-                    <div class="project-features">
-                        <h6>Key Features:</h6>
-                        <ul>
-                            ${project.features.map(feature => `<li>${feature}</li>`).join('')}
-                        </ul>
+                <div class="modal-content">
+                    <div class="media-content">
+                        <div class="media-container">
+                            ${project.media[0].type === 'video' ? 
+                                `<video width="100%" controls controlsList="nodownload" playsinline>
+                                    <source src="${project.media[0].src}" type="video/mp4">
+                                    Your browser doesn't support this video format.
+                                </video>` :
+                                `<img src="${project.media[0].src}" alt="${project.title}">`
+                            }
+                        </div>
+                        <div class="media-nav">
+                            <button class="prev" onclick="prevMedia('${project.id}')">❮</button>
+                            <button class="next" onclick="nextMedia('${project.id}')">❯</button>
+                        </div>
                     </div>
-                    <div class="tech-stack">
-                        <h6>Tech Stack:</h6>
-                        <ul class="modal-popup__cat">
-                            ${project.techStack.map(tech => `<li>${tech}</li>`).join('')}
-                        </ul>
+                    <div class="modal-popup__desc">
+                        <h5 class="modal-title">${project.title}</h5>
+                        <p class="project-intro">${project.description}</p>
+                        <div class="project-features">
+                            <h6>Key Features:</h6>
+                            <ul>
+                                ${project.features.map(feature => `<li>${feature}</li>`).join('')}
+                            </ul>
+                        </div>
+                        <div class="tech-stack">
+                            <h6>Tech Stack:</h6>
+                            <ul class="modal-popup__cat">
+                                ${project.techStack.map(tech => `<li>${tech}</li>`).join('')}
+                            </ul>
+                        </div>
                     </div>
-                </div>
-                <div class="modal-popup__footer">
-                    <a href="${project.githubLink}" class="modal-popup__details" target="_blank" rel="noopener noreferrer">View Project</a>
+                    <div class="modal-popup__footer">
+                        <a href="${project.githubLink}" class="modal-popup__details" target="_blank" rel="noopener noreferrer">View Project</a>
+                    </div>
                 </div>
             </div>
         `;
@@ -222,11 +226,22 @@ function updateMedia(modalId, index) {
 // Function to update show more button for a specific tab
 function updateShowMoreButton(tabType) {
     const btn = document.getElementById(tabType === 'projects' ? 'show-more-btn' : 'show-more-design-btn');
+    const container = btn?.parentElement;
     if (!btn) return;
-    
+
     const filteredProjects = filterProjectsByTag(tabType === 'projects' ? 'project' : 'design');
     const currentVisible = tabType === 'projects' ? visibleProjects : visibleDesignProjects;
-    
+
+    // Hide the button if there are 6 or fewer projects
+    if (filteredProjects.length <= 6) {
+        btn.style.display = 'none';
+        if (container) container.style.display = 'none';
+        return;
+    } else {
+        btn.style.display = '';
+        if (container) container.style.display = '';
+    }
+
     if (currentVisible >= filteredProjects.length) {
         btn.textContent = 'Show Less';
     } else {
