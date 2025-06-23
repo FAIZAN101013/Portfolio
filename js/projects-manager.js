@@ -140,18 +140,26 @@ function generateProjectModals() {
                 <div class="modal-content">
                     <div class="media-content">
                         <div class="media-container">
-                            ${project.media[0].type === 'video' ? 
-                                `<video width="100%" controls controlsList="nodownload" playsinline>
-                                    <source src="${project.media[0].src}" type="video/mp4">
-                                    Your browser doesn't support this video format.
-                                </video>` :
-                                `<img src="${project.media[0].src}" alt="${project.title}">`
+                            ${project.tags && project.tags.includes('design')
+                                ? `<div class='design-media-grid' style='display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px;'>
+                                    ${project.media.map(media =>
+                                        media.type === 'image'
+                                            ? `<img src="${media.src}" alt="${project.title}" style="width: 100%; object-fit: contain;">`
+                                            : ''
+                                    ).join('')}
+                                </div>`
+                                : (project.media[0].type === 'video'
+                                    ? `<video width="100%" controls controlsList="nodownload" playsinline>
+                                        <source src="${project.media[0].src}" type="video/mp4">
+                                        Your browser doesn't support this video format.
+                                    </video>`
+                                    : `<img src="${project.media[0].src}" alt="${project.title}">`)
                             }
                         </div>
-                        <div class="media-nav">
+                        ${project.tags && project.tags.includes('design') ? '' : `<div class="media-nav">
                             <button class="prev" onclick="prevMedia('${project.id}')">❮</button>
                             <button class="next" onclick="nextMedia('${project.id}')">❯</button>
-                        </div>
+                        </div>`}
                     </div>
                     <div class="modal-popup__desc">
                         <h5 class="modal-title">${project.title}</h5>

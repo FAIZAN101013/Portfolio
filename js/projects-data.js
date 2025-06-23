@@ -142,17 +142,22 @@ MOVIEX - Movie Explorer App 🎬 A simple movie explorer web app built with Reac
         category: 'UI/UX Design',
         tags: ['design'],
         media: [
-            { type: 'image', src: 'images/currencyex.png' }
+            { type: 'image', src: 'images/New folder/Screenshot (354).png' },
+            { type: 'image', src: 'images/New folder/Screenshot (355).png' },
+            { type: 'image', src: 'images/New folder/Capture.PNG' },
+            { type: 'image', src: 'images/New folder/Wrie frame/Capture.PNG' }
         ],
-        wireframes: [],
+        wireframes: [
+            'images/New folder/Wrie frame/Capture.PNG'
+        ],
         research: `Designed a modern, responsive currency converter web app UI. Focused on clarity, accessibility, and ease of use for daily currency conversion needs.`,
         researchImages: [],
         result: `The final design features a clean interface, real-time conversion, and a historical chart. Usability tests showed improved user satisfaction and efficiency.`,
-        embedUrl: 'https://embed.figma.com/proto/1o0CpzYf5TWL7sM0FslQZX/CurrencyEx?node-id=27-105&p=f&scaling=min-zoom&content-scaling=fixed&page-id=27%3A105&starting-point-node-id=27%3A105&embed-host=share',
+        embedUrl: 'https://embed.figma.com/proto/1o0CpzYf5TWL7sM0FslQZX/CurrencyEx?node-id=27-105&m=dev&t=mmnZjnGxNLhRszDG-1&embed-host=share',
         problemStatement: `Create an intuitive and visually appealing currency converter app that provides accurate, real-time exchange rates and historical data visualization.`,
         description: `This project involved UI/UX design in Figma for a currency converter app. The design emphasizes usability, responsive layout, and a modern look. <a href="https://www.figma.com/design/1o0CpzYf5TWL7sM0FslQZX/CurrencyEx?node-id=27-105&t=Gpg4r6CTmDgAiBYC-1" target="_blank" rel="noopener noreferrer">View on Figma</a>.`,
         tools: ['Figma'],
-        prototypeLink: 'https://www.figma.com/design/1o0CpzYf5TWL7sM0FslQZX/CurrencyEx?node-id=27-105&t=Gpg4r6CTmDgAiBYC-1'
+        prototypeLink: 'https://www.figma.com/proto/1o0CpzYf5TWL7sM0FslQZX/CurrencyEx?node-id=37-19&p=f&t=C4eoW3oiRVXMO6yL-1&scaling=scale-down-width&content-scaling=fixed&page-id=27%3A105&starting-point-node-id=37%3A19'
     },
 ];
 

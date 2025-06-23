@@ -76,7 +76,6 @@
         if (!project) {
             root.innerHTML = '<h2>Project not found</h2>';
         } else {
-            // --- CUSTOMIZE YOUR LAYOUT BELOW ---
             // Use first image as cover
             const coverImage = project.media && project.media.length > 0 ? project.media[0].src : '';
             // Wireframes: array of image URLs (optional)
@@ -88,6 +87,9 @@
             const result = project.result || project.learning || '';
             // Figma embed URL (optional)
             const embedUrl = project.embedUrl || '';
+
+            // Get all images except the first (cover)
+            const galleryImages = project.media && project.media.length > 1 ? project.media.slice(1).filter(m => m.type === 'image') : [];
 
             root.innerHTML = `
                 <a href="index.html" class="back-btn" style="display:inline-block;margin-bottom:1.5rem;padding:0.5rem 1.2rem;background:var(--color-1,#6C63FF);color:#fff;border-radius:6px;text-decoration:none;font-weight:600;transition:background 0.2s;">&larr; Back</a>
@@ -105,8 +107,10 @@
                 <!-- All Other Details -->
                 <div class="design-project-section" style="margin-bottom:1.2rem;"><strong>Description:</strong><br>${project.description || ''}</div>
                 <div class="design-project-tools" style="margin-bottom:1.2rem;"><strong>Tools Used:</strong> ${(project.tools || []).join(', ')}</div>
+                <!-- Gallery Heading and Images -->
+                ${galleryImages.length > 0 ? `<h3 style='margin-bottom:0.7rem;'>Gallery</h3><div class='design-project-images' style='display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; margin-bottom: 2rem;'>${galleryImages.map(m => `<img src='${m.src}' alt='${project.title}' style='width:100%;max-width:350px;border-radius:8px;background:#fff;'>`).join('')}</div>` : ''}
                 <!-- Hi-Fi Prototype Embedded -->
-                ${embedUrl ? `<div class='design-project-figma-embed' style='margin:2rem 0;'><strong>Hi-Fi Prototype:</strong><br><iframe style='border:1px solid #ccc;border-radius:8px;width:100%;max-width:700px;height:450px;' src='${embedUrl}' allowfullscreen></iframe></div>` : ''}
+                ${embedUrl ? `<h3 style='margin-bottom:0.7rem;'>Hi-Fi Prototype Gallery</h3><div class='design-project-figma-embed' style='margin:2rem 0;'><strong>Hi-Fi Prototype:</strong><br><iframe style='border:1px solid #ccc;border-radius:8px;width:100%;max-width:700px;height:450px;' src='${embedUrl}' allowfullscreen></iframe></div>` : ''}
                 <!-- Result or Learning -->
                 ${result ? `<div class='design-project-result' style='margin-bottom:1.5rem;'><strong>Result / Learning:</strong><br>${result}</div>` : ''}
                 <!-- View Prototype Button -->
@@ -114,7 +118,6 @@
                     <a href="${project.prototypeLink}" target="_blank" rel="noopener noreferrer" style="display:inline-block;background:var(--color-1,#6C63FF);color:#fff;padding:0.7rem 1.5rem;border-radius:6px;text-decoration:none;font-weight:600;transition:background 0.2s;">View Figma Prototype</a>
                 </div>
             `;
-            // --- END CUSTOM LAYOUT ---
         }
     </script>
 </body>
