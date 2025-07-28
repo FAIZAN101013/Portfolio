@@ -111,6 +111,37 @@ MOVIEX - Movie Explorer App 🎬 A simple movie explorer web app built with Reac
             
         ]
     },
+    {
+        id: 'modal-05',
+        title: 'Admin CRM',
+        category: 'Web Application',
+        githubLink: 'https://github.com/FAIZAN101013/Admin-CRM',
+        liveDemo: 'https://admin-crm-one.vercel.app/',
+        tags: ['project'],
+        media: [
+            { type: 'video', src: 'Project video/CRM ADMIN.mkv' },
+            { type: 'image', src: 'images/Crm/Screenshot (350).png' },
+            { type: 'image', src: 'images/Crm/Screenshot (351).png' },
+            { type: 'image', src: 'images/Crm/Screenshot (352).png' }
+        ],
+        description: `Admin CRM is a comprehensive Customer Relationship Management platform for businesses to manage clients, sales, and support. Features include dashboards, analytics, and user management. <br>Live demo: <a href="https://admin-crm-one.vercel.app/" target="_blank" rel="noopener noreferrer">https://admin-crm-one.vercel.app/</a>`,
+        features: [
+            'Client and contact management',
+            'Sales pipeline tracking',
+            'Task and activity management',
+            'Analytics dashboard',
+            'User roles and permissions',
+            'Responsive UI'
+        ],
+        techStack: [
+            'React JS',
+            'Node.js',
+            'Express',
+            'MongoDB',
+            'JWT Auth',
+            'Chart.js'
+        ]
+    },
     // Remove all previous design projects and add only the real one
     {
         id: 'modal-figma-01',
@@ -158,6 +189,68 @@ MOVIEX - Movie Explorer App 🎬 A simple movie explorer web app built with Reac
         description: `This project involved UI/UX design in Figma for a currency converter app. The design emphasizes usability, responsive layout, and a modern look. <a href="https://www.figma.com/design/1o0CpzYf5TWL7sM0FslQZX/CurrencyEx?node-id=27-105&t=Gpg4r6CTmDgAiBYC-1" target="_blank" rel="noopener noreferrer">View on Figma</a>.`,
         tools: ['Figma'],
         prototypeLink: 'https://www.figma.com/proto/1o0CpzYf5TWL7sM0FslQZX/CurrencyEx?node-id=37-19&p=f&t=C4eoW3oiRVXMO6yL-1&scaling=scale-down-width&content-scaling=fixed&page-id=27%3A105&starting-point-node-id=37%3A19'
+    },
+    {
+        id: 'modal-figma-03',
+        title: 'Hotel Landing Page (Figma Design)',
+        category: 'UI/UX Design',
+        tags: ['design'],
+        media: [
+            { type: 'image', src: 'images/Hotel webpage UI/Home 2.png' }
+        ],
+        wireframes: [],
+        research: `Designed a modern, visually appealing hotel landing page UI in Figma. Focused on user experience, clear call-to-actions, and a welcoming visual style for hospitality businesses.`,
+        researchImages: [],
+        result: `The final design features a clean layout, intuitive navigation, and strong visual hierarchy to drive bookings and engagement.`,
+        embedUrl: 'https://www.figma.com/proto/PBSzQvMNBiwJt4rU8iL7dR/hotel-landing-page?page-id=0%3A1&node-id=2-2&viewport=396%2C95%2C0.1&t=0TW1mW1bgc5yxKjT-1&scaling=min-zoom&content-scaling=fixed',
+        problemStatement: `Create a hotel website landing page that maximizes user engagement and booking conversion through modern UI/UX principles.`,
+        description: `This project showcases a Figma-based hotel landing page UI, emphasizing a clean, modern look and user-friendly layout. <a href="https://www.figma.com/proto/PBSzQvMNBiwJt4rU8iL7dR/hotel-landing-page?page-id=0%3A1&node-id=2-2&viewport=396%2C95%2C0.1&t=0TW1mW1bgc5yxKjT-1&scaling=min-zoom&content-scaling=fixed" target="_blank" rel="noopener noreferrer">View the prototype</a>.`,
+        tools: ['Figma'],
+        prototypeLink: 'https://www.figma.com/proto/PBSzQvMNBiwJt4rU8iL7dR/hotel-landing-page?page-id=0%3A1&node-id=2-2&viewport=396%2C95%2C0.1&t=0TW1mW1bgc5yxKjT-1&scaling=min-zoom&content-scaling=fixed'
+    },
+    {
+        id: 'modal-figma-04',
+        title: 'Hotel App (Figma Design)',
+        category: 'UI/UX Design',
+        tags: ['design'],
+        media: [
+            { type: 'image', src: 'images/Hotel App ui/wireframe/HOME.png' },
+            { type: 'image', src: 'images/Hotel App ui/wireframe/Booking details.png' },
+            { type: 'image', src: 'images/Hotel App ui/wireframe/Bokking calnder.png' },
+            { type: 'image', src: 'images/Hotel App ui/wriefrma idea and user flow/user flow.png' }
+        ],
+        wireframes: [
+            'images/Hotel App ui/wireframe/Wireframe Plan.png'
+        ],
+        research: `User research and journey mapping were conducted to understand the needs of hotel app users. The design focuses on a seamless booking experience, clear navigation, and modern UI elements.`,
+        researchImages: [
+            'images/Hotel App ui/Research/Journey Map & Scenario.png',
+            'images/Hotel App ui/Research/RESEARCH.png'
+        ],
+        result: `The final design provides an intuitive hotel booking experience, with a focus on usability and visual appeal.`,
+        embedUrl: 'https://www.figma.com/design/2Gm7UIl3BE6EupRld1QRxn/Hotel--App?node-id=0-1&t=juS1qBKA9IbN3cJY-1',
+        problemStatement: `Design a hotel booking app that streamlines the reservation process and enhances user satisfaction through thoughtful UI/UX.`,
+        description: `This project showcases a Figma-based hotel app UI, emphasizing a user-friendly booking flow and modern design. <a href="https://www.figma.com/design/2Gm7UIl3BE6EupRld1QRxn/Hotel--App?node-id=0-1&t=juS1qBKA9IbN3cJY-1" target="_blank" rel="noopener noreferrer">View the design</a>.`,
+        tools: ['Figma'],
+        prototypeLink: 'https://www.figma.com/design/2Gm7UIl3BE6EupRld1QRxn/Hotel--App?node-id=0-1&t=juS1qBKA9IbN3cJY-1'
+    },
+    {
+        id: 'modal-figma-05',
+        title: 'ZenSip (Figma Design)',
+        category: 'UI/UX Design',
+        tags: ['design'],
+        media: [
+            { type: 'image', src: 'images/tea/Desktop - 1.png' }
+        ],
+        wireframes: [],
+        research: `ZenSip is a tea shop web app UI designed in Figma. The project focuses on a calming, modern aesthetic and a seamless ordering experience.`,
+        researchImages: [],
+        result: `The final design features a clean layout, intuitive navigation, and a relaxing color palette to enhance the user experience.`,
+        embedUrl: 'https://www.figma.com/design/VOyiRUiNyqqvJYqNYDyYrl/ZenSip?node-id=1-137&t=IHoNTQ9Nhdrz4IDw-1',
+        problemStatement: `Design a tea shop web app that provides a tranquil and efficient ordering process for users.`,
+        description: `This project showcases a Figma-based tea shop UI, emphasizing a peaceful, modern look and user-friendly layout. <a href="https://www.figma.com/design/VOyiRUiNyqqvJYqNYDyYrl/ZenSip?node-id=1-137&t=IHoNTQ9Nhdrz4IDw-1" target="_blank" rel="noopener noreferrer">View the design</a>.`,
+        tools: ['Figma'],
+        prototypeLink: 'https://www.figma.com/design/VOyiRUiNyqqvJYqNYDyYrl/ZenSip?node-id=1-137&t=IHoNTQ9Nhdrz4IDw-1'
     },
 ];
 
