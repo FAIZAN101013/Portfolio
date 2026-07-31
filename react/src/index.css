@@ -1,0 +1,579 @@
+@import "tailwindcss";
+
+/* ===================================================================
+ * DESIGN TOKENS
+ *
+ * Ported 1:1 from the original css/styles.css :root block so the React
+ * rebuild renders identically. Tailwind v4 reads @theme and generates
+ * matching utilities (bg-body, text-accent, font-display, …).
+ * ------------------------------------------------------------------- */
+
+@theme {
+  /* ---- breakpoints -------------------------------------------------
+   * The original template is authored entirely in max-width queries at
+   * 500 / 600 / 800 / 1000 / 1200 / 1300 / 1600. Redefining Tailwind's
+   * scale onto those values means `max-lg:` here means exactly what
+   * `@media (max-width: 1000px)` means there.
+   * ----------------------------------------------------------------- */
+  --breakpoint-*: initial;
+  --breakpoint-xs: 500px;
+  --breakpoint-sm: 600px;
+  --breakpoint-md: 800px;
+  --breakpoint-lg: 1000px;
+  --breakpoint-xl: 1200px;
+  --breakpoint-2xl: 1300px;
+  --breakpoint-3xl: 1600px;
+
+  /* ---- fonts ---- */
+  --font-sans: "Public Sans", sans-serif;
+  --font-display: "DM Serif Display", serif;
+  --font-mono: Consolas, "Andale Mono", Courier, "Courier New", monospace;
+
+  /* ---- brand colors — color-1 (#eabe7c), color-2 (#23967f) ---- */
+  --color-accent: hsl(36 72% 70%);
+  --color-accent-lighter: hsl(36 72% 90%);
+  --color-accent-light: hsl(36 72% 80%);
+  --color-accent-dark: hsl(36 72% 60%);
+  --color-accent-darker: hsl(36 72% 50%);
+  --color-teal: hsl(168 62% 36%);
+  --color-teal-light: hsl(168 62% 46%);
+
+  /* ---- grayscale ---- */
+  --color-gray-19: #020202;
+  --color-gray-18: #040404;
+  --color-gray-17: #060607;
+  --color-gray-16: #080809;
+  --color-gray-15: #0a0b0b;
+  --color-gray-14: #0c0d0d;
+  --color-gray-13: #0e0f0f;
+  --color-gray-12: #101112;
+  --color-gray-11: #121314;
+  --color-gray-10: #141516;
+  --color-gray-9: #2c2c2d;
+  --color-gray-8: #434445;
+  --color-gray-7: #5b5b5c;
+  --color-gray-6: #727373;
+  --color-gray-5: #8a8a8b;
+  --color-gray-4: #a1a1a2;
+  --color-gray-3: #b9b9b9;
+  --color-gray-2: #d0d0d0;
+  --color-gray-1: #e8e8e8;
+
+  /* ---- semantic ---- */
+  --color-body: #141516;
+  --color-content: #a1a1a2;
+  --color-content-light: #5b5b5c;
+  --color-hairline: rgb(255 255 255 / 0.05);
+
+  /* ---- layout widths ---- */
+  --container-max: 1200px;
+  --container-wide: 1400px;
+
+  /* ---- motion ------------------------------------------------------
+   * One easing curve for the whole site. The original used this cubic
+   * bezier for its menu transition; reusing it everywhere is what makes
+   * the interactions feel like one system.
+   * ----------------------------------------------------------------- */
+  --ease-out-soft: cubic-bezier(0.215, 0.61, 0.355, 1);
+  --ease-in-out-soft: cubic-bezier(0.645, 0.045, 0.355, 1);
+}
+
+/* ------------------------------------------------------------------
+ * Spacing + typescale live outside @theme because they are calc()
+ * chains off --multiplier, which shifts at the 600px breakpoint.
+ * ------------------------------------------------------------------ */
+:root {
+  --multiplier: 1;
+  --base-font-size: calc(1.9rem * var(--multiplier));
+  --space: calc(3.2rem * var(--multiplier));
+
+  --vspace-0_125: calc(0.125 * var(--space));
+  --vspace-0_25: calc(0.25 * var(--space));
+  --vspace-0_375: calc(0.375 * var(--space));
+  --vspace-0_5: calc(0.5 * var(--space));
+  --vspace-0_625: calc(0.625 * var(--space));
+  --vspace-0_75: calc(0.75 * var(--space));
+  --vspace-0_875: calc(0.875 * var(--space));
+  --vspace-1: var(--space);
+  --vspace-1_25: calc(1.25 * var(--space));
+  --vspace-1_5: calc(1.5 * var(--space));
+  --vspace-1_75: calc(1.75 * var(--space));
+  --vspace-2: calc(2 * var(--space));
+  --vspace-2_5: calc(2.5 * var(--space));
+  --vspace-3: calc(3 * var(--space));
+  --vspace-3_5: calc(3.5 * var(--space));
+  --vspace-4: calc(4 * var(--space));
+  --vspace-4_5: calc(4.5 * var(--space));
+  --vspace-5: calc(5 * var(--space));
+  --vspace-btn: var(--vspace-2);
+
+  /* type scale — ratio 1.2, base 19px */
+  --text-scale-ratio: 1.2;
+  --text-size: var(--base-font-size);
+  --text-xs: calc((var(--text-size) / var(--text-scale-ratio)) / var(--text-scale-ratio));
+  --text-sm: calc(var(--text-xs) * var(--text-scale-ratio));
+  --text-md: calc(var(--text-sm) * var(--text-scale-ratio) * var(--text-scale-ratio));
+  --text-lg: calc(var(--text-md) * var(--text-scale-ratio));
+  --text-xl: calc(var(--text-lg) * var(--text-scale-ratio));
+  --text-xxl: calc(var(--text-xl) * var(--text-scale-ratio));
+  --text-xxxl: calc(var(--text-xxl) * var(--text-scale-ratio));
+  --text-display-1: calc(var(--text-xxxl) * var(--text-scale-ratio));
+
+  --gutter: 2rem;
+  --header-height: 6.4rem;
+}
+
+@media screen and (max-width: 1200px) {
+  :root {
+    --gutter: 1.6rem;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  :root {
+    --multiplier: 0.875;
+    --gutter: 1rem;
+  }
+}
+
+/* ===================================================================
+ * BASE
+ * ------------------------------------------------------------------- */
+@layer base {
+  /* The original sets html font-size to 62.5% so 1rem === 10px. Every
+     token above is authored against that assumption. */
+  html {
+    font-size: 62.5%;
+    scroll-behavior: smooth;
+    scroll-padding-top: var(--header-height);
+  }
+
+  body {
+    font-family: var(--font-sans);
+    font-size: var(--text-size);
+    font-weight: 300;
+    line-height: var(--vspace-1);
+    color: var(--color-content);
+    background-color: var(--color-body);
+    margin: 0;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-display);
+    font-weight: 400;
+    color: #fff;
+    font-variant-ligatures: common-ligatures;
+    text-rendering: optimizeLegibility;
+  }
+
+  h2 {
+    font-size: var(--text-xxl);
+    line-height: var(--vspace-1_5);
+  }
+
+  h3 {
+    font-size: var(--text-xl);
+    line-height: var(--vspace-1_25);
+  }
+
+  h4 {
+    font-size: var(--text-lg);
+    line-height: var(--vspace-1);
+  }
+
+  h5 {
+    font-size: var(--text-md);
+    line-height: var(--vspace-0_875);
+  }
+
+  p {
+    margin: 0 0 var(--vspace-1);
+  }
+
+  strong,
+  b {
+    font-weight: 600;
+  }
+
+  a {
+    color: var(--color-accent);
+    text-decoration: none;
+    transition: color 0.3s var(--ease-in-out-soft);
+  }
+
+  a:hover,
+  a:active {
+    color: var(--color-teal-light);
+    outline: 0;
+  }
+
+  img,
+  video {
+    max-width: 100%;
+    height: auto;
+  }
+
+  /* Polish: the original had no visible keyboard focus anywhere. */
+  :focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+
+  ::selection {
+    background-color: var(--color-accent);
+    color: #000;
+  }
+
+  /* Polish: the scrollbar was default-light against a near-black page. */
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-gray-9) transparent;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
+/* ===================================================================
+ * GRID
+ *
+ * Ported from the original "GRID v4.0.0" block. Two rules matter and
+ * are easy to lose: .row is 92% wide (not 100%), and .column carries
+ * the horizontal gutter as padding. Together they set the left edge of
+ * every headline on the page.
+ *
+ * Never put a Tailwind w-* utility on .row or .column — utilities
+ * outrank the components layer and will silently break the gutter.
+ * ------------------------------------------------------------------- */
+@layer components {
+  .row {
+    width: 92%;
+    max-width: var(--container-max);
+    margin: 0 auto;
+    display: flex;
+    flex-flow: row wrap;
+  }
+
+  .row--wide {
+    max-width: var(--container-wide);
+  }
+
+  /* Edge-to-edge row with no gutters — used by the About split. */
+  .row--full {
+    --gutter: 0;
+    width: 100%;
+    max-width: none;
+  }
+
+  .column {
+    display: block;
+    flex: 1 1 0%;
+    min-width: 0;
+    padding: 0 var(--gutter);
+  }
+
+  /* Base column widths. Tailwind variants cannot target these class names,
+     so responsive collapses are written as utilities on the same element —
+     e.g. `col-4 max-md:w-full` — which outrank the components layer. */
+  .col-12 {
+    flex: none;
+    width: 100%;
+  }
+
+  .col-6 {
+    flex: none;
+    width: 50%;
+  }
+
+  .col-4 {
+    flex: none;
+    width: 33.33333%;
+  }
+
+  .col-3 {
+    flex: none;
+    width: 25%;
+  }
+}
+
+/* ===================================================================
+ * SHARED COMPONENT CLASSES
+ * ------------------------------------------------------------------- */
+@layer components {
+  /* --- typography ----------------------------------------------- */
+  .text-h1 {
+    font-family: var(--font-display);
+    font-size: var(--text-display-1);
+    line-height: var(--vspace-2);
+    letter-spacing: -0.01em;
+    color: #fff;
+    margin-top: var(--vspace-2_5);
+    margin-bottom: var(--vspace-0_75);
+  }
+
+  @media screen and (max-width: 500px) {
+    .text-h1 {
+      font-size: var(--text-xxxl);
+      line-height: calc(1.625 * var(--space));
+    }
+  }
+
+  .text-pretitle {
+    font-family: var(--font-sans);
+    font-size: var(--text-sm);
+    font-weight: 400;
+    color: #fff;
+    text-transform: uppercase;
+    letter-spacing: 0.3em;
+    margin-top: 0;
+    margin-left: 0.2rem;
+    margin-bottom: var(--vspace-0_5);
+    position: relative;
+    /* line-height is deliberately inherited: as a <div> it takes the body's
+       32px, as an <h2> it takes the heading rule's 48px — same as the original. */
+  }
+
+  /* The stylesheet also carried transform: translateX(-6rem) here, but the
+     anime.js entrance overwrote it inline on every load, so the shipped site
+     renders the rule flush with the column edge. Matching what ships. */
+  .text-pretitle--line {
+    color: var(--color-accent);
+    padding-left: 6rem;
+  }
+
+  .text-pretitle--line::before {
+    content: "";
+    display: block;
+    height: 1px;
+    width: 4rem;
+    background-color: rgb(255 255 255 / 0.5);
+    position: absolute;
+    top: 50%;
+    left: 0;
+  }
+
+  .text-huge-title {
+    --text-huge: 10.8rem;
+    --text-huge-multiplier: 1;
+    font-family: var(--font-display);
+    font-size: calc(var(--text-huge) * var(--text-huge-multiplier));
+    line-height: 1.074;
+    letter-spacing: -0.01em;
+    color: #fff;
+    margin-top: 0;
+    /* .text-huge-title only resets margin-top; the bottom margin still comes
+       from the base h1 rule, and it is what centres the hero block. */
+    margin-bottom: var(--vspace-0_75);
+  }
+
+  @media screen and (max-width: 1600px) {
+    .text-huge-title {
+      --text-huge-multiplier: 0.92;
+    }
+  }
+
+  @media screen and (max-width: 1200px) {
+    .text-huge-title {
+      --text-huge-multiplier: 0.85;
+    }
+  }
+
+  @media screen and (max-width: 800px) {
+    .text-huge-title {
+      --text-huge-multiplier: 0.68;
+    }
+  }
+
+  @media screen and (max-width: 600px) {
+    .text-huge-title {
+      --text-huge-multiplier: 0.56;
+    }
+  }
+
+  @media screen and (max-width: 400px) {
+    .text-huge-title {
+      --text-huge-multiplier: 0.46;
+    }
+  }
+
+  .attention-getter {
+    font-size: var(--text-md);
+    line-height: var(--vspace-1_25);
+    font-weight: 300;
+  }
+
+  .attention-getter strong {
+    color: #fff;
+    font-weight: 500;
+  }
+
+  /* --- buttons -------------------------------------------------- */
+  .btn {
+    --btn-height: var(--vspace-btn);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-sans);
+    font-weight: 600;
+    font-size: var(--text-xs);
+    text-transform: uppercase;
+    letter-spacing: 0.35em;
+    /* the tracking is trailing-side only; nudge back to optical center */
+    text-indent: 0.35em;
+    height: var(--btn-height);
+    padding: 0 3.6rem;
+    margin: 0 0.4rem var(--vspace-0_5) 0;
+    color: var(--color-accent);
+    text-decoration: none;
+    text-align: center;
+    white-space: nowrap;
+    cursor: pointer;
+    background-color: var(--color-gray-9);
+    border: 1px solid var(--color-gray-9);
+    transition:
+      background-color 0.3s var(--ease-in-out-soft),
+      border-color 0.3s var(--ease-in-out-soft),
+      color 0.3s var(--ease-in-out-soft),
+      transform 0.3s var(--ease-out-soft);
+  }
+
+  .btn:hover,
+  .btn:focus-visible {
+    background-color: #fff;
+    border-color: #fff;
+    color: #000;
+    transform: translateY(-2px);
+  }
+
+  .btn:active {
+    transform: translateY(0);
+  }
+
+  .btn--medium {
+    --btn-height: calc(var(--vspace-btn) + 0.8rem);
+  }
+
+  .btn--fullwidth {
+    display: flex;
+    width: 100%;
+    margin-right: 0;
+  }
+
+  .btn--stroke {
+    background-color: transparent;
+    border-color: var(--color-accent);
+    color: var(--color-accent);
+  }
+
+  .btn--stroke:hover,
+  .btn--stroke:focus-visible {
+    background-color: var(--color-accent);
+    border-color: var(--color-accent);
+    color: #000;
+  }
+
+  /* --- underline-on-hover link ---------------------------------- */
+  .link-underline {
+    position: relative;
+  }
+
+  .link-underline::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -2px;
+    height: 1px;
+    width: 100%;
+    background-color: currentColor;
+    transform: scaleX(0);
+    transform-origin: right center;
+    transition: transform 0.35s var(--ease-out-soft);
+  }
+
+  .link-underline:hover::after,
+  .link-underline:focus-visible::after {
+    transform: scaleX(1);
+    transform-origin: left center;
+  }
+}
+
+/* ===================================================================
+ * KEYFRAMES
+ *
+ * The hero role words are driven by CSS rather than JS so the timing
+ * is byte-for-byte the original: a 4s loop, second word offset 0.5s.
+ * ------------------------------------------------------------------- */
+@keyframes role-slide-in {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  20% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  80% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  100% {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+}
+
+@layer components {
+  .role-word {
+    display: inline-block;
+    position: relative;
+    margin-right: 10px;
+    opacity: 0;
+    animation: role-slide-in 4s infinite;
+  }
+
+  /* Reduced motion: hold both words visible instead of pulsing. */
+  @media (prefers-reduced-motion: reduce) {
+    .role-word {
+      opacity: 1;
+      animation: none;
+    }
+  }
+}
+
+/* ===================================================================
+ * UTILITIES
+ * ------------------------------------------------------------------- */
+@utility sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border-width: 0;
+}
