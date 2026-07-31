@@ -15,7 +15,10 @@
   publish = "dist"
 
 [build.environment]
-  NODE_VERSION = "20"
+  # Vite 7 requires ^20.19.0 || >=22.12.0. Netlify's "20" alias resolves to the
+  # latest 20.x, which normally satisfies that, but pinning 22 removes the risk
+  # of landing on an older 20.x and failing at install time.
+  NODE_VERSION = "22"
 
 # SPA fallback: /project/:id must serve index.html on a hard refresh.
 # react/public/_redirects carries the same rule into dist/ as a backstop.
