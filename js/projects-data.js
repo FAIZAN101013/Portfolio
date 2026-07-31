@@ -224,7 +224,7 @@ MOVIEX - Movie Explorer App 🎬 A simple movie explorer web app built with Reac
         ],
         research: `User research and journey mapping were conducted to understand the needs of hotel app users. The design focuses on a seamless booking experience, clear navigation, and modern UI elements.`,
         researchImages: [
-            'images/Hotel App ui/Research/Journey Map & Scenario.png',
+            'images/Hotel App ui/Research/Journey Map - Scenario.png',
             'images/Hotel App ui/Research/RESEARCH.png'
         ],
         result: `The final design provides an intuitive hotel booking experience, with a focus on usability and visual appeal.`,
