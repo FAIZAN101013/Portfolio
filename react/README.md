@@ -166,3 +166,18 @@ horizontal overflow, no broken images, exactly one `<footer>`, no dialogs
 anywhere, cards navigate instead of opening popups, the gallery and prev/next
 pager work, the legacy `/design/:id` redirect resolves, and the mobile menu
 closes on Escape.
+
+## Deploying
+
+The whole deploy is configured in the **repo-root** `netlify.toml`, which sets
+`base = "react"`. Netlify reads that file first, so there is nothing to set in
+the dashboard — and deliberately no second `netlify.toml` in this directory,
+since two of them with a `base` set is ambiguous.
+
+Images and videos live at the repo root, not in `react/`, and are copied into
+`dist/` at build time. Netlify clones the full repo so this works; it would
+break under a sparse checkout of `react/` alone.
+
+To preview before switching the live site: **Site configuration → Build &
+deploy → Continuous deployment → Branch deploys**, add the branch, and use the
+`branch--site.netlify.app` URL. Merging to `main` is what flips production.
