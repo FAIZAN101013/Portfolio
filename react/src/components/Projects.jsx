@@ -1,7 +1,9 @@
 import { useMemo, useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
+import { Button } from './Button'
 import { ProjectCard } from './ProjectCard'
 import { Reveal } from './Reveal'
+import { TextReveal } from './TextReveal'
 import { useReducedMotion } from '../hooks/useReducedMotion'
 import { getProjectsByTag } from '../data/projects'
 import { EASE_OUT_SOFT } from '../lib/motion'
@@ -41,17 +43,22 @@ export function Projects() {
           <Reveal as="h2" className="text-pretitle">
             Projects
           </Reveal>
-          <Reveal as="p" className="text-h1 mt-0" delay={0.1}>
-            Here are some of my favorite projects I&apos;ve worked on. Feel free to check them
-            out.
-          </Reveal>
+          <TextReveal
+            as="p"
+            className="text-h1 mt-0"
+            text="Here are some of my favorite projects I've worked on. Feel free to check them out."
+            delay={0.05}
+          />
 
           {/* ---------- tabs ---------- */}
           <Reveal delay={0.2} className="mb-(--vspace-1_5) flex justify-center" y={12}>
             <div
               role="tablist"
               aria-label="Project categories"
-              className="relative inline-flex gap-1 rounded-full border border-white/10 bg-white/5 p-1 max-xs:w-full max-xs:flex-col"
+              // rounded-2xl once the tabs stack: a pill-shaped container round
+              // two full-width rows reads as one lozenge with a button loose
+              // inside it rather than as a segmented control.
+              className="relative inline-flex gap-1 rounded-full border border-white/10 bg-white/5 p-1 max-xs:w-full max-xs:flex-col max-xs:rounded-2xl"
             >
               {TABS.map(({ key, label }) => {
                 const active = activeTab === key
@@ -64,14 +71,16 @@ export function Projects() {
                     aria-controls="projects-panel"
                     onClick={() => setActiveTab(key)}
                     className={[
-                      'relative min-w-[170px] cursor-pointer rounded-full px-7 py-3 text-(length:--text-xs) font-semibold uppercase tracking-[.2em] transition-colors duration-300 max-xs:w-full max-xs:min-w-0',
+                      // min-h-11 is the 44px touch minimum; the original py-3
+                      // came to 38px at the mobile type scale.
+                      'relative min-h-11 min-w-[170px] cursor-pointer rounded-full px-7 py-3 text-(length:--text-xs) font-semibold uppercase tracking-[.2em] transition-colors duration-300 max-xs:w-full max-xs:min-w-0 max-xs:tracking-[.12em]',
                       active ? 'text-black' : 'text-content hover:text-white',
                     ].join(' ')}
                   >
                     {active && (
                       <motion.span
                         layoutId="tab-pill"
-                        className="absolute inset-0 rounded-full bg-accent"
+                        className="absolute inset-0 rounded-full bg-accent max-xs:rounded-xl"
                         transition={
                           reduced
                             ? { duration: 0 }
@@ -117,15 +126,17 @@ export function Projects() {
             )}
 
             {hasMoreToToggle && (
-              <div className="mt-(--vspace-1_5) text-center">
-                <button
-                  type="button"
+              <div className="mt-(--vspace-1_5) flex justify-center">
+                <Button
                   onClick={toggleShowMore}
                   aria-expanded={expanded}
-                  className="btn btn--medium btn--stroke"
+                  variant="stroke"
+                  magnetic
+                  className="btn--block-mobile"
+                  wrapperClassName="max-xs:w-full max-xs:[&>*]:w-full"
                 >
-                  {expanded ? 'Show Less' : 'Show More'}
-                </button>
+                  {expanded ? 'Show Less' : `Show More (${all.length - visibleCount})`}
+                </Button>
               </div>
             )}
           </div>

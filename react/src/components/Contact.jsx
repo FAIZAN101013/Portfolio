@@ -1,5 +1,9 @@
+import { motion } from 'framer-motion'
+import { Button } from './Button'
 import { Reveal } from './Reveal'
+import { TextReveal } from './TextReveal'
 import { Icon } from './Icon'
+import { useReducedMotion } from '../hooks/useReducedMotion'
 import { site, socials } from '../data/site'
 
 export function Contact() {
@@ -10,10 +14,12 @@ export function Contact() {
           <Reveal as="h2" className="text-pretitle">
             Get In Touch
           </Reveal>
-          <Reveal as="p" className="text-h1 mt-0" delay={0.1}>
-            I love to hear from you. Whether you have a question or just want to chat about
-            design, tech and art, shoot me a message.
-          </Reveal>
+          <TextReveal
+            as="p"
+            className="text-h1 mt-0"
+            text="I love to hear from you. Whether you have a question or just want to chat about design, tech and art, shoot me a message."
+            delay={0.05}
+          />
         </div>
       </div>
 
@@ -54,12 +60,16 @@ export function Contact() {
           className="column col-4 flex max-xl:w-full max-xl:mt-(--vspace-1)"
           delay={0.2}
         >
-          <a
+          <Button
             href={`mailto:${site.email}`}
-            className="btn btn--medium btn--fullwidth ml-auto mr-[5vw] self-start max-xl:mx-0"
+            fullWidth
+            magnetic
+            withArrow
+            className="self-start"
+            wrapperClassName="ml-auto mr-[5vw] max-xl:mx-0"
           >
             Say Hello.
-          </a>
+          </Button>
         </Reveal>
       </div>
     </section>
@@ -67,16 +77,22 @@ export function Contact() {
 }
 
 function ContactLink({ href, icon, children, external = false }) {
+  const reduced = useReducedMotion()
+
   return (
-    <a
+    <motion.a
       href={href}
       {...(external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
-      className="group inline-flex items-center gap-3 text-content-light transition-colors duration-300 hover:text-accent"
+      whileTap={reduced ? undefined : { scale: 0.97 }}
+      // min-h-11 (44px) and the wrapping break-all are both mobile fixes: the
+      // 36px icon left the row under the touch minimum, and the email address
+      // is long enough to overflow a 360px column unbroken.
+      className="group inline-flex min-h-11 max-w-full items-center gap-3 text-content-light transition-colors duration-300 hover:text-accent"
     >
       <span className="flex size-9 shrink-0 items-center justify-center rounded-full border border-white/10 bg-white/5 transition-[background-color,border-color,transform] duration-300 ease-(--ease-out-soft) group-hover:-translate-y-0.5 group-hover:border-accent/40 group-hover:bg-accent/10">
         <Icon name={icon} className="size-[1.5rem]" />
       </span>
-      <span className="link-underline">{children}</span>
-    </a>
+      <span className="link-underline min-w-0 break-words">{children}</span>
+    </motion.a>
   )
 }

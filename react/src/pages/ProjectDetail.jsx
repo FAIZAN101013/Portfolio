@@ -1,6 +1,7 @@
 import { useEffect } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import { motion } from 'framer-motion'
+import { Button } from '../components/Button'
 import { MediaGallery } from '../components/MediaGallery'
 import { Reveal } from '../components/Reveal'
 import { getProjectById, projects } from '../data/projects'
@@ -152,37 +153,23 @@ export function ProjectDetail() {
           </section>
         )}
 
-        {/* ---------- actions ---------- */}
-        <Reveal className="mt-(--vspace-2) flex flex-wrap items-center gap-2">
+        {/* ---------- actions ----------
+            Stacks below 500px. "View Figma Prototype" at the button's 0.35em
+            tracking is wider than a 360px viewport, and .btn is nowrap, so
+            side-by-side was pushing the page into a horizontal scroll. */}
+        <Reveal className="mt-(--vspace-2) flex flex-wrap items-center gap-2 max-xs:flex-col max-xs:items-stretch">
           {project.githubLink && (
-            <a
-              href={project.githubLink}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn btn--medium"
-            >
-              View Project
-            </a>
+            <ActionButton href={project.githubLink}>View Project</ActionButton>
           )}
           {project.liveDemo && (
-            <a
-              href={project.liveDemo}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn btn--medium btn--stroke"
-            >
+            <ActionButton href={project.liveDemo} variant="stroke">
               Live Demo
-            </a>
+            </ActionButton>
           )}
           {project.prototypeLink && (
-            <a
-              href={project.prototypeLink}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn btn--medium btn--stroke"
-            >
+            <ActionButton href={project.prototypeLink} variant="stroke">
               View Figma Prototype
-            </a>
+            </ActionButton>
           )}
         </Reveal>
 
@@ -201,11 +188,26 @@ export function ProjectDetail() {
   )
 }
 
+function ActionButton({ href, variant, children }) {
+  return (
+    <Button
+      href={href}
+      target="_blank"
+      rel="noopener noreferrer"
+      variant={variant}
+      withArrow
+      className="btn--block-mobile"
+    >
+      {children}
+    </Button>
+  )
+}
+
 function BackLink() {
   return (
     <Link
       to="/#works"
-      className="group inline-flex items-center gap-3 text-(length:--text-xs) uppercase tracking-[.25em] text-content-light transition-colors duration-300 hover:text-accent"
+      className="group inline-flex min-h-11 items-center gap-3 text-(length:--text-xs) uppercase tracking-[.25em] text-content-light transition-colors duration-300 hover:text-accent"
     >
       <span className="flex size-9 items-center justify-center rounded-full border border-white/15 transition-[border-color,transform] duration-300 ease-(--ease-out-soft) group-hover:-translate-x-1 group-hover:border-accent">
         <svg viewBox="0 0 24 24" className="size-4" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
