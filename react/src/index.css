@@ -1,6 +1,17 @@
 @import "tailwindcss";
 
 /* ===================================================================
+ * CUSTOM VARIANTS
+ *
+ * Tailwind already scopes `hover:` to (hover: hover), so hover styles are
+ * correctly inert on a phone. What that does not solve is the *resting*
+ * state: anything parked off-screen waiting to be revealed on hover stays
+ * parked forever on a touch device. `touch:` is the escape hatch — it sets
+ * the resting state to the revealed one where there is no cursor.
+ * ------------------------------------------------------------------- */
+@custom-variant touch (@media (hover: none));
+
+/* ===================================================================
  * DESIGN TOKENS
  *
  * Ported 1:1 from the original css/styles.css :root block so the React
@@ -146,6 +157,11 @@
     font-size: 62.5%;
     scroll-behavior: smooth;
     scroll-padding-top: var(--header-height);
+    /* clip, not hidden: `hidden` on the root element propagates to the viewport
+       and silently turns position: sticky and scroll anchoring off. This is the
+       backstop for the rotated social rail and the off-canvas hero rings, both
+       of which extend past the right edge by design. */
+    overflow-x: clip;
   }
 
   body {
@@ -156,9 +172,13 @@
     color: var(--color-content);
     background-color: var(--color-body);
     margin: 0;
+    overflow-x: clip;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     -webkit-tap-highlight-color: transparent;
+    /* Stops iOS Safari inflating type in landscape, which was breaking the
+       nav's fixed 6.4rem height. */
+    -webkit-text-size-adjust: 100%;
   }
 
   h1,
@@ -331,10 +351,22 @@
     margin-bottom: var(--vspace-0_75);
   }
 
-  @media screen and (max-width: 500px) {
+  /* .text-h1 carries whole sentences, not short headlines. At --text-xxxl the
+     contact paragraph ran to seven lines on a 390px screen and pushed the
+     details it introduces two swipes below the fold. One step down the scale
+     keeps the display face doing its job and gets it back to four. */
+  @media screen and (max-width: 800px) {
     .text-h1 {
       font-size: var(--text-xxxl);
       line-height: calc(1.625 * var(--space));
+      margin-top: var(--vspace-1_5);
+    }
+  }
+
+  @media screen and (max-width: 500px) {
+    .text-h1 {
+      font-size: var(--text-xxl);
+      line-height: var(--vspace-1_5);
     }
   }
 
@@ -430,6 +462,7 @@
   /* --- buttons -------------------------------------------------- */
   .btn {
     --btn-height: var(--vspace-btn);
+    position: relative;
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -443,18 +476,46 @@
     height: var(--btn-height);
     padding: 0 3.6rem;
     margin: 0 0.4rem var(--vspace-0_5) 0;
+    max-width: 100%;
     color: var(--color-accent);
     text-decoration: none;
     text-align: center;
     white-space: nowrap;
     cursor: pointer;
+    overflow: hidden;
+    isolation: isolate;
     background-color: var(--color-gray-9);
     border: 1px solid var(--color-gray-9);
     transition:
       background-color 0.3s var(--ease-in-out-soft),
       border-color 0.3s var(--ease-in-out-soft),
       color 0.3s var(--ease-in-out-soft),
+      box-shadow 0.3s var(--ease-out-soft),
       transform 0.3s var(--ease-out-soft);
+  }
+
+  /* Shine sweep. A negative z-index inside the button's own stacking context
+     (isolation: isolate) paints it over the background and under the label, so
+     it works without wrapping the text in an extra element. */
+  .btn::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background: linear-gradient(
+      105deg,
+      transparent 38%,
+      rgb(255 255 255 / 0.3) 50%,
+      transparent 62%
+    );
+    transform: translateX(-130%);
+    transition: transform 0.75s var(--ease-out-soft);
+  }
+
+  .btn:hover::after,
+  .btn:focus-visible::after {
+    transform: translateX(130%);
   }
 
   .btn:hover,
@@ -463,10 +524,14 @@
     border-color: #fff;
     color: #000;
     transform: translateY(-2px);
+    box-shadow: 0 12px 26px -14px rgb(0 0 0 / 0.9);
   }
 
+  /* Press feedback. On touch this is the only state that ever fires, so it
+     carries the whole interaction — hence a scale rather than a 2px lift. */
   .btn:active {
-    transform: translateY(0);
+    transform: translateY(0) scale(0.97);
+    transition-duration: 0.09s;
   }
 
   .btn--medium {
@@ -490,6 +555,23 @@
     background-color: var(--color-accent);
     border-color: var(--color-accent);
     color: #000;
+  }
+
+  /* Below 500px the 0.35em tracking plus 3.6rem of padding pushes the longer
+     labels ("View Figma Prototype") past the viewport, and nowrap means they
+     cannot recover. Tighten both and let the button own the full column. */
+  @media screen and (max-width: 500px) {
+    .btn {
+      padding: 0 1.8rem;
+      letter-spacing: 0.18em;
+      text-indent: 0.18em;
+      margin-right: 0;
+    }
+
+    .btn--block-mobile {
+      display: flex;
+      width: 100%;
+    }
   }
 
   /* --- underline-on-hover link ---------------------------------- */
@@ -576,4 +658,51 @@
   clip-path: inset(50%);
   white-space: nowrap;
   border-width: 0;
+}
+
+/* Horizontal rails are swiped, not dragged by a scrollbar. Hiding it also
+   stops iOS reserving a gutter that misaligns the snap points. */
+@utility no-scrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/* Snap rail: the mobile presentation for anything that is a grid on desktop.
+   overscroll-behavior-x: contain stops a swipe past the last card from
+   triggering the browser's back gesture. */
+@utility snap-rail {
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  overscroll-behavior-x: contain;
+  -webkit-overflow-scrolling: touch;
+}
+
+@utility snap-card {
+  scroll-snap-align: center;
+  scroll-snap-stop: always;
+  flex: 0 0 auto;
+}
+
+/* Fades a horizontally scrolling strip out at both edges instead of cutting
+   it off, so the ticker reads as continuous rather than clipped. */
+@utility mask-fade-x {
+  mask-image: linear-gradient(
+    to right,
+    transparent 0,
+    #000 8%,
+    #000 92%,
+    transparent 100%
+  );
+}
+
+/* Minimum comfortable touch target. Applied to icon-only controls, which are
+   otherwise sized by their glyph. */
+@utility tap-target {
+  min-width: 44px;
+  min-height: 44px;
 }

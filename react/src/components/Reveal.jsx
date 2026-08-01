@@ -16,6 +16,7 @@ export function Reveal({
   y = 20,
   duration = 0.6,
   className,
+  ref,
   ...rest
 }) {
   const Component = motion[as] ?? motion.div
@@ -32,8 +33,10 @@ export function Reveal({
         transition: { duration, delay, ease: EASE_OUT_SOFT },
       }
 
+  // ref is destructured rather than left in ...rest so callers can measure the
+  // revealed element — the timeline entries drive a scroll-linked dot off it.
   return (
-    <Component className={className} {...animation} {...rest}>
+    <Component ref={ref} className={className} {...animation} {...rest}>
       {children}
     </Component>
   )
