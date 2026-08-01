@@ -5,6 +5,7 @@ import { Circles } from './components/Circles'
 import { Footer } from './components/Footer'
 import { Header } from './components/Header'
 import { Preloader } from './components/Preloader'
+import { ScrollProgress } from './components/ScrollProgress'
 import { useReducedMotion } from './hooks/useReducedMotion'
 import { EASE_OUT_SOFT } from './lib/motion'
 import { Home } from './pages/Home'
@@ -16,15 +17,50 @@ export default function App() {
   const isHome = pathname === '/'
   const reduced = useReducedMotion()
 
-  // Landing on /#skills (e.g. from a project page) should scroll to that
-  // section once the page has painted.
+  /**
+   * Landing on /#skills — from a project page, or a pasted URL — scrolls to
+   * that section.
+   *
+   * It re-pins every frame for a short window rather than scrolling once.
+   * Home mounts with its images unloaded, so a single scroll on the first
+   * frame targets a position that is thousands of pixels off by the time the
+   * thumbnails arrive and the page grows underneath it. Holding the element
+   * in place while that settles is what makes it land where it should.
+   *
+   * Any real input ends the window immediately, so this can never fight a
+   * user who has started scrolling on their own.
+   */
   useEffect(() => {
     if (!isHome || !hash) return
     const id = hash.slice(1)
-    const frame = requestAnimationFrame(() => {
-      document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' })
-    })
-    return () => cancelAnimationFrame(frame)
+
+    let frame
+    let cancelled = false
+    const deadline = performance.now() + 900
+
+    const release = () => {
+      cancelled = true
+    }
+
+    const settle = () => {
+      if (cancelled) return
+      // 'auto', not 'smooth': arriving at an anchor from another page should
+      // land there the way a normal page load does, not animate across the
+      // whole document. block:'start' honours the section's scroll-margin.
+      document.getElementById(id)?.scrollIntoView({ behavior: 'auto', block: 'start' })
+      if (performance.now() < deadline) frame = requestAnimationFrame(settle)
+    }
+
+    frame = requestAnimationFrame(settle)
+
+    const events = ['wheel', 'touchstart', 'keydown', 'pointerdown']
+    events.forEach((event) => window.addEventListener(event, release, { passive: true }))
+
+    return () => {
+      cancelled = true
+      cancelAnimationFrame(frame)
+      events.forEach((event) => window.removeEventListener(event, release))
+    }
   }, [isHome, hash])
 
   const transition = reduced
@@ -34,8 +70,12 @@ export default function App() {
   return (
     <>
       <Preloader />
+      <ScrollProgress />
 
-      <div id="top" className="relative flex min-h-screen flex-col overflow-hidden">
+      {/* overflow-x only. `overflow: hidden` on this wrapper made it the
+          scroll container for position: sticky, so the pinned horizontal
+          section had nothing to stick to. */}
+      <div id="top" className="relative flex min-h-screen flex-col overflow-x-clip">
         {isHome && <Circles />}
         <Header isHome={isHome} />
 
