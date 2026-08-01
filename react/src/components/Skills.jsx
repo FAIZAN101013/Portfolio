@@ -1,7 +1,16 @@
 import { motion } from 'framer-motion'
 import { Reveal } from './Reveal'
+import { TextReveal } from './TextReveal'
 import { skills } from '../data/skills'
 
+/**
+ * The original grid of skill cards: five across, collapsing to three at 800px
+ * and two at 500px, each card lifting on hover and fading up on scroll.
+ *
+ * Two other treatments were tried here — a pinned horizontal rail and a set of
+ * grouped bento panels — and neither was an improvement on this. Keeping the
+ * cards.
+ */
 export function Skills() {
   return (
     <section id="skills" className="scroll-mt-(--header-height) pt-(--vspace-3)">
@@ -10,18 +19,26 @@ export function Skills() {
           <Reveal as="h2" className="text-pretitle">
             Skills &amp; Technologies
           </Reveal>
-          <Reveal as="p" className="attention-getter mb-0" delay={0.1}>
-            Here are the technologies I work with to bring ideas to life
-          </Reveal>
+          <TextReveal
+            as="p"
+            className="attention-getter mb-0"
+            text="Here are the technologies I work with to bring ideas to life"
+            delay={0.05}
+          />
 
-          <ul className="mt-(--vspace-1_5) grid list-none grid-cols-5 gap-8 p-0 max-md:grid-cols-3 max-xs:grid-cols-2">
+          <ul className="mt-(--vspace-1_5) grid list-none grid-cols-5 gap-8 p-0 max-md:grid-cols-3 max-md:gap-4 max-xs:grid-cols-2">
             {skills.map((skill, index) => (
               <motion.li
                 key={skill.name}
-                className="group flex flex-col items-center rounded-lg border border-white/5 bg-white/5 p-6 transition-[background-color,border-color,transform,box-shadow] duration-300 ease-(--ease-out-soft) hover:-translate-y-[5px] hover:border-accent/30 hover:bg-white/10 hover:shadow-[0_12px_28px_-12px_rgb(0_0_0/0.6)]"
+                className="group flex flex-col items-center rounded-lg border border-white/5 bg-white/5 p-6 transition-[background-color,border-color,box-shadow] duration-300 ease-(--ease-out-soft) hover:border-accent/30 hover:bg-white/10 hover:shadow-[0_12px_28px_-12px_rgb(0_0_0/0.6)] max-xs:p-4"
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, amount: 0.2 }}
+                // The lift moved off the CSS transition and onto Framer so the
+                // press state below can share the same transform without the
+                // two fighting over it.
+                whileHover={{ y: -5 }}
+                whileTap={{ scale: 0.97 }}
                 transition={{
                   duration: 0.5,
                   delay: 0.06 * index,
