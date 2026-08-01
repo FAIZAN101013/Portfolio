@@ -47,6 +47,15 @@ export function MediaGallery({ media = [], title }) {
     exit: (dir) => (reduced ? { opacity: 0 } : { opacity: 0, x: dir > 0 ? -40 : 40 }),
   }
 
+  // A swipe counts if it either travelled far enough or was thrown fast
+  // enough — distance alone ignores a quick flick, velocity alone fires on a
+  // slow deliberate drag that was meant to be cancelled.
+  const onDragEnd = (_, { offset, velocity }) => {
+    const power = offset.x + velocity.x * 0.2
+    if (power < -70) paginate(1)
+    else if (power > 70) paginate(-1)
+  }
+
   return (
     <section data-gallery aria-label={`${title} media`} className="mt-(--vspace-1_5)">
       <div className="relative flex min-h-[320px] items-center justify-center overflow-hidden rounded-xl border border-white/10 bg-black/40 max-md:min-h-[200px]">
@@ -59,7 +68,17 @@ export function MediaGallery({ media = [], title }) {
             animate="center"
             exit="exit"
             transition={{ duration: reduced ? 0.15 : 0.42, ease: EASE_OUT_SOFT }}
-            className="flex w-full items-center justify-center"
+            className={`flex w-full items-center justify-center ${
+              hasRail && current.type !== 'video' ? 'cursor-grab active:cursor-grabbing' : ''
+            }`}
+            // Video keeps its own gesture surface: dragging across a <video>
+            // is how you scrub it, and hijacking that to change slides would
+            // make the controls unusable.
+            drag={hasRail && current.type !== 'video' ? 'x' : false}
+            dragDirectionLock
+            dragConstraints={{ left: 0, right: 0 }}
+            dragElastic={0.18}
+            onDragEnd={onDragEnd}
           >
             {current.type === 'video' ? (
               <video
@@ -78,24 +97,43 @@ export function MediaGallery({ media = [], title }) {
                 alt={`${title} — view ${index + 1} of ${count}`}
                 loading={index === 0 ? 'eager' : 'lazy'}
                 decoding="async"
-                className="block max-h-[62vh] w-full object-contain"
+                // The browser's own image-drag would start a file drag and
+                // swallow the pointer before the swipe gesture ever begins.
+                draggable="false"
+                className="block max-h-[62vh] w-full select-none object-contain"
               />
             )}
           </motion.div>
         </AnimatePresence>
 
         {hasRail && (
-          <div className="pointer-events-none absolute inset-x-0 top-1/2 flex -translate-y-1/2 justify-between px-4 max-md:px-2">
-            <ArrowButton label="Previous media" onClick={() => paginate(-1)} dir="left" />
-            <ArrowButton label="Next media" onClick={() => paginate(1)} dir="right" />
-          </div>
+          <>
+            {/* Arrows are the pointer affordance; on touch the swipe is the
+                primary gesture, so they shrink out of the way of the image. */}
+            <div className="pointer-events-none absolute inset-x-0 top-1/2 flex -translate-y-1/2 justify-between px-4 max-md:px-2">
+              <ArrowButton label="Previous media" onClick={() => paginate(-1)} dir="left" />
+              <ArrowButton label="Next media" onClick={() => paginate(1)} dir="right" />
+            </div>
+
+            <span className="pointer-events-none absolute bottom-3 right-4 rounded-full bg-black/60 px-3 py-1 font-mono text-(length:--text-xs) text-white/80 backdrop-blur-sm">
+              {index + 1} / {count}
+            </span>
+          </>
         )}
       </div>
 
       {hasRail && (
-        <ul className="mt-3 flex list-none flex-wrap gap-2 p-0">
+        <p className="mb-0 mt-2 hidden text-(length:--text-xs) uppercase tracking-[.2em] text-content-light touch:block">
+          Swipe to browse
+        </p>
+      )}
+
+      {hasRail && (
+        // Wraps on desktop, scrolls horizontally on a phone: eight thumbnails
+        // wrapped to four rows pushed the page content below the fold.
+        <ul className="mt-3 flex list-none flex-wrap gap-2 p-0 max-md:snap-rail max-md:no-scrollbar max-md:flex-nowrap">
           {media.map((item, dot) => (
-            <li key={item.src}>
+            <li key={item.src} className="max-md:snap-card">
               <button
                 type="button"
                 onClick={() => setSlide(([c]) => [dot, dot > c ? 1 : -1])}
