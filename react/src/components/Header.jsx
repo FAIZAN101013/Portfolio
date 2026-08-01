@@ -57,6 +57,13 @@ export function Header({ isHome = true }) {
     setMenuOpen(false)
 
     if (isHome) {
+      // The drawer locks body scroll while it is open, and React has not run
+      // that effect's cleanup by this point in the handler — so the lock is
+      // still applied and scrollIntoView is a no-op that gets discarded. This
+      // is why every link in the mobile menu closed it and went nowhere.
+      // Releasing it here is what makes the scroll land; the effect cleanup
+      // then sets the same empty value a moment later, harmlessly.
+      document.body.style.overflow = ''
       document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' })
       return
     }
