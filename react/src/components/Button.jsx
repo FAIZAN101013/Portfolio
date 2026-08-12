@@ -119,8 +119,12 @@ export function Button({
     </span>
   )
 
+  // onClick belongs on every branch, not just the <button> one: a link can
+  // carry a handler alongside its href (the contact button copies the address
+  // as well as firing the mailto), and dropping it there fails silently.
   const shared = {
     className: `group/btn ${classes}`,
+    onClick,
     ...press,
     ...rest,
   }
@@ -140,7 +144,7 @@ export function Button({
     )
   } else {
     element = (
-      <motion.button type="button" onClick={onClick} {...shared}>
+      <motion.button type="button" {...shared}>
         {content}
       </motion.button>
     )

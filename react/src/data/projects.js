@@ -34,24 +34,30 @@ export const projects = [
   },
   {
     id: 'modal-02',
-    title: 'Portfolio Website',
+    title: 'Admin CRM',
     category: 'Web Application',
-    githubLink: 'https://faziansportfolio.netlify.app/',
+    githubLink: 'https://github.com/FAIZAN101013/Admin-CRM',
+    liveDemo: 'https://admin-crm-one.vercel.app/',
     tags: ['project'],
-    media: [{ type: 'image', src: '/images/portiflito.png' }],
-    description: `A personal portfolio website showcasing my projects and skills.
-This is a simple and clean portfolio website that showcases my projects and skills.
-It is a single page website that is responsive and uses a modern design.
-It is a static website that is built using HTML, CSS and JavaScript.
-It is a responsive website that is built using Bootstrap.`,
-    features: [
-      'Responsive design',
-      'Project showcase with modals',
-      'Skills section',
-      'Contact form',
+    media: [
+      { type: 'video', src: '/project-video/crm-admin.mp4' },
+      { type: 'image', src: '/images/Crm/Screenshot (350).png' },
+      { type: 'image', src: '/images/Crm/Screenshot (351).png' },
+      { type: 'image', src: '/images/Crm/Screenshot (352).png' },
     ],
-    techStack: ['HTML', 'CSS', 'JavaScript', 'Bootstrap'],
-  },
+    description:
+      'Admin CRM is a comprehensive Customer Relationship Management platform for businesses to manage clients, sales, and support. Features include dashboards, analytics, and user management. <br>Live demo: <a href="https://admin-crm-one.vercel.app/" target="_blank" rel="noopener noreferrer">https://admin-crm-one.vercel.app/</a>',
+    features: [
+      'Client and contact management',
+      'Sales pipeline tracking',
+      'Task and activity management',
+      'Analytics dashboard',
+      'User roles and permissions',
+      'Responsive UI',
+    ],
+    techStack: ['React JS', 'Node.js', 'Express', 'MongoDB', 'JWT Auth', 'Chart.js'],
+  }
+  ,
   {
     id: 'modal-03',
     title: 'HandyMan',
@@ -85,41 +91,37 @@ It is a responsive website that is built using Bootstrap.`,
       { type: 'image', src: '/images/moviesx/mov1.png' },
       { type: 'image', src: '/images/moviesx/mov2.png' },
     ],
-    description: `MOVIEX - Movie Explorer App 🎬 A simple movie explorer web app built with React.js and TMDB API. Browse popular movies, search for films, and manage your favorites with a sleek UI. 🚀`,
+    description: `MOVIEX - Movie Explorer App  A simple movie explorer web app built with React.js and TMDB API. Browse popular movies, search for films, and manage your favorites with a sleek UI. 🚀`,
     features: [
-      '🔥 Browse popular movies from The Movie Database (TMDB)',
-      '🔍 Search for movies by title',
-      '❤️ Add movies to your Favorites and manage them easily',
-      '🎨 Beautiful and responsive UI',
-      '🚀 Built with React.js and Context API',
+      ' Browse popular movies from The Movie Database (TMDB)',
+      ' Search for movies by title',
+      ' Add movies to your Favorites and manage them easily',
+      ' Beautiful and responsive UI',
+      ' Built with React.js and Context API',
     ],
     techStack: ['React.js', 'Tailwind CSS', 'TMDB API', 'LocalStorage'],
   },
   {
     id: 'modal-05',
-    title: 'Admin CRM',
+    title: 'Portfolio Website',
     category: 'Web Application',
-    githubLink: 'https://github.com/FAIZAN101013/Admin-CRM',
-    liveDemo: 'https://admin-crm-one.vercel.app/',
+    githubLink: 'https://faziansportfolio.netlify.app/',
     tags: ['project'],
-    media: [
-      { type: 'video', src: '/project-video/crm-admin.mp4' },
-      { type: 'image', src: '/images/Crm/Screenshot (350).png' },
-      { type: 'image', src: '/images/Crm/Screenshot (351).png' },
-      { type: 'image', src: '/images/Crm/Screenshot (352).png' },
-    ],
-    description:
-      'Admin CRM is a comprehensive Customer Relationship Management platform for businesses to manage clients, sales, and support. Features include dashboards, analytics, and user management. <br>Live demo: <a href="https://admin-crm-one.vercel.app/" target="_blank" rel="noopener noreferrer">https://admin-crm-one.vercel.app/</a>',
+    media: [{ type: 'image', src: '/images/portiflito.png' }],
+    description: `A personal portfolio website showcasing my projects and skills.
+This is a simple and clean portfolio website that showcases my projects and skills.
+It is a single page website that is responsive and uses a modern design.
+It is a static website that is built using HTML, CSS and JavaScript.
+It is a responsive website that is built using Bootstrap.`,
     features: [
-      'Client and contact management',
-      'Sales pipeline tracking',
-      'Task and activity management',
-      'Analytics dashboard',
-      'User roles and permissions',
-      'Responsive UI',
+      'Responsive design',
+      'Project showcase with modals',
+      'Skills section',
+      'Contact form',
     ],
-    techStack: ['React JS', 'Node.js', 'Express', 'MongoDB', 'JWT Auth', 'Chart.js'],
-  },
+    techStack: ['HTML', 'CSS', 'JavaScript', 'Bootstrap'],
+  }
+  ,
 
   /* ---------------------------- design ---------------------------- */
 
