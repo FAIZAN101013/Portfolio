@@ -59,8 +59,9 @@ export function Skills() {
 }
 
 function SkillIcon({ skill }) {
-  const className =
-    'mb-4 size-[60px] transition-transform duration-300 ease-(--ease-out-soft) group-hover:scale-110 max-xs:size-[48px]'
+  // `invert` flips black monochrome logos (Next.js, Express, GitHub) to white
+  // so they read against the dark card background.
+  const className = `mb-4 size-[60px] transition-transform duration-300 ease-(--ease-out-soft) group-hover:scale-110 max-xs:size-[48px]${skill.invert ? ' invert' : ''}`
 
   if (skill.svg) {
     return (
