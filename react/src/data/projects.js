@@ -21,6 +21,7 @@ export const projects = [
     description:
       'JoBz is an AI-powered career management platform that keeps your whole job search in one place — track applications, tailor your resume to each job with AI, prepare for interviews, and see what is actually working. Live demo: <a href="https://resume-optimizer-topaz-eight.vercel.app/" target="_blank" rel="noopener noreferrer">https://resume-optimizer-topaz-eight.vercel.app/</a>',
     problemStatement: `Job seekers juggle applications across spreadsheets, email threads and sticky notes — statuses get lost, follow-ups slip, and nothing shows what's actually working. JoBz set out to put the whole search in one place: every application tracked from Applied to Offer, with AI handling the repetitive communication around it.`,
+    learning: `Built to level up on Supabase as a full backend — auth with email and Google OAuth, protected routes, and per-user data — and on shipping a SaaS-style product end to end: landing page, dashboard, and an AI writing feature that people can actually use.`,
     features: [
       'Job tracker with Applied → Interview → Offer → Rejected stages and CSV export',
       'AI email assistant for follow-ups, thank-yous, and interview confirmations',
@@ -45,6 +46,7 @@ export const projects = [
     description:
       'A full-featured MERN Stack e-commerce platform with secure payment integration. Also find the live demo at <a href="https://shop-n-go.vercel.app/" target="_blank" rel="noopener noreferrer">https://shop-n-go.vercel.app/</a>',
     problemStatement: `Build a complete e-commerce flow — browsing, search, cart, checkout and an admin back office — as one MERN application, with the hard part done properly: taking real payments securely through Stripe and Razorpay and keeping order state consistent from checkout to delivery tracking.`,
+    learning: `My deep dive into the MERN stack. The biggest upskill was payment integration — wiring Stripe and Razorpay checkouts and learning how much care order state needs once real money is involved — plus building an admin side, not just the customer-facing store.`,
     features: [
       'User authentication and profile management',
       'Product catalog with search and filters',
@@ -71,6 +73,7 @@ export const projects = [
     description:
       'Admin CRM is a comprehensive Customer Relationship Management platform for businesses to manage clients, sales, and support. Features include dashboards, analytics, and user management. <br>Live demo: <a href="https://admin-crm-one.vercel.app/" target="_blank" rel="noopener noreferrer">https://admin-crm-one.vercel.app/</a>',
     problemStatement: `Small businesses track clients in one tool, sales in another and support in a third, so nobody sees the full relationship. Admin CRM brings clients, pipeline, tasks and analytics into a single dashboard, with roles and permissions so each team member sees exactly what they should.`,
+    learning: `An upskilling project in structuring a larger React app: role-based access with JWTs, dashboard analytics with Chart.js, and keeping a growing codebase organised once it's more than a handful of components.`,
     features: [
       'Client and contact management',
       'Sales pipeline tracking',
@@ -98,6 +101,7 @@ export const projects = [
     description:
       'Handyman is a web application that connects skilled workers such as plumbers, electricians, and carpenters with consumers seeking their services.',
     problemStatement: `Finding a trustworthy local plumber, electrician or carpenter still runs on word of mouth — and skilled workers have no easy way to be found. HandyMan connects the two sides: providers register their services, and consumers search by location, book, and judge quality from real reviews.`,
+    learning: `One of my first full-stack builds — where I learned to connect a plain HTML/CSS/JavaScript frontend to a Node/Express/MongoDB backend, model a two-sided marketplace (providers and consumers), and design a booking flow.`,
     features: [
       'Service provider registration',
       'Service booking system',
@@ -140,6 +144,7 @@ export const projects = [
     ],
     description: `MOVIEX - Movie Explorer App  A simple movie explorer web app built with React.js and TMDB API. Browse popular movies, search for films, and manage your favorites with a sleek UI. 🚀`,
     problemStatement: `Build a fast, pleasant way to browse and search movies on top of a third-party API (TMDB) — including favorites that survive a page reload — without any backend at all, using React state patterns and LocalStorage to do the persistence.`,
+    learning: `Upskilled on working against a third-party API: reading TMDB's docs, handling loading and error states properly, sharing state with Context instead of prop-drilling, and persisting favorites in LocalStorage.`,
     features: [
       ' Browse popular movies from The Movie Database (TMDB)',
       ' Search for movies by title',
@@ -160,6 +165,7 @@ export const projects = [
     description:
       'A full-stack MERN task manager with cookie-based JWT authentication — each user gets their own private workspace with database-level security. Live demo: <a href="https://task-tracker-six-plum-38.vercel.app/" target="_blank" rel="noopener noreferrer">https://task-tracker-six-plum-38.vercel.app/</a>',
     problemStatement: `Most todo-app demos skip real security — tokens in localStorage, every user seeing the same data. Task Tracker treats auth as the core feature: JWTs live in httpOnly cookies where scripts can't read them, and every database query is scoped to its owner so each user gets a genuinely private workspace.`,
+    learning: `Built specifically to upskill on production-grade auth: httpOnly JWT cookies instead of localStorage tokens, CORS with credentials across separate frontend and API deployments (Vercel + Render), and scoping every query to its owner at the database level.`,
     features: [
       'Register, login, and logout with httpOnly JWT cookies',
       'Edit profile, change password, and delete account',
@@ -176,10 +182,11 @@ export const projects = [
     githubLink: 'https://github.com/FAIZAN101013/rutuja-portfolio',
     liveDemo: 'https://rutujaapatil-form.vercel.app/',
     tags: ['project', 'freelance'],
-    media: [{ type: 'image', src: '/images/rutuja-portfolio/home.png' }],
+    media: [{ type: 'image', src: '/images/rutuja-portfolio/booking.png' }],
     description:
       'My first freelance project — a session-booking page built for a client: a simple form wired to an API. Live site: <a href="https://rutujaapatil-form.vercel.app/" target="_blank" rel="noopener noreferrer">https://rutujaapatil-form.vercel.app/</a>',
     problemStatement: `The client was taking session bookings through Instagram DMs — details scattered, slots double-booked. She needed a simple page where people could book a session themselves: a clean form that collects the details and submits them to an API, nothing more.`,
+    learning: `Less about code, more about freelancing itself: scoping a small job, communicating with a real client, and shipping something they actually use. Technically simple by design — the lesson was delivering, not over-engineering.`,
     features: ['Session booking form with client details', 'Form submission wired to an API', 'Responsive design'],
     techStack: ['HTML', 'CSS', 'JavaScript'],
   },
@@ -197,6 +204,7 @@ export const projects = [
     description:
       'A full-stack cross-platform todo app built with React Native and TypeScript. Users register, log in, and manage their personal tasks, backed by an Express and MongoDB API with authenticated routes.',
     problemStatement: `Take task management off the desktop: a cross-platform mobile app where tasks belong to an account, not a device — backed by an authenticated Express/MongoDB API so a user's list follows them across installs instead of living in local storage.`,
+    learning: `My first React Native project — upskilling from web to mobile: screens and navigation instead of routes, TypeScript throughout, and reusing the Express/MongoDB API patterns I knew from the web against a mobile client.`,
     features: [
       'User registration and login',
       'Personal task list with create, update, and delete',
@@ -218,6 +226,7 @@ It is a single page website that is responsive and uses a modern design.
 It is a static website that is built using HTML, CSS and JavaScript.
 It is a responsive website that is built using Bootstrap.`,
     problemStatement: `Projects scattered across GitHub repos don't tell a story to a recruiter. This first portfolio put everything in one place — a single responsive page presenting projects and skills clearly, built with plain HTML, CSS and Bootstrap.`,
+    learning: `Where the fundamentals got practised: semantic HTML, responsive layout with Bootstrap, and vanilla JavaScript for interactions — the foundation this whole portfolio was later rebuilt on.`,
     features: [
       'Responsive design',
       'Project showcase with modals',
