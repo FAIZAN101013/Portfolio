@@ -9,7 +9,7 @@
 
 export const projects = [
   {
-    id: 'modal-06',
+    id: 'modal-01',
     title: 'JoBz',
     category: 'AI Career Management Platform',
     githubLink: 'https://github.com/FAIZAN101013/resume-optimizer',
@@ -30,7 +30,7 @@ export const projects = [
     techStack: ['React', 'Vite', 'Tailwind CSS', 'Supabase', 'Google OAuth', 'Framer Motion'],
   },
   {
-    id: 'modal-01',
+    id: 'modal-02',
     title: 'ShoNgo',
     category: 'E-commerce Project (In Progress)',
     githubLink: 'https://github.com/FAIZAN101013/ShopNGo',
@@ -54,7 +54,7 @@ export const projects = [
     techStack: ['React JS', 'MongoDB', 'Express JS', 'Node JS', 'Stripe', 'Razorpay'],
   },
   {
-    id: 'modal-02',
+    id: 'modal-03',
     title: 'Admin CRM',
     category: 'Web Application',
     githubLink: 'https://github.com/FAIZAN101013/Admin-CRM',
@@ -80,7 +80,7 @@ export const projects = [
   }
   ,
   {
-    id: 'modal-03',
+    id: 'modal-04',
     title: 'HandyMan',
     category: 'Web Application',
     githubLink: 'https://handymangunicorn-handyman-wsgi.onrender.com/',
@@ -103,7 +103,26 @@ export const projects = [
     techStack: ['HTML', 'CSS', 'JavaScript', 'Node.js', 'Express', 'MongoDB'],
   },
   {
-    id: 'modal-04',
+    id: 'modal-05',
+    title: 'The Subreddit Vibe Check',
+    category: 'Web Application',
+    githubLink: 'https://github.com/FAIZAN101013/subreddit-vibe-check',
+    liveDemo: 'https://subreddit-vibe-check-nu.vercel.app/',
+    tags: ['project'],
+    media: [{ type: 'image', src: '/images/subreddit-vibe-check/home.png' }],
+    description:
+      'Discover the mood of a subreddit — fetches the 50 hottest posts from any subreddit and scores each title’s emotional tone right in the browser, with a three-tier OAuth/JSON/RSS fallback for Reddit data. Live demo: <a href="https://subreddit-vibe-check-nu.vercel.app/" target="_blank" rel="noopener noreferrer">https://subreddit-vibe-check-nu.vercel.app/</a>',
+    features: [
+      'Sentiment badge (positive / neutral / negative) on every post',
+      'Summary stats and sentiment distribution visualization',
+      'Filter the feed by sentiment category',
+      'Post metadata: score, comments, flair, and Reddit links',
+      'Loading skeletons and clear errors for invalid or private subreddits',
+    ],
+    techStack: ['React 19', 'Vite', 'sentiment (AFINN-165)', 'Vercel Serverless', 'Reddit API'],
+  },
+  {
+    id: 'modal-06',
     title: 'MoviesX',
     category: 'Web Application',
     githubLink: 'https://github.com/FAIZAN101013/moviesx',
@@ -124,25 +143,6 @@ export const projects = [
   },
   {
     id: 'modal-07',
-    title: 'TodoApp',
-    category: 'Mobile Application',
-    githubLink: 'https://github.com/FAIZAN101013/TodoApp',
-    tags: ['project'],
-    // No live demo (mobile app) — drop screenshots into images/todoapp/ and
-    // list them here.
-    media: [{ type: 'image', src: '/images/todoapp/home.png' }],
-    description:
-      'A full-stack cross-platform todo app built with React Native and TypeScript. Users register, log in, and manage their personal tasks, backed by an Express and MongoDB API with authenticated routes.',
-    features: [
-      'User registration and login',
-      'Personal task list with create, update, and delete',
-      'Authenticated REST API with protected routes',
-      'Runs on both Android and iOS',
-    ],
-    techStack: ['React Native', 'TypeScript', 'Node.js', 'Express', 'MongoDB'],
-  },
-  {
-    id: 'modal-08',
     title: 'Task Tracker',
     category: 'Web Application',
     githubLink: 'https://github.com/FAIZAN101013/task-tracker',
@@ -161,26 +161,7 @@ export const projects = [
     techStack: ['React 19', 'Vite', 'React Router 7', 'Node.js', 'Express 5', 'MongoDB Atlas', 'JWT'],
   },
   {
-    id: 'modal-09',
-    title: 'The Subreddit Vibe Check',
-    category: 'Web Application',
-    githubLink: 'https://github.com/FAIZAN101013/subreddit-vibe-check',
-    liveDemo: 'https://subreddit-vibe-check-nu.vercel.app/',
-    tags: ['project'],
-    media: [{ type: 'image', src: '/images/subreddit-vibe-check/home.png' }],
-    description:
-      'Discover the mood of a subreddit — fetches the 50 hottest posts from any subreddit and scores each title’s emotional tone right in the browser, with a three-tier OAuth/JSON/RSS fallback for Reddit data. Live demo: <a href="https://subreddit-vibe-check-nu.vercel.app/" target="_blank" rel="noopener noreferrer">https://subreddit-vibe-check-nu.vercel.app/</a>',
-    features: [
-      'Sentiment badge (positive / neutral / negative) on every post',
-      'Summary stats and sentiment distribution visualization',
-      'Filter the feed by sentiment category',
-      'Post metadata: score, comments, flair, and Reddit links',
-      'Loading skeletons and clear errors for invalid or private subreddits',
-    ],
-    techStack: ['React 19', 'Vite', 'sentiment (AFINN-165)', 'Vercel Serverless', 'Reddit API'],
-  },
-  {
-    id: 'modal-10',
+    id: 'modal-08',
     title: 'Rutuja Portfolio',
     category: 'Freelance Project',
     githubLink: 'https://github.com/FAIZAN101013/rutuja-portfolio',
@@ -193,7 +174,26 @@ export const projects = [
     techStack: ['HTML', 'CSS', 'JavaScript'],
   },
   {
-    id: 'modal-05',
+    id: 'modal-09',
+    title: 'TodoApp',
+    category: 'Mobile Application',
+    githubLink: 'https://github.com/FAIZAN101013/TodoApp',
+    tags: ['project'],
+    // No live demo (mobile app) — drop screenshots into images/todoapp/ and
+    // list them here.
+    media: [{ type: 'image', src: '/images/todoapp/home.png' }],
+    description:
+      'A full-stack cross-platform todo app built with React Native and TypeScript. Users register, log in, and manage their personal tasks, backed by an Express and MongoDB API with authenticated routes.',
+    features: [
+      'User registration and login',
+      'Personal task list with create, update, and delete',
+      'Authenticated REST API with protected routes',
+      'Runs on both Android and iOS',
+    ],
+    techStack: ['React Native', 'TypeScript', 'Node.js', 'Express', 'MongoDB'],
+  },
+  {
+    id: 'modal-10',
     title: 'Portfolio Website',
     category: 'Web Application',
     githubLink: 'https://faziansportfolio.netlify.app/',
