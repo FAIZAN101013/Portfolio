@@ -9,6 +9,27 @@
 
 export const projects = [
   {
+    id: 'modal-06',
+    title: 'JoBz',
+    category: 'AI Career Management Platform',
+    githubLink: 'https://github.com/FAIZAN101013/resume-optimizer',
+    liveDemo: 'https://resume-optimizer-topaz-eight.vercel.app/',
+    tags: ['project'],
+    // Placeholder shot of the live landing page — drop real media into
+    // images/resume-optimizer/ and list it here.
+    media: [{ type: 'image', src: '/images/resume-optimizer/home.png' }],
+    description:
+      'JoBz is an AI-powered career management platform that keeps your whole job search in one place — track applications, tailor your resume to each job with AI, prepare for interviews, and see what is actually working. Live demo: <a href="https://resume-optimizer-topaz-eight.vercel.app/" target="_blank" rel="noopener noreferrer">https://resume-optimizer-topaz-eight.vercel.app/</a>',
+    features: [
+      'Job tracker with Applied → Interview → Offer → Rejected stages and CSV export',
+      'AI email assistant for follow-ups, thank-yous, and interview confirmations',
+      'Email/password and Google Sign-In with protected routes',
+      'Dashboard with application overview, status breakdown, and career insights',
+      'Modern SaaS design with dark/light themes and mobile optimization',
+    ],
+    techStack: ['React', 'Vite', 'Tailwind CSS', 'Supabase', 'Google OAuth', 'Framer Motion'],
+  },
+  {
     id: 'modal-01',
     title: 'ShoNgo',
     category: 'E-commerce Project (In Progress)',
@@ -100,6 +121,76 @@ export const projects = [
       ' Built with React.js and Context API',
     ],
     techStack: ['React.js', 'Tailwind CSS', 'TMDB API', 'LocalStorage'],
+  },
+  {
+    id: 'modal-07',
+    title: 'TodoApp',
+    category: 'Mobile Application',
+    githubLink: 'https://github.com/FAIZAN101013/TodoApp',
+    tags: ['project'],
+    // No live demo (mobile app) — drop screenshots into images/todoapp/ and
+    // list them here.
+    media: [{ type: 'image', src: '/images/todoapp/home.png' }],
+    description:
+      'A full-stack cross-platform todo app built with React Native and TypeScript. Users register, log in, and manage their personal tasks, backed by an Express and MongoDB API with authenticated routes.',
+    features: [
+      'User registration and login',
+      'Personal task list with create, update, and delete',
+      'Authenticated REST API with protected routes',
+      'Runs on both Android and iOS',
+    ],
+    techStack: ['React Native', 'TypeScript', 'Node.js', 'Express', 'MongoDB'],
+  },
+  {
+    id: 'modal-08',
+    title: 'Task Tracker',
+    category: 'Web Application',
+    githubLink: 'https://github.com/FAIZAN101013/task-tracker',
+    liveDemo: 'https://task-tracker-six-plum-38.vercel.app/',
+    tags: ['project'],
+    media: [{ type: 'image', src: '/images/task-tracker/home.png' }],
+    description:
+      'A full-stack MERN task manager with cookie-based JWT authentication — each user gets their own private workspace with database-level security. Live demo: <a href="https://task-tracker-six-plum-38.vercel.app/" target="_blank" rel="noopener noreferrer">https://task-tracker-six-plum-38.vercel.app/</a>',
+    features: [
+      'Register, login, and logout with httpOnly JWT cookies',
+      'Edit profile, change password, and delete account',
+      'Task CRUD with status, priority levels, and due dates',
+      'Light/dark theme with responsive design',
+      'Per-user task statistics',
+    ],
+    techStack: ['React 19', 'Vite', 'React Router 7', 'Node.js', 'Express 5', 'MongoDB Atlas', 'JWT'],
+  },
+  {
+    id: 'modal-09',
+    title: 'The Subreddit Vibe Check',
+    category: 'Web Application',
+    githubLink: 'https://github.com/FAIZAN101013/subreddit-vibe-check',
+    liveDemo: 'https://subreddit-vibe-check-nu.vercel.app/',
+    tags: ['project'],
+    media: [{ type: 'image', src: '/images/subreddit-vibe-check/home.png' }],
+    description:
+      'Discover the mood of a subreddit — fetches the 50 hottest posts from any subreddit and scores each title’s emotional tone right in the browser, with a three-tier OAuth/JSON/RSS fallback for Reddit data. Live demo: <a href="https://subreddit-vibe-check-nu.vercel.app/" target="_blank" rel="noopener noreferrer">https://subreddit-vibe-check-nu.vercel.app/</a>',
+    features: [
+      'Sentiment badge (positive / neutral / negative) on every post',
+      'Summary stats and sentiment distribution visualization',
+      'Filter the feed by sentiment category',
+      'Post metadata: score, comments, flair, and Reddit links',
+      'Loading skeletons and clear errors for invalid or private subreddits',
+    ],
+    techStack: ['React 19', 'Vite', 'sentiment (AFINN-165)', 'Vercel Serverless', 'Reddit API'],
+  },
+  {
+    id: 'modal-10',
+    title: 'Rutuja Portfolio',
+    category: 'Freelance Project',
+    githubLink: 'https://github.com/FAIZAN101013/rutuja-portfolio',
+    tags: ['project', 'freelance'],
+    // Drop screenshots into images/rutuja-portfolio/ and list them here.
+    media: [{ type: 'image', src: '/images/rutuja-portfolio/home.png' }],
+    description:
+      'My first freelance project — a simple personal portfolio website built for a client, with a contact form wired to an API.',
+    features: ['Personal portfolio layout', 'Contact form with API integration', 'Responsive design'],
+    techStack: ['HTML', 'CSS', 'JavaScript'],
   },
   {
     id: 'modal-05',
