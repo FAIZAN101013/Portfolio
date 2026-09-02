@@ -165,12 +165,12 @@ export const projects = [
     title: 'Rutuja Portfolio',
     category: 'Freelance Project',
     githubLink: 'https://github.com/FAIZAN101013/rutuja-portfolio',
-    liveDemo: 'https://rutuja-portfolio.vercel.app/',
+    liveDemo: 'https://rutujaapatil-form.vercel.app/',
     tags: ['project', 'freelance'],
     media: [{ type: 'image', src: '/images/rutuja-portfolio/home.png' }],
     description:
-      'My first freelance project — a simple personal portfolio website built for a client, with a contact form wired to an API. Live site: <a href="https://rutuja-portfolio.vercel.app/" target="_blank" rel="noopener noreferrer">https://rutuja-portfolio.vercel.app/</a>',
-    features: ['Personal portfolio layout', 'Contact form with API integration', 'Responsive design'],
+      'My first freelance project — a session-booking page built for a client: a simple form wired to an API. Live site: <a href="https://rutujaapatil-form.vercel.app/" target="_blank" rel="noopener noreferrer">https://rutujaapatil-form.vercel.app/</a>',
+    features: ['Session booking form with client details', 'Form submission wired to an API', 'Responsive design'],
     techStack: ['HTML', 'CSS', 'JavaScript'],
   },
   {
