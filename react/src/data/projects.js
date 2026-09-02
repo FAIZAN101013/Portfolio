@@ -165,11 +165,11 @@ export const projects = [
     title: 'Rutuja Portfolio',
     category: 'Freelance Project',
     githubLink: 'https://github.com/FAIZAN101013/rutuja-portfolio',
+    liveDemo: 'https://rutuja-portfolio.vercel.app/',
     tags: ['project', 'freelance'],
-    // Drop screenshots into images/rutuja-portfolio/ and list them here.
     media: [{ type: 'image', src: '/images/rutuja-portfolio/home.png' }],
     description:
-      'My first freelance project — a simple personal portfolio website built for a client, with a contact form wired to an API.',
+      'My first freelance project — a simple personal portfolio website built for a client, with a contact form wired to an API. Live site: <a href="https://rutuja-portfolio.vercel.app/" target="_blank" rel="noopener noreferrer">https://rutuja-portfolio.vercel.app/</a>',
     features: ['Personal portfolio layout', 'Contact form with API integration', 'Responsive design'],
     techStack: ['HTML', 'CSS', 'JavaScript'],
   },
@@ -179,9 +179,11 @@ export const projects = [
     category: 'Mobile Application',
     githubLink: 'https://github.com/FAIZAN101013/TodoApp',
     tags: ['project'],
-    // No live demo (mobile app) — drop screenshots into images/todoapp/ and
-    // list them here.
-    media: [{ type: 'image', src: '/images/todoapp/home.png' }],
+    // No live demo (mobile app) — the demo video stands in for one.
+    media: [
+      { type: 'video', src: '/project-video/TodoApp.mp4' },
+      { type: 'image', src: '/images/todoapp/home.png' },
+    ],
     description:
       'A full-stack cross-platform todo app built with React Native and TypeScript. Users register, log in, and manage their personal tasks, backed by an Express and MongoDB API with authenticated routes.',
     features: [
