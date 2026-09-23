@@ -27,6 +27,60 @@ const escapeHtml = (value) =>
     .replaceAll('>', '&gt;')
     .replaceAll('"', '&quot;')
 
+/**
+ * Branded notification email — dark card with the portfolio's gold accent,
+ * all styles inline because email clients strip <style> blocks.
+ */
+const buildEmail = ({ name, email, service, message }) => {
+  const gold = '#ecc094'
+  const label = `font-size:10px;letter-spacing:2.5px;text-transform:uppercase;color:#8a8a8a;padding:0 0 6px;`
+  const value = `font-size:16px;color:#ffffff;padding:0 0 22px;`
+
+  return `
+  <div style="margin:0;padding:40px 16px;background-color:#0d0d0d;font-family:Arial,Helvetica,sans-serif;">
+    <table role="presentation" cellpadding="0" cellspacing="0" width="100%" style="max-width:560px;margin:0 auto;background-color:#161616;border:1px solid #2a2a2a;border-radius:12px;">
+      <tr>
+        <td style="padding:26px 32px;border-bottom:2px solid ${gold};">
+          <div style="font-size:11px;letter-spacing:3px;text-transform:uppercase;color:${gold};">New enquiry</div>
+          <div style="font-size:22px;font-weight:bold;color:#ffffff;padding-top:8px;">Faizan Patel — Portfolio</div>
+        </td>
+      </tr>
+      <tr>
+        <td style="padding:28px 32px 6px;">
+          <table role="presentation" cellpadding="0" cellspacing="0" width="100%">
+            <tr><td style="${label}">From</td></tr>
+            <tr><td style="${value}">${escapeHtml(name)}</td></tr>
+            <tr><td style="${label}">Email</td></tr>
+            <tr><td style="${value}"><a href="mailto:${escapeHtml(email)}" style="color:${gold};text-decoration:none;">${escapeHtml(email)}</a></td></tr>
+            ${
+              service
+                ? `<tr><td style="${label}">Looking for</td></tr>
+                   <tr><td style="padding:0 0 22px;"><span style="display:inline-block;padding:6px 14px;border:1px solid ${gold};border-radius:999px;color:${gold};font-size:13px;letter-spacing:1px;">${escapeHtml(service)}</span></td></tr>`
+                : ''
+            }
+            <tr><td style="${label}">Message</td></tr>
+            <tr>
+              <td style="padding:16px 18px;background-color:#1e1e1e;border-left:3px solid ${gold};border-radius:0 8px 8px 0;color:#e6e6e6;font-size:15px;line-height:1.6;">
+                ${escapeHtml(message).replaceAll('\n', '<br>')}
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+      <tr>
+        <td style="padding:22px 32px 26px;">
+          <a href="mailto:${escapeHtml(email)}" style="display:inline-block;padding:12px 26px;background-color:${gold};color:#111111;font-size:13px;font-weight:bold;letter-spacing:2px;text-transform:uppercase;text-decoration:none;border-radius:6px;">Reply to ${escapeHtml(name.split(' ')[0])}</a>
+        </td>
+      </tr>
+      <tr>
+        <td style="padding:16px 32px;border-top:1px solid #2a2a2a;color:#7a7a7a;font-size:12px;">
+          Sent from the contact form at <a href="https://faziansportfolio.netlify.app" style="color:#9a9a9a;">faziansportfolio.netlify.app</a> — replying goes straight to the sender.
+        </td>
+      </tr>
+    </table>
+  </div>`
+}
+
 export default async (req) => {
   if (req.method !== 'POST') return json({ error: 'Method not allowed' }, 405)
 
@@ -72,11 +126,7 @@ export default async (req) => {
       subject: service
         ? `Portfolio enquiry from ${name} — ${service}`
         : `Portfolio enquiry from ${name}`,
-      htmlContent: `
-        <p><strong>${escapeHtml(name)}</strong> &lt;${escapeHtml(email)}&gt;</p>
-        ${service ? `<p>Looking for: <strong>${escapeHtml(service)}</strong></p>` : ''}
-        <p>${escapeHtml(message).replaceAll('\n', '<br>')}</p>
-      `,
+      htmlContent: buildEmail({ name, email, service, message }),
     }),
   })
 
