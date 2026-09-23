@@ -7,22 +7,26 @@ import { Button } from './Button'
  * projects and timeline, prospective clients read this — what I can be hired
  * to build, phrased as outcomes rather than technologies. The CTA feeds the
  * existing contact section instead of adding a second form.
+ *
+ * Rendered as an editorial numbered list rather than a card grid: hairline
+ * rows are the site's own language (nav, marquee, contact), and four equal
+ * boxes read as filler next to the display-serif sections around them.
  */
 const SERVICES = [
   {
-    title: 'Marketing Websites',
+    title: 'Marketing websites',
     desc: 'Landing pages and brand sites that present your work properly and turn visitors into enquiries — designed, built, animated and deployed on your own domain, like ornivapackaging.com.',
   },
   {
-    title: 'Full-Stack Web Applications',
+    title: 'Full-stack web applications',
     desc: 'Dashboards, admin consoles and e-commerce — real products with authentication, roles, payments and a proper database, like the enquiry pipeline behind moderndisplay.store.',
   },
   {
-    title: 'UI/UX Design',
+    title: 'UI/UX design',
     desc: 'Figma-first design: research, wireframes and high-fidelity prototypes — either handed off, or carried straight through into the working product by the same person.',
   },
   {
-    title: 'APIs & Integrations',
+    title: 'APIs & integrations',
     desc: 'Node and Express backends, PostgreSQL or MongoDB data layers, and the glue work — email delivery, payment gateways, third-party APIs — wired in and tested.',
   },
 ]
@@ -37,34 +41,45 @@ export function Services() {
           </Reveal>
           <TextReveal
             as="p"
-            className="attention-getter mb-0"
-            text="Available for freelance work — here's what I build for clients"
+            className="text-h1 mt-0"
+            text="I take on freelance work — from a single landing page to a full product, built end to end."
             delay={0.05}
           />
 
-          <div className="mt-(--vspace-1_5) grid grid-cols-2 gap-2 max-md:grid-cols-1">
+          <ul className="m-0 mt-(--vspace-1_5) list-none border-t border-hairline p-0">
             {SERVICES.map((service, index) => (
               <Reveal
+                as="li"
                 key={service.title}
-                delay={index * 0.08}
-                className="group rounded-lg border border-white/5 bg-white/5 p-8 transition-[background-color,border-color,transform] duration-300 ease-(--ease-out-soft) hover:-translate-y-1 hover:border-accent/30 hover:bg-white/10 max-xs:p-6"
+                delay={index * 0.06}
+                className="group grid grid-cols-[7rem_1.1fr_1.4fr] items-baseline gap-x-10 border-b border-hairline py-(--vspace-1) transition-colors duration-300 hover:bg-white/[0.025] max-lg:grid-cols-[3.5rem_1fr] max-lg:gap-x-4 max-lg:gap-y-2"
               >
-                <span className="font-display text-(length:--text-lg) text-accent/60 transition-colors duration-300 group-hover:text-accent">
+                <span
+                  aria-hidden="true"
+                  className="font-display text-(length:--text-lg) leading-none text-accent/45 transition-colors duration-300 group-hover:text-accent"
+                >
                   {String(index + 1).padStart(2, '0')}
                 </span>
-                <h3 className="mb-(--vspace-0_375) mt-(--vspace-0_25) font-display text-(length:--text-lg) leading-tight text-white">
+                <h3 className="m-0 font-display text-(length:--text-xl) leading-[1.15] text-white transition-colors duration-300 group-hover:text-accent max-lg:text-(length:--text-lg)">
                   {service.title}
                 </h3>
-                <p className="mb-0 text-(length:--text-md) leading-(--vspace-1) text-content">
+                <p className="m-0 max-w-[62ch] text-(length:--text-md) font-light leading-(--vspace-1) text-content max-lg:col-start-2">
                   {service.desc}
                 </p>
               </Reveal>
             ))}
-          </div>
+          </ul>
 
-          <Reveal className="mt-(--vspace-1_5) flex items-center gap-5 max-xs:flex-col max-xs:items-stretch" delay={0.1}>
-            <Button href="#contact" magnetic withArrow className="btn--block-mobile">
-              Have a project in mind? Say hello
+          <Reveal
+            className="mt-(--vspace-1_5) flex items-center justify-between gap-6 max-md:flex-col max-md:items-stretch"
+            delay={0.1}
+          >
+            <p className="mb-0 text-(length:--text-md) font-light text-content-light">
+              Every project so far has shipped and is live — the two above are in the
+              featured row.
+            </p>
+            <Button href="#contact" magnetic withArrow className="btn--block-mobile shrink-0">
+              Start a project
             </Button>
           </Reveal>
         </div>

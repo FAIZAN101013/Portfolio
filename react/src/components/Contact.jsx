@@ -127,7 +127,18 @@ export function Contact() {
 }
 
 const INPUT_CLASSES =
-  'w-full rounded-lg border border-white/10 bg-white/5 px-5 py-4 text-(length:--text-md) text-white placeholder:text-content-light transition-colors duration-300 focus:border-accent/50 focus:outline-none'
+  'w-full border-0 border-b border-white/15 bg-transparent px-0 py-3 text-(length:--text-md) font-light text-white placeholder:text-content-light/50 transition-colors duration-300 focus:border-accent focus:outline-none'
+
+function Field({ label, children }) {
+  return (
+    <label className="block">
+      <span className="mb-1 block text-(length:--text-xs) font-medium uppercase tracking-[.2em] text-content-light">
+        {label}
+      </span>
+      {children}
+    </label>
+  )
+}
 
 /**
  * Posts to /api/contact — a Netlify Function that forwards the message
@@ -152,6 +163,12 @@ function ContactForm() {
         headers: { 'content-type': 'application/json' },
         body: JSON.stringify(data),
       })
+      // A non-JSON reply means no function answered — the plain Vite dev
+      // server, where /api/contact doesn't exist. Say so instead of a vague
+      // failure; on Netlify (or `netlify dev`) this branch never runs.
+      if (!res.headers.get('content-type')?.includes('application/json')) {
+        throw new Error('Sending only works on the deployed site — this is a local preview.')
+      }
       const body = await res.json().catch(() => ({}))
       if (!res.ok) throw new Error(body.error || 'Something went wrong.')
       setStatus('sent')
@@ -174,7 +191,9 @@ function ContactForm() {
   }
 
   return (
-    <form onSubmit={onSubmit} className="flex flex-col gap-4">
+    <form onSubmit={onSubmit} className="flex flex-col gap-8">
+      <h3 className="text-pretitle mb-0">Send a message</h3>
+
       {/* Honeypot — visually hidden, real visitors never fill it. */}
       <input
         type="text"
@@ -185,36 +204,54 @@ function ContactForm() {
         className="absolute -left-[9999px] h-0 w-0 opacity-0"
       />
 
-      <div className="grid grid-cols-2 gap-4 max-sm:grid-cols-1">
-        <input
-          type="text"
-          name="name"
-          required
-          maxLength={120}
-          placeholder="Your name"
-          aria-label="Your name"
-          className={INPUT_CLASSES}
-        />
-        <input
-          type="email"
-          name="email"
-          required
-          maxLength={200}
-          placeholder="Your email"
-          aria-label="Your email"
-          className={INPUT_CLASSES}
-        />
+      <div className="grid grid-cols-2 gap-x-10 gap-y-8 max-sm:grid-cols-1">
+        <Field label="Name">
+          <input
+            type="text"
+            name="name"
+            required
+            maxLength={120}
+            placeholder="Aisha Sharma"
+            className={INPUT_CLASSES}
+          />
+        </Field>
+        <Field label="Email">
+          <input
+            type="email"
+            name="email"
+            required
+            maxLength={200}
+            placeholder="aisha@studio.in"
+            className={INPUT_CLASSES}
+          />
+        </Field>
       </div>
 
-      <textarea
-        name="message"
-        required
-        rows={5}
-        maxLength={5000}
-        placeholder="Tell me about your project, or just say hi"
-        aria-label="Your message"
-        className={`${INPUT_CLASSES} resize-y`}
-      />
+      <Field label="What do you need?">
+        <select
+          name="service"
+          defaultValue=""
+          className={`${INPUT_CLASSES} cursor-pointer appearance-none [&_option]:bg-[#161616] [&_option]:text-white`}
+        >
+          <option value="">Just saying hi</option>
+          <option>Marketing website</option>
+          <option>Full-stack web application</option>
+          <option>UI/UX design</option>
+          <option>API &amp; integrations</option>
+          <option>Something else</option>
+        </select>
+      </Field>
+
+      <Field label="Message">
+        <textarea
+          name="message"
+          required
+          rows={4}
+          maxLength={5000}
+          placeholder="Tell me about your project, or just say hi"
+          className={`${INPUT_CLASSES} resize-y`}
+        />
+      </Field>
 
       <div className="flex items-center gap-5 max-xs:flex-col max-xs:items-stretch">
         <Button

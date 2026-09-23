@@ -44,6 +44,7 @@ export default async (req) => {
   const name = String(payload.name ?? '').trim().slice(0, 120)
   const email = String(payload.email ?? '').trim().slice(0, 200)
   const message = String(payload.message ?? '').trim().slice(0, 5000)
+  const service = String(payload.service ?? '').trim().slice(0, 100)
 
   if (!name || !message || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
     return json({ error: 'Please fill in your name, a valid email and a message.' }, 400)
@@ -68,9 +69,12 @@ export default async (req) => {
       sender: { name: 'Portfolio Contact', email: inbox },
       to: [{ email: inbox, name: 'Faizan Patel' }],
       replyTo: { email, name },
-      subject: `Portfolio enquiry from ${name}`,
+      subject: service
+        ? `Portfolio enquiry from ${name} — ${service}`
+        : `Portfolio enquiry from ${name}`,
       htmlContent: `
         <p><strong>${escapeHtml(name)}</strong> &lt;${escapeHtml(email)}&gt;</p>
+        ${service ? `<p>Looking for: <strong>${escapeHtml(service)}</strong></p>` : ''}
         <p>${escapeHtml(message).replaceAll('\n', '<br>')}</p>
       `,
     }),
