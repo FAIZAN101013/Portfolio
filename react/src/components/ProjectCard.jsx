@@ -28,6 +28,10 @@ export function ProjectCard({ project }) {
   const ref = useRef(null)
   const reduced = useReducedMotion()
 
+  // Freelance work is the paid, shipped-for-a-client tier — the gold border
+  // marks it apart from personal projects everywhere the card appears.
+  const isFreelance = project.tags.includes('freelance')
+
   // Scroll-linked drift on the artwork. The image is oversized by 16% and
   // offset -8%, so ±26px of travel never exposes an edge. No spring here:
   // a grid can hold a dozen of these at once, and twelve concurrent spring
@@ -39,7 +43,9 @@ export function ProjectCard({ project }) {
       ref={ref}
       to={`/project/${project.id}`}
       aria-label={`${project.title} — ${project.category}`}
-      className="group/card relative block h-[400px] w-full overflow-hidden bg-gray-9 max-md:h-[320px] max-xs:h-[260px]"
+      className={`group/card relative block h-[400px] w-full overflow-hidden bg-gray-9 max-md:h-[320px] max-xs:h-[260px] ${
+        isFreelance ? 'border border-accent/60' : ''
+      }`}
       whileTap={reduced ? undefined : { scale: 0.985 }}
       transition={{ type: 'spring', stiffness: 400, damping: 30 }}
     >

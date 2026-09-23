@@ -1,6 +1,7 @@
-import { useRef } from 'react'
+import { useRef, useState } from 'react'
 import { motion, useScroll, useSpring, useTransform } from 'framer-motion'
 import { Reveal } from './Reveal'
+import { useMediaQuery } from '../hooks/useMediaQuery'
 import { useReducedMotion } from '../hooks/useReducedMotion'
 import { education, experience } from '../data/site'
 
@@ -16,6 +17,12 @@ export function Timelines() {
 function TimelineColumn({ heading, entries }) {
   const listRef = useRef(null)
   const reduced = useReducedMotion()
+
+  // On phones the descriptions collapse into an accordion: headers stay
+  // scannable, tapping one opens it and closes its neighbour. Matches the
+  // max-lg breakpoint where the two columns stack.
+  const isAccordion = useMediaQuery('(max-width: 1000px)')
+  const [openIndex, setOpenIndex] = useState(0)
 
   // The line draws itself as the column passes the middle of the viewport:
   // 'start 80%' starts it just after the first entry appears, 'end 60%' has it
@@ -51,14 +58,21 @@ function TimelineColumn({ heading, entries }) {
         />
 
         {entries.map((entry, index) => (
-          <TimelineEntry key={entry.title} entry={entry} index={index} />
+          <TimelineEntry
+            key={entry.title}
+            entry={entry}
+            index={index}
+            collapsible={isAccordion}
+            open={!isAccordion || openIndex === index}
+            onToggle={() => setOpenIndex(openIndex === index ? null : index)}
+          />
         ))}
       </ol>
     </div>
   )
 }
 
-function TimelineEntry({ entry, index }) {
+function TimelineEntry({ entry, index, collapsible, open, onToggle }) {
   const ref = useRef(null)
   const reduced = useReducedMotion()
 
@@ -84,18 +98,63 @@ function TimelineEntry({ entry, index }) {
         aria-hidden="true"
       />
 
-      <h4 className="mb-(--vspace-0_125) mt-0 font-sans text-(length:--text-lg) font-medium leading-(--vspace-1) text-white">
-        {entry.title}
-      </h4>
-      <h5 className="mb-(--vspace-0_125) mt-0 font-sans text-[calc(var(--text-size)*1.1053)] font-light leading-(--vspace-0_875) text-white/85">
-        {entry.meta}
-      </h5>
-      {entry.timeframe && (
-        <p className="mb-(--vspace-0_25) mt-[.4rem] text-(length:--text-xs) uppercase leading-(--vspace-0_75) tracking-[.2em] text-content-light">
-          {entry.timeframe}
-        </p>
-      )}
-      <p className="mb-0 mt-(--vspace-0_25)">{entry.desc}</p>
+      <Header collapsible={collapsible} open={open} onToggle={onToggle}>
+        <h4 className="mb-(--vspace-0_125) mt-0 font-sans text-(length:--text-lg) font-medium leading-(--vspace-1) text-white">
+          {entry.title}
+        </h4>
+        <h5 className="mb-(--vspace-0_125) mt-0 font-sans text-[calc(var(--text-size)*1.1053)] font-light leading-(--vspace-0_875) text-white/85">
+          {entry.meta}
+        </h5>
+        {entry.timeframe && (
+          <p className="mb-0 mt-[.4rem] text-(length:--text-xs) uppercase leading-(--vspace-0_75) tracking-[.2em] text-content-light">
+            {entry.timeframe}
+          </p>
+        )}
+      </Header>
+
+      {/* Desktop renders the description outright; the accordion animates its
+          height. initial={false} stops the first paint from playing a
+          collapse animation on every entry. */}
+      <motion.div
+        initial={false}
+        animate={{ height: open ? 'auto' : 0, opacity: open ? 1 : 0 }}
+        transition={{ duration: 0.35, ease: [0.215, 0.61, 0.355, 1] }}
+        className="overflow-hidden"
+      >
+        <p className="mb-0 mt-(--vspace-0_25)">{entry.desc}</p>
+      </motion.div>
     </Reveal>
+  )
+}
+
+/**
+ * The entry header. On desktop it is plain markup; in accordion mode it
+ * becomes the toggle button, full-row and marked up with aria-expanded, with
+ * a chevron that flips to show state.
+ */
+function Header({ collapsible, open, onToggle, children }) {
+  if (!collapsible) return children
+
+  return (
+    <button
+      type="button"
+      onClick={onToggle}
+      aria-expanded={open}
+      className="relative block w-full cursor-pointer pr-10 text-left"
+    >
+      {children}
+      <svg
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2"
+        aria-hidden="true"
+        className={`absolute right-1 top-1 size-5 text-accent transition-transform duration-300 ease-(--ease-out-soft) ${
+          open ? 'rotate-180' : ''
+        }`}
+      >
+        <path strokeLinecap="round" strokeLinejoin="round" d="M6 9l6 6 6-6" />
+      </svg>
+    </button>
   )
 }

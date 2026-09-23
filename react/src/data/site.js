@@ -25,6 +25,7 @@ export const navLinks = [
   { id: 'about', label: 'About' },
   { id: 'skills', label: 'Skills' },
   { id: 'works', label: 'Projects' },
+  { id: 'services', label: 'Services' },
   { id: 'contact', label: 'Say Hello' },
 ]
 
@@ -36,6 +37,11 @@ export const aboutParagraphs = [
 
 export const experience = [
   {
+    title: 'Freelancing',
+    meta: 'Full-Stack Developer | March 2026 - Present',
+    desc: 'Sole developer on client projects end to end — design to deployment. Shipped Orniva Packaging (ornivapackaging.com), a marketing site with an enquiry API; Modern Display (moderndisplay.store), a catalogue site with a full admin console on Next.js and PostgreSQL; and a session-booking page for an independent client.',
+  },
+  {
     title: 'Eniacworld Media Pvt ltd',
     meta: 'UI/UX and React.js Intern | 28 March 2025 - 30 May 2025',
     desc: 'Contributed to the development of a travel website and CRM, delivering responsive UIs and scalable backend APIs with React.js and Express.js. Worked on the TrekingMantra website and CRM.',
@@ -44,11 +50,6 @@ export const experience = [
     title: 'Varcons Tech Pvt Ltd',
     meta: 'Full Stack Intern | Sep - Oct 2023',
     desc: 'Built responsive web interfaces and enhanced application performance.',
-  },
-  {
-    title: 'Freelancing',
-    meta: 'Frontend Developer | 2024 - Present',
-    desc: 'Developing modern, responsive websites for clients.',
   },
 ]
 

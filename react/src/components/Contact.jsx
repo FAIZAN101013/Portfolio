@@ -47,6 +47,12 @@ export function Contact() {
         </div>
       </div>
 
+      <div className="row mt-(--vspace-2)">
+        <Reveal className="column col-8 max-xl:w-full">
+          <ContactForm />
+        </Reveal>
+      </div>
+
       <div className="row mt-(--vspace-2) items-start border-b border-hairline pb-(--vspace-3)">
         <Reveal className="column col-4 max-xl:w-1/2 max-md:w-full max-md:mb-(--vspace-1)">
           <h3 className="text-pretitle mb-(--vspace-0_5)">Reach Me At</h3>
@@ -117,6 +123,116 @@ export function Contact() {
         </Reveal>
       </div>
     </section>
+  )
+}
+
+const INPUT_CLASSES =
+  'w-full rounded-lg border border-white/10 bg-white/5 px-5 py-4 text-(length:--text-md) text-white placeholder:text-content-light transition-colors duration-300 focus:border-accent/50 focus:outline-none'
+
+/**
+ * Posts to /api/contact — a Netlify Function that forwards the message
+ * through Brevo. Serverless on purpose: the Brevo key lives only in that
+ * function's environment, never in this bundle.
+ */
+function ContactForm() {
+  const [status, setStatus] = useState('idle') // idle | sending | sent | error
+  const [error, setError] = useState('')
+
+  const onSubmit = async (event) => {
+    event.preventDefault()
+    const form = event.currentTarget
+    const data = Object.fromEntries(new FormData(form))
+
+    setStatus('sending')
+    setError('')
+
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify(data),
+      })
+      const body = await res.json().catch(() => ({}))
+      if (!res.ok) throw new Error(body.error || 'Something went wrong.')
+      setStatus('sent')
+      form.reset()
+    } catch (err) {
+      setStatus('error')
+      setError(err.message || 'Could not send — please email me directly.')
+    }
+  }
+
+  if (status === 'sent') {
+    return (
+      <p
+        aria-live="polite"
+        className="mb-0 rounded-lg border border-accent/30 bg-accent/10 px-6 py-5 text-(length:--text-md) text-white"
+      >
+        Thanks — your message is on its way. I&apos;ll get back to you soon.
+      </p>
+    )
+  }
+
+  return (
+    <form onSubmit={onSubmit} className="flex flex-col gap-4">
+      {/* Honeypot — visually hidden, real visitors never fill it. */}
+      <input
+        type="text"
+        name="company"
+        tabIndex={-1}
+        autoComplete="off"
+        aria-hidden="true"
+        className="absolute -left-[9999px] h-0 w-0 opacity-0"
+      />
+
+      <div className="grid grid-cols-2 gap-4 max-sm:grid-cols-1">
+        <input
+          type="text"
+          name="name"
+          required
+          maxLength={120}
+          placeholder="Your name"
+          aria-label="Your name"
+          className={INPUT_CLASSES}
+        />
+        <input
+          type="email"
+          name="email"
+          required
+          maxLength={200}
+          placeholder="Your email"
+          aria-label="Your email"
+          className={INPUT_CLASSES}
+        />
+      </div>
+
+      <textarea
+        name="message"
+        required
+        rows={5}
+        maxLength={5000}
+        placeholder="Tell me about your project, or just say hi"
+        aria-label="Your message"
+        className={`${INPUT_CLASSES} resize-y`}
+      />
+
+      <div className="flex items-center gap-5 max-xs:flex-col max-xs:items-stretch">
+        <Button
+          type="submit"
+          withArrow
+          magnetic
+          className="btn--block-mobile"
+          disabled={status === 'sending'}
+        >
+          {status === 'sending' ? 'Sending…' : 'Send Message'}
+        </Button>
+        {status === 'error' && (
+          <p aria-live="polite" className="mb-0 text-(length:--text-sm) text-red-400">
+            {error}
+          </p>
+        )}
+      </div>
+    </form>
   )
 }
 

@@ -26,11 +26,11 @@ export function Skills() {
             delay={0.05}
           />
 
-          <ul className="mt-(--vspace-1_5) grid list-none grid-cols-5 gap-8 p-0 max-md:grid-cols-3 max-md:gap-4 max-xs:grid-cols-2">
+          <ul className="mt-(--vspace-1_5) grid list-none grid-cols-5 gap-8 p-0 max-md:grid-cols-4 max-md:gap-2">
             {skills.map((skill, index) => (
               <motion.li
                 key={skill.name}
-                className="group flex flex-col items-center rounded-lg border border-white/5 bg-white/5 p-6 transition-[background-color,border-color,box-shadow] duration-300 ease-(--ease-out-soft) hover:border-accent/30 hover:bg-white/10 hover:shadow-[0_12px_28px_-12px_rgb(0_0_0/0.6)] max-xs:p-4"
+                className="group flex flex-col items-center rounded-lg border border-white/5 bg-white/5 p-6 transition-[background-color,border-color,box-shadow] duration-300 ease-(--ease-out-soft) hover:border-accent/30 hover:bg-white/10 hover:shadow-[0_12px_28px_-12px_rgb(0_0_0/0.6)] max-md:p-3 max-xs:p-2"
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, amount: 0.2 }}
@@ -46,7 +46,7 @@ export function Skills() {
                 }}
               >
                 <SkillIcon skill={skill} />
-                <p className="m-0 text-center text-(length:--text-sm) leading-(--vspace-0_75) text-white/90 transition-colors group-hover:text-white">
+                <p className="m-0 text-center text-(length:--text-sm) leading-(--vspace-0_75) text-white/90 transition-colors group-hover:text-white max-md:text-[10px] max-md:leading-[1.4]">
                   {skill.name}
                 </p>
               </motion.li>
@@ -61,7 +61,7 @@ export function Skills() {
 function SkillIcon({ skill }) {
   // `invert` flips black monochrome logos (Next.js, Express, GitHub) to white
   // so they read against the dark card background.
-  const className = `mb-4 size-[60px] transition-transform duration-300 ease-(--ease-out-soft) group-hover:scale-110 max-xs:size-[48px]${skill.invert ? ' invert' : ''}`
+  const className = `mb-4 size-[60px] transition-transform duration-300 ease-(--ease-out-soft) group-hover:scale-110 max-md:mb-2 max-md:size-8${skill.invert ? ' invert' : ''}`
 
   if (skill.svg) {
     return (

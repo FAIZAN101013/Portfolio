@@ -10,11 +10,72 @@
 export const projects = [
   {
     id: 'modal-01',
+    title: 'Orniva Packaging',
+    category: 'Freelance Project',
+    liveDemo: 'https://www.ornivapackaging.com/',
+    tags: ['project', 'freelance'],
+    featured: true,
+    media: [
+      { type: 'image', src: '/images/orniva/Screenshot (1636).png' },
+      { type: 'image', src: '/images/orniva/Screenshot (1613).png' },
+      { type: 'image', src: '/images/orniva/Screenshot (1614).png' },
+      { type: 'image', src: '/images/orniva/Screenshot (1615).png' },
+      { type: 'image', src: '/images/orniva/Screenshot (1616).png' },
+      { type: 'image', src: '/images/orniva/Screenshot (1618).png' },
+      { type: 'image', src: '/images/orniva/Screenshot (1620).png' },
+    ],
+    description:
+      'Marketing site for Orniva Packaging — a Pune manufacturer of luxury jewelry boxes, cases, trays and pouches. Built end to end as the sole developer: an animated one-page site backed by an enquiry API that emails every quote request straight to the team, with nothing to host but the site itself — no database, no admin, no maintenance. Live: <a href="https://www.ornivapackaging.com/" target="_blank" rel="noopener noreferrer">ornivapackaging.com</a>',
+    problemStatement: `A manufacturer supplying 430+ brands had no real web presence. They didn't need an online shop — they needed a site that presents the craft well enough for luxury clients and turns visitors into quote enquiries, without saddling a non-technical team with anything to maintain.`,
+    result: `Delivered solo, from design to deployment, and running live for the client. The enquiry pipeline is deliberately stateless — form → API → email via Resend, nothing stored — so there is no database to break and nothing for the client to operate. My first production freelance build where the architecture decision was about the client's maintenance budget, not the tech.`,
+    features: [
+      'Animated single-page marketing site with catalogue, craft and gallery sections',
+      'Quote form wired to an Express enquiry API that emails the team via Resend',
+      'Zero-database architecture — nothing stored, nothing to maintain',
+      'Cookie consent and analytics measured only with permission',
+      'Responsive, SEO-ready and deployed on the client’s own domain',
+    ],
+    techStack: ['React 19', 'Vite', 'Tailwind CSS v4', 'Anime.js', 'Express 5', 'Resend'],
+  },
+  {
+    id: 'modal-02',
+    title: 'Modern Display',
+    category: 'Freelance Project',
+    githubLink: 'https://github.com/kundanpandey11/project-jewel',
+    liveDemo: 'https://moderndisplay.store/',
+    tags: ['project', 'freelance'],
+    featured: true,
+    media: [
+      { type: 'image', src: '/images/moderndisplay/Screenshot (1623).png' },
+      { type: 'image', src: '/images/moderndisplay/Screenshot (1624).png' },
+      { type: 'image', src: '/images/moderndisplay/Screenshot (1626).png' },
+      { type: 'image', src: '/images/moderndisplay/Screenshot (1628).png' },
+      { type: 'image', src: '/images/moderndisplay/Screenshot (1630).png' },
+      { type: 'image', src: '/images/moderndisplay/Screenshot (1632).png' },
+      { type: 'image', src: '/images/moderndisplay/Screenshot (1634).png' },
+    ],
+    description:
+      'Marketing site and business console for Modern Display — a Mumbai & Milano manufacturer of luxury jewellery displays and packaging, trading since 1998. Two products in one codebase, built solo: the public catalogue with an enquiry form (trade and wholesale only — no cart, no checkout, by design), and an admin console where those enquiries land: pipeline, quotes, notes, users and an audit trail behind a login. Live: <a href="https://moderndisplay.store/" target="_blank" rel="noopener noreferrer">moderndisplay.store</a>',
+    problemStatement: `A trade manufacturer doesn't sell to consumers, so an online shop was the wrong product. The house needed its catalogue to bring in qualified wholesale enquiries — and then a real system for handling them, because enquiries scattered across inboxes don't become quotes.`,
+    result: `Shipped both halves solo and live on the client's domain — the enquiry-first public site and the console their team actually works in. The biggest freelance step up so far: modelling a sales pipeline with Prisma and PostgreSQL, protecting the console with NextAuth and role-based access, and keeping an audit trail of every change.`,
+    features: [
+      'Public catalogue and enquiry form — trade and wholesale only, no checkout by design',
+      'Admin console with enquiry pipeline, quotes and notes',
+      'User roles and a full audit trail behind NextAuth login',
+      'PostgreSQL data layer via Prisma',
+      'Form validation with React Hook Form and Zod',
+      'End-to-end tests with Playwright',
+    ],
+    techStack: ['Next.js', 'PostgreSQL', 'Prisma', 'NextAuth', 'Tailwind CSS', 'Zod', 'Playwright'],
+  },
+  {
+    id: 'modal-03',
     title: 'JoBz',
     category: 'AI Career Management Platform',
     githubLink: 'https://github.com/FAIZAN101013/resume-optimizer',
     liveDemo: 'https://resume-optimizer-topaz-eight.vercel.app/',
     tags: ['project'],
+    featured: true,
     // Placeholder shot of the live landing page — drop real media into
     // images/resume-optimizer/ and list it here.
     media: [{ type: 'image', src: '/images/resume-optimizer/home.png' }],
@@ -32,7 +93,7 @@ export const projects = [
     techStack: ['React', 'Vite', 'Tailwind CSS', 'Supabase', 'Google OAuth', 'Framer Motion'],
   },
   {
-    id: 'modal-02',
+    id: 'modal-04',
     title: 'ShoNgo',
     category: 'E-commerce Project (In Progress)',
     githubLink: 'https://github.com/FAIZAN101013/ShopNGo',
@@ -58,7 +119,7 @@ export const projects = [
     techStack: ['React JS', 'MongoDB', 'Express JS', 'Node JS', 'Stripe', 'Razorpay'],
   },
   {
-    id: 'modal-03',
+    id: 'modal-05',
     title: 'Admin CRM',
     category: 'Web Application',
     githubLink: 'https://github.com/FAIZAN101013/Admin-CRM',
@@ -86,7 +147,7 @@ export const projects = [
   }
   ,
   {
-    id: 'modal-04',
+    id: 'modal-06',
     title: 'HandyMan',
     category: 'Web Application',
     githubLink: 'https://handymangunicorn-handyman-wsgi.onrender.com/',
@@ -111,7 +172,7 @@ export const projects = [
     techStack: ['HTML', 'CSS', 'JavaScript', 'Node.js', 'Express', 'MongoDB'],
   },
   {
-    id: 'modal-05',
+    id: 'modal-07',
     title: 'The Subreddit Vibe Check',
     category: 'Web Application',
     githubLink: 'https://github.com/FAIZAN101013/subreddit-vibe-check',
@@ -133,7 +194,7 @@ export const projects = [
     techStack: ['React 19', 'Vite', 'sentiment (AFINN-165)', 'Vercel Serverless', 'Reddit API'],
   },
   {
-    id: 'modal-06',
+    id: 'modal-08',
     title: 'MoviesX',
     category: 'Web Application',
     githubLink: 'https://github.com/FAIZAN101013/moviesx',
@@ -155,7 +216,7 @@ export const projects = [
     techStack: ['React.js', 'Tailwind CSS', 'TMDB API', 'LocalStorage'],
   },
   {
-    id: 'modal-07',
+    id: 'modal-09',
     title: 'Task Tracker',
     category: 'Web Application',
     githubLink: 'https://github.com/FAIZAN101013/task-tracker',
@@ -176,7 +237,7 @@ export const projects = [
     techStack: ['React 19', 'Vite', 'React Router 7', 'Node.js', 'Express 5', 'MongoDB Atlas', 'JWT'],
   },
   {
-    id: 'modal-08',
+    id: 'modal-10',
     title: 'Rutuja Portfolio',
     category: 'Freelance Project',
     githubLink: 'https://github.com/FAIZAN101013/rutuja-portfolio',
@@ -191,7 +252,7 @@ export const projects = [
     techStack: ['HTML', 'CSS', 'JavaScript'],
   },
   {
-    id: 'modal-09',
+    id: 'modal-11',
     title: 'TodoApp',
     category: 'Mobile Application',
     githubLink: 'https://github.com/FAIZAN101013/TodoApp',
@@ -214,7 +275,7 @@ export const projects = [
     techStack: ['React Native', 'TypeScript', 'Node.js', 'Express', 'MongoDB'],
   },
   {
-    id: 'modal-10',
+    id: 'modal-12',
     title: 'Portfolio Website',
     category: 'Web Application',
     githubLink: 'https://faziansportfolio.netlify.app/',
@@ -348,6 +409,8 @@ It is a responsive website that is built using Bootstrap.`,
 ]
 
 export const getProjectsByTag = (tag) => projects.filter((p) => p.tags.includes(tag))
+
+export const getFeaturedProjects = () => projects.filter((p) => p.featured)
 
 export const getProjectById = (id) => projects.find((p) => p.id === id)
 
