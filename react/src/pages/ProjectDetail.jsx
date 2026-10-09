@@ -6,6 +6,7 @@ import { MediaGallery } from '../components/MediaGallery'
 import { Reveal } from '../components/Reveal'
 import { getProjectById, projects } from '../data/projects'
 import { asset } from '../lib/asset'
+import { useSeo } from '../lib/seo'
 
 /**
  * One detail page for every project, design or development.
@@ -21,11 +22,18 @@ export function ProjectDetail() {
 
   useEffect(() => {
     window.scrollTo(0, 0)
-    document.title = project ? `${project.title} — Faizan` : 'Project not found — Faizan'
-    return () => {
-      document.title = 'Faizan'
-    }
   }, [project])
+
+  const firstImage = project?.media?.find((m) => m.type === 'image')?.src
+  useSeo({
+    title: project ? project.title : 'Project not found',
+    description: project
+      ? `${project.category}: ${String(project.description || '').replace(/<[^>]+>/g, '').slice(0, 155)}`
+      : undefined,
+    path: project ? `/project/${project.id}` : '/',
+    image: firstImage,
+    noindex: !project,
+  })
 
   if (!project) {
     return (

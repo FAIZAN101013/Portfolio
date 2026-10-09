@@ -14,7 +14,7 @@ export const socials = [
   { label: 'GitHub', url: 'https://github.com/FAIZAN101013', icon: 'github' },
   {
     label: 'LinkedIn',
-    url: 'www.linkedin.com/in/faizan-p-6939821b5',
+    url: 'https://www.linkedin.com/in/faizan-p-6939821b5',
     icon: 'linkedin',
   },
   { label: 'LeetCode', url: 'https://leetcode.com/u/I9ERYn6IQy/', icon: 'code' },
