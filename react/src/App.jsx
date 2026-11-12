@@ -5,6 +5,7 @@ import { Circles } from './components/Circles'
 import { Footer } from './components/Footer'
 import { Header } from './components/Header'
 import { Preloader } from './components/Preloader'
+import { ProjectNudge } from './components/ProjectNudge'
 import { ScrollProgress } from './components/ScrollProgress'
 import { useReducedMotion } from './hooks/useReducedMotion'
 import { EASE_OUT_SOFT } from './lib/motion'
@@ -99,6 +100,7 @@ export default function App() {
         </AnimatePresence>
 
         <Footer />
+        <ProjectNudge />
       </div>
     </>
   )
