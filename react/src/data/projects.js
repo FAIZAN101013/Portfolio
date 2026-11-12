@@ -170,6 +170,17 @@ export const projects = [
     category: 'Landing Pages',
     liveDemo: 'https://solar-website-sage.vercel.app/',
     githubLink: 'https://github.com/FAIZAN101013/solar-website',
+    // Several pages in one project: the buttons open a menu of these.
+    liveLinks: [
+      { label: 'The Solar Co. — Version A', note: 'Light hero', url: 'https://solar-website-sage.vercel.app/' },
+      { label: 'The Solar Co. — Version B', note: 'Video hero', url: 'https://solar-website-sage.vercel.app/b.html' },
+      { label: 'Solar Shop hero gallery', note: '22 concepts, 10 rounds', url: 'https://solarshophero.vercel.app/' },
+      { label: 'Vybemation', note: 'Hero concept', url: 'https://vybemation.vercel.app/' },
+    ],
+    codeLinks: [
+      { label: 'The Solar Co.', note: 'React + Vite + GSAP', url: 'https://github.com/FAIZAN101013/solar-website' },
+      { label: 'Vybemation', note: 'HTML/CSS', url: 'https://github.com/FAIZAN101013/Vybemation' },
+    ],
     tags: ['project'],
     media: [
       { type: 'image', src: '/images/landing-pitches/solar-hero.jpg' },

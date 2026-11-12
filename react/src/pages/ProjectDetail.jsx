@@ -1,6 +1,6 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
-import { motion } from 'framer-motion'
+import { AnimatePresence, motion } from 'framer-motion'
 import { Button } from '../components/Button'
 import { MediaGallery } from '../components/MediaGallery'
 import { Reveal } from '../components/Reveal'
@@ -166,13 +166,21 @@ export function ProjectDetail() {
             tracking is wider than a 360px viewport, and .btn is nowrap, so
             side-by-side was pushing the page into a horizontal scroll. */}
         <Reveal className="mt-(--vspace-2) flex flex-wrap items-center gap-2 max-xs:flex-col max-xs:items-stretch">
-          {project.githubLink && (
-            <ActionButton href={project.githubLink}>View Project</ActionButton>
+          {project.codeLinks ? (
+            <ActionMenu label="View Project" items={project.codeLinks} />
+          ) : (
+            project.githubLink && (
+              <ActionButton href={project.githubLink}>View Project</ActionButton>
+            )
           )}
-          {project.liveDemo && (
-            <ActionButton href={project.liveDemo} variant="stroke">
-              Live Demo
-            </ActionButton>
+          {project.liveLinks ? (
+            <ActionMenu label="Live Demo" items={project.liveLinks} variant="stroke" />
+          ) : (
+            project.liveDemo && (
+              <ActionButton href={project.liveDemo} variant="stroke">
+                Live Demo
+              </ActionButton>
+            )
           )}
           {project.prototypeLink && (
             <ActionButton href={project.prototypeLink} variant="stroke">
@@ -208,6 +216,73 @@ function ActionButton({ href, variant, children }) {
     >
       {children}
     </Button>
+  )
+}
+
+/**
+ * A button that opens a list of links on hover, focus or tap. Used when one
+ * project spans several pages, so the visitor picks where to go.
+ */
+function ActionMenu({ label, items, variant }) {
+  const [open, setOpen] = useState(false)
+  return (
+    <div
+      className="relative max-xs:w-full"
+      onMouseEnter={() => setOpen(true)}
+      onMouseLeave={() => setOpen(false)}
+      onFocus={() => setOpen(true)}
+      onBlur={(e) => {
+        if (!e.currentTarget.contains(e.relatedTarget)) setOpen(false)
+      }}
+    >
+      <Button
+        onClick={() => setOpen((v) => !v)}
+        variant={variant}
+        withArrow
+        className="btn--block-mobile"
+        aria-haspopup="menu"
+        aria-expanded={open}
+      >
+        {label}
+        <span className="ml-2 text-[0.7em] opacity-70">({items.length})</span>
+      </Button>
+      <AnimatePresence>
+        {open && (
+          <motion.ul
+            role="menu"
+            initial={{ opacity: 0, y: -6 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -6 }}
+            transition={{ duration: 0.2 }}
+            className="absolute bottom-full left-0 z-20 min-w-full w-max max-w-[min(320px,90vw)] pb-2"
+          >
+            <div className="overflow-hidden rounded-xl border border-white/10 bg-[#1b1c1e]/95 shadow-[0_16px_40px_rgba(0,0,0,.45)] backdrop-blur-md">
+              {items.map((item) => (
+                <li key={item.url} role="none">
+                  <a
+                    role="menuitem"
+                    href={item.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center justify-between gap-4 px-5 py-3.5 text-[14px] text-white/90 transition-colors hover:bg-white/[0.06] hover:text-accent"
+                  >
+                    <span>
+                      <span className="block font-semibold">{item.label}</span>
+                      {item.note && (
+                        <span className="block text-[12px] text-content">{item.note}</span>
+                      )}
+                    </span>
+                    <svg viewBox="0 0 24 24" className="size-3.5 shrink-0 opacity-60" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M7 17L17 7M9 7h8v8" />
+                    </svg>
+                  </a>
+                </li>
+              ))}
+            </div>
+          </motion.ul>
+        )}
+      </AnimatePresence>
+    </div>
   )
 }
 
