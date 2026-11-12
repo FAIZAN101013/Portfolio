@@ -6,31 +6,13 @@ import { asset } from '../lib/asset'
 import { useReducedMotion } from '../hooks/useReducedMotion'
 import { EASE_OUT_SOFT } from '../lib/motion'
 
-const STORAGE_KEY = 'project-nudge-last-shown'
-const COOLDOWN_MS = 15 * 60 * 1000 // at most once every 15 minutes
-const FIRST_DELAY_MS = 20 * 1000 // give the visitor a moment to settle first
-const AUTO_HIDE_MS = 12 * 1000
-
-function lastShown() {
-  try {
-    return Number(localStorage.getItem(STORAGE_KEY)) || 0
-  } catch {
-    return 0
-  }
-}
-
-function markShown() {
-  try {
-    localStorage.setItem(STORAGE_KEY, String(Date.now()))
-  } catch {
-    /* private mode, blocked storage: just show it this once */
-  }
-}
+const INTERVAL_MS = 15 * 1000 // a new random project every 15 seconds
+const SHOW_MS = 9 * 1000 // visible for 9s, then a short gap before the next one
 
 /**
- * One-line toast that suggests a random project. Shows once a visitor has
- * been on the site for a bit, then no more than once every 15 minutes, and
- * never suggests the project page the visitor is already reading.
+ * One-line toast that suggests a random project every 15 seconds. It never
+ * suggests the project page the visitor is already reading, and never shows
+ * the same project twice in a row.
  */
 export function ProjectNudge() {
   const { pathname } = useLocation()
@@ -38,26 +20,21 @@ export function ProjectNudge() {
   const [project, setProject] = useState(null)
 
   useEffect(() => {
+    let last = null
     let hideTimer
-    const schedule = () => {
-      const wait = Math.max(FIRST_DELAY_MS, lastShown() + COOLDOWN_MS - Date.now())
-      return setTimeout(() => {
-        const pool = projects.filter((p) => `/project/${p.id}` !== window.location.pathname)
-        const pick = pool[Math.floor(Math.random() * pool.length)]
-        setProject(pick)
-        markShown()
-        hideTimer = setTimeout(() => setProject(null), AUTO_HIDE_MS)
-      }, wait)
+    const show = () => {
+      const pool = projects.filter(
+        (p) => `/project/${p.id}` !== window.location.pathname && p.id !== last,
+      )
+      const pick = pool[Math.floor(Math.random() * pool.length)]
+      last = pick.id
+      setProject(pick)
+      hideTimer = setTimeout(() => setProject(null), SHOW_MS)
     }
-    let timer = schedule()
-    const interval = setInterval(() => {
-      clearTimeout(timer)
-      timer = schedule()
-    }, COOLDOWN_MS)
+    const interval = setInterval(show, INTERVAL_MS)
     return () => {
-      clearTimeout(timer)
-      clearTimeout(hideTimer)
       clearInterval(interval)
+      clearTimeout(hideTimer)
     }
   }, [])
 
