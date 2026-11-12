@@ -308,9 +308,9 @@ It is a responsive website that is built using Bootstrap.`,
     liveDemo: 'https://getnoted-app.netlify.app/',
     githubLink: 'https://github.com/FAIZAN101013/noted',
     prototypeLink:
-      'https://www.figma.com/design/RH2NGwUR4PUsPh5mgzn1s6/Noted---Expense-Tracker?node-id=0-1&t=kRoEFssKdXUdGoJO-1',
+      'https://www.figma.com/design/RH2NGwUR4PUsPh5mgzn1s6/Noted---Expense-Tracker?node-id=44-14367&t=kRoEFssKdXUdGoJO-1',
     embedUrl:
-      'https://embed.figma.com/design/RH2NGwUR4PUsPh5mgzn1s6/Noted---Expense-Tracker?node-id=0-1&embed-host=share',
+      'https://embed.figma.com/design/RH2NGwUR4PUsPh5mgzn1s6/Noted---Expense-Tracker?node-id=44-14367&embed-host=share',
     tags: ['project', 'design'],
     media: [
       { type: 'video', src: '/project-video/noted-promo.mp4' },
