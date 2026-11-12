@@ -47,37 +47,62 @@ export function ProjectNudge() {
         <motion.aside
           key={project.id}
           role="status"
-          initial={{ opacity: 0, y: reduced ? 0 : 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: reduced ? 0 : 16 }}
-          transition={{ duration: reduced ? 0 : 0.4, ease: EASE_OUT_SOFT }}
-          className="fixed bottom-4 left-4 right-4 z-40 flex items-center gap-3 rounded-xl border border-white/10 bg-[#1b1c1e]/95 p-2 pr-3 shadow-[0_20px_50px_rgba(0,0,0,.45)] backdrop-blur sm:left-auto sm:right-6 sm:w-[360px]"
+          initial={{ opacity: 0, y: reduced ? 0 : 20, scale: reduced ? 1 : 0.98 }}
+          animate={{ opacity: 1, y: 0, scale: 1 }}
+          exit={{ opacity: 0, y: reduced ? 0 : 12, scale: reduced ? 1 : 0.98 }}
+          transition={{ duration: reduced ? 0 : 0.45, ease: EASE_OUT_SOFT }}
+          className="fixed bottom-4 left-4 right-4 z-40 overflow-hidden rounded-2xl border border-white/10 bg-[#1b1c1e]/95 shadow-[0_24px_60px_rgba(0,0,0,.5)] backdrop-blur-md sm:left-auto sm:right-6 sm:bottom-6 sm:w-[400px]"
         >
-          <Link to={`/project/${project.id}`} className="flex min-w-0 flex-1 items-center gap-3">
-            <img
-              src={asset(getThumbnail(project))}
-              alt=""
-              width="56"
-              height="56"
-              className="size-14 flex-none rounded-lg object-cover"
-            />
-            <span className="min-w-0">
-              <span className="block text-[0.65rem] uppercase tracking-[0.2em] text-accent">
+          <Link
+            to={`/project/${project.id}`}
+            className="group flex items-stretch gap-4 p-3 pr-12 transition-colors hover:bg-white/[0.04]"
+          >
+            <span className="relative block w-24 flex-none overflow-hidden rounded-xl bg-black/40">
+              <img
+                src={asset(getThumbnail(project))}
+                alt=""
+                className="absolute inset-0 size-full object-cover transition-transform duration-500 ease-out group-hover:scale-105"
+              />
+            </span>
+            <span className="flex min-w-0 flex-1 flex-col justify-center gap-1 py-1">
+              <span className="flex items-center gap-2 text-[0.62rem] uppercase tracking-[0.22em] text-accent">
+                <span className="size-1.5 rounded-full bg-accent" />
                 Have you seen
               </span>
-              <span className="block truncate font-display text-lg leading-tight text-white">
+              <span className="line-clamp-2 font-display text-[1.15rem] leading-[1.2] text-white">
                 {project.title}
               </span>
+              <span className="truncate text-xs text-content">{project.category}</span>
+            </span>
+            <span
+              aria-hidden
+              className="absolute right-3 top-1/2 grid size-8 -translate-y-1/2 place-items-center rounded-full bg-accent text-body opacity-0 transition-all duration-300 group-hover:opacity-100 group-hover:translate-x-0 translate-x-2"
+            >
+              <svg viewBox="0 0 24 24" className="size-4" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M5 12h14M13 6l6 6-6 6" />
+              </svg>
             </span>
           </Link>
+
           <button
             type="button"
             onClick={() => setProject(null)}
             aria-label="Dismiss"
-            className="grid size-9 flex-none place-items-center rounded-full text-content hover:bg-white/10 hover:text-white"
+            className="absolute right-2 top-2 grid size-7 place-items-center rounded-full text-content/70 transition-colors hover:bg-white/10 hover:text-white"
           >
-            ×
+            <svg viewBox="0 0 24 24" className="size-3.5" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round">
+              <path d="M6 6l12 12M18 6L6 18" />
+            </svg>
           </button>
+
+          {/* time-left bar: drains over the toast's lifetime */}
+          <motion.span
+            aria-hidden
+            className="absolute bottom-0 left-0 h-[2px] bg-accent/80"
+            initial={{ width: '100%' }}
+            animate={{ width: 0 }}
+            transition={{ duration: SHOW_MS / 1000, ease: 'linear' }}
+          />
         </motion.aside>
       )}
     </AnimatePresence>
