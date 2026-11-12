@@ -312,7 +312,6 @@ It is a responsive website that is built using Bootstrap.`,
     embedUrl:
       'https://embed.figma.com/design/RH2NGwUR4PUsPh5mgzn1s6/Noted---Expense-Tracker?node-id=0-1&embed-host=share',
     tags: ['project', 'design'],
-    featured: true,
     media: [
       { type: 'video', src: '/project-video/noted-promo.mp4' },
       { type: 'image', src: '/images/noted/landing-hero.jpg' },
