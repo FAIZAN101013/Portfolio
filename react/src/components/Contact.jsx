@@ -147,6 +147,20 @@ function Field({ label, children }) {
  */
 function ContactForm() {
   const [status, setStatus] = useState('idle') // idle | sending | sent | error
+  // "Ask about this" links in Services arrive as #contact?need=<option>.
+  // Read it on mount and on every hash change, then scroll the form in.
+  const [need, setNeed] = useState('')
+  useEffect(() => {
+    const read = () => {
+      const m = window.location.hash.match(/need=([^&]+)/)
+      if (!m) return
+      setNeed(decodeURIComponent(m[1]))
+      document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })
+    }
+    read()
+    window.addEventListener('hashchange', read)
+    return () => window.removeEventListener('hashchange', read)
+  }, [])
   const [error, setError] = useState('')
 
   const onSubmit = async (event) => {
@@ -230,7 +244,8 @@ function ContactForm() {
       <Field label="What do you need?">
         <select
           name="service"
-          defaultValue=""
+          value={need}
+          onChange={(e) => setNeed(e.target.value)}
           className={`${INPUT_CLASSES} cursor-pointer appearance-none [&_option]:bg-[#161616] [&_option]:text-white`}
         >
           <option value="">Just saying hi</option>
