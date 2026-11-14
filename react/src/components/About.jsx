@@ -112,10 +112,10 @@ export function About() {
           <dl className="m-0 mt-(--vspace-0_75) grid grid-cols-[auto_1fr] gap-x-6 gap-y-3 max-xs:grid-cols-1 max-xs:gap-y-1">
             {skillGroups.map(({ label, items }) => (
               <Reveal key={label} as="div" className="contents">
-                <dt className="text-(length:--text-xs) font-medium uppercase leading-(--vspace-0_75) tracking-[0.18em] text-accent max-xs:mt-3">
+                <dt className="text-(length:--text-xs) font-medium uppercase leading-(--vspace-1) tracking-[0.18em] text-accent max-xs:mt-3">
                   {label}
                 </dt>
-                <dd className="m-0 text-(length:--text-sm) leading-(--vspace-0_75) text-content">
+                <dd className="m-0 text-(length:--text-md) leading-(--vspace-1) text-content">
                   {items}
                 </dd>
               </Reveal>
@@ -128,16 +128,16 @@ export function About() {
           </Reveal>
           <ol className="m-0 mt-(--vspace-0_75) list-none divide-y divide-white/10 p-0">
             {experience.map((entry, index) => (
-              <Reveal key={entry.title} as="li" delay={0.06 * index} className="py-4 first:pt-0">
+              <Reveal key={entry.title} as="li" delay={0.06 * index} className="py-5 first:pt-0">
                 <div className="flex flex-wrap items-baseline justify-between gap-x-4">
-                  <span className="font-display text-(length:--text-md) text-white">
+                  <span className="font-display text-(length:--text-lg) text-white">
                     {entry.title}
                   </span>
                   <span className="text-(length:--text-xs) uppercase tracking-[0.15em] text-content-light">
                     {entry.meta}
                   </span>
                 </div>
-                <p className="m-0 mt-1 text-(length:--text-sm) leading-(--vspace-0_75) text-content">
+                <p className="m-0 mt-1 text-(length:--text-md) leading-(--vspace-1) text-content">
                   {entry.desc}
                 </p>
               </Reveal>
