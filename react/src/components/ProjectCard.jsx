@@ -93,15 +93,6 @@ export function ProjectCard({ project }) {
             }`}
           />
         )}
-        {preview && (
-          <span
-            aria-hidden="true"
-            className="absolute bottom-3 left-3 z-3 flex items-center gap-1.5 rounded-full bg-black/60 px-2.5 py-1 text-[10px] uppercase tracking-[0.18em] text-white backdrop-blur-sm"
-          >
-            <svg viewBox="0 0 24 24" className="size-3" fill="currentColor"><path d="M8 5v14l11-7z" /></svg>
-            Hover to play
-          </span>
-        )}
         <span
           className="absolute inset-0 bg-black/20 opacity-0 transition-opacity duration-400 group-hover/card:opacity-100 group-focus-visible/card:opacity-100"
           aria-hidden="true"
