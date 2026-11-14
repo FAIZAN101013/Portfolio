@@ -5,7 +5,8 @@ export const site = {
   roles: ['Software', 'Developer'],
   email: 'faizan.m.patel10@gmail.com',
   phone: '+918805910192',
-  cvUrl: '/Faizan-Patel-Resume.pdf',
+  cvUrl:
+    'https://drive.google.com/file/d/1-Z9lvHd8ZQ4vAf9IpsnkNeCltV36Bphm/view?usp=drive_link',
   photo: '/images/prof.jpg',
 }
 
