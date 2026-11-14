@@ -82,8 +82,7 @@ export function Intro() {
         className="row row--wide min-h-[calc(25.5*var(--space))] items-center justify-center pb-(--vspace-3) pt-[calc(3vh+var(--header-height))] max-md:min-h-[100svh] max-md:pb-(--vspace-4) max-md:pt-[calc(var(--header-height)+var(--vspace-3))]"
         style={{ y: contentY, opacity: contentOpacity }}
       >
-        <div className="column grid grid-cols-[minmax(0,1.3fr)_minmax(0,0.7fr)] items-center gap-10 max-xl:grid-cols-1 max-xl:gap-0">
-          <div>
+        <div className="column">
           {/* The -6rem transform on .text-pretitle--line is what pulls the
               rule out into the gutter; keep it off the animated element so
               the two transforms don't fight. */}
@@ -95,7 +94,7 @@ export function Intro() {
           </motion.div>
 
           <motion.h1
-            className="text-huge-title pr-[5vw] max-md:pr-0 md:[--text-huge-multiplier:0.72] xl:[--text-huge-multiplier:0.58] 2xl:[--text-huge-multiplier:0.62]"
+            className="text-huge-title pr-[5vw] max-md:pr-0 md:[--text-huge-multiplier:0.72] xl:[--text-huge-multiplier:0.8]"
             {...slideIn(HERO_DELAY.title)}
           >
             I design and build{' '}
@@ -126,23 +125,36 @@ export function Intro() {
             <Button href="#contact" onClick={scrollTo('contact')} variant="stroke" withArrow className="btn--block-mobile">
               Hire me
             </Button>
-          </motion.div>
-
-          </div>
-
-          {/* One piece of motion above the fold: the Noted promo as a silent
-              loop, poster-only when motion is reduced. Hidden below xl so the
-              phone hero keeps its buttons above the fold. */}
-          <motion.div
-            className="relative pr-20 max-2xl:pr-14 max-xl:hidden"
-            initial={{ opacity: 0, y: 24 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: HERO_DURATION, delay: HERO_DELAY.title + 0.6, ease: EASE_IN_OUT_CUBIC }}
-          >
+          {/* "Latest" pill: a thumbnail-sized loop that expands to the full
+              promo on hover or focus. Keeps motion above the fold without
+              giving the hero's width to a video card. On touch it is a link. */}
+          <div className="group/latest relative ml-2 inline-block max-md:ml-0 max-md:mt-2 max-xs:block">
             <a
               href="/project/modal-13"
-              aria-label="Noted — expense tracker, watch the 23 second promo"
-              className="group/loop relative block overflow-hidden rounded-xl ring-1 ring-white/10 shadow-[0_30px_80px_-30px_rgba(0,0,0,.8)]"
+              aria-label="Latest project: Noted, expense tracker"
+              className="flex items-center gap-3 rounded-full border border-white/10 bg-white/[0.04] py-1.5 pl-1.5 pr-4 transition-colors hover:border-accent/50 hover:bg-white/[0.07] focus-visible:border-accent/50 focus-visible:outline-none"
+            >
+              <span className="relative block h-9 w-14 shrink-0 overflow-hidden rounded-full bg-black/40">
+                {reduced ? (
+                  <img src={asset('/images/noted/hero-loop-poster.jpg')} alt="" className="size-full object-cover" />
+                ) : (
+                  <video
+                    className="size-full object-cover"
+                    src={asset('/project-video/noted-hero-loop.mp4')}
+                    poster={asset('/images/noted/hero-loop-poster.jpg')}
+                    autoPlay muted loop playsInline preload="metadata"
+                  />
+                )}
+              </span>
+              <span className="text-[11px] uppercase tracking-[0.2em] text-accent">Latest</span>
+              <span className="text-(length:--text-sm) text-white">Noted — Expense Tracker</span>
+              <span className="ml-1 text-content-light transition-transform duration-300 group-hover/latest:translate-x-1" aria-hidden>→</span>
+            </a>
+
+            {/* Popover: desktop only. Hidden on touch, where the pill is enough. */}
+            <span
+              aria-hidden
+              className="pointer-events-none absolute bottom-0 left-[calc(100%+14px)] z-20 w-[360px] origin-bottom-left scale-95 overflow-hidden rounded-xl opacity-0 shadow-[0_30px_80px_-20px_rgba(0,0,0,.85)] ring-1 ring-white/10 transition-[opacity,transform] duration-300 ease-(--ease-out-soft) group-hover/latest:scale-100 group-hover/latest:opacity-100 group-focus-within/latest:scale-100 group-focus-within/latest:opacity-100 touch:hidden max-md:hidden"
             >
               {reduced ? (
                 <img src={asset('/images/noted/hero-loop-poster.jpg')} alt="" className="block aspect-video w-full object-cover" />
@@ -151,23 +163,12 @@ export function Intro() {
                   className="block aspect-video w-full object-cover"
                   src={asset('/project-video/noted-hero-loop.mp4')}
                   poster={asset('/images/noted/hero-loop-poster.jpg')}
-                  autoPlay
-                  muted
-                  loop
-                  playsInline
-                  preload="metadata"
+                  autoPlay muted loop playsInline preload="metadata"
                 />
               )}
-              <span className="absolute inset-x-0 bottom-0 flex items-center justify-between bg-linear-to-t from-black/70 to-transparent px-5 pb-4 pt-10 text-white">
-                <span>
-                  <span className="block text-[10px] uppercase tracking-[0.22em] text-accent">Latest</span>
-                  <span className="block font-display text-[18px] leading-tight">Noted — Expense Tracker</span>
-                </span>
-                <span className="grid size-9 place-items-center rounded-full border border-white/30 transition-colors group-hover/loop:border-accent group-hover/loop:bg-accent group-hover/loop:text-black">
-                  <svg viewBox="0 0 24 24" className="size-4" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
-                </span>
-              </span>
-            </a>
+            </span>
+          </div>
+
           </motion.div>
 
           {/* ---- mobile social row (< 800px) ---- */}
