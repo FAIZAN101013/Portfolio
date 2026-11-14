@@ -86,11 +86,54 @@ export function Intro() {
           {/* The -6rem transform on .text-pretitle--line is what pulls the
               rule out into the gutter; keep it off the animated element so
               the two transforms don't fight. */}
-          <motion.div {...slideIn(HERO_DELAY.pretitle)}>
-            <div className="text-pretitle text-pretitle--line">
+          <motion.div
+            className="flex flex-wrap items-center justify-between gap-x-8 gap-y-3 pr-[6vw] max-md:pr-0"
+            {...slideIn(HERO_DELAY.pretitle)}
+          >
+            <div className="text-pretitle text-pretitle--line mb-0">
               <span className="max-[1500px]:hidden">Faizan Patel · Software developer &amp; UI/UX designer</span>
               <span className="min-[1500px]:hidden">Faizan Patel · Developer &amp; designer</span>
             </div>
+          <div className="group/latest relative inline-block max-md:hidden">
+            <a
+              href="/project/modal-13"
+              aria-label="Latest project: Noted, expense tracker"
+              className="flex items-center gap-3 rounded-full border border-white/10 bg-white/[0.04] py-1.5 pl-1.5 pr-4 transition-colors hover:border-accent/50 hover:bg-white/[0.07] focus-visible:border-accent/50 focus-visible:outline-none"
+            >
+              <span className="relative block h-9 w-14 shrink-0 overflow-hidden rounded-full bg-black/40">
+                {reduced ? (
+                  <img src={asset('/images/noted/hero-loop-poster.jpg')} alt="" className="size-full object-cover" />
+                ) : (
+                  <video
+                    className="size-full object-cover"
+                    src={asset('/project-video/noted-hero-loop.mp4')}
+                    poster={asset('/images/noted/hero-loop-poster.jpg')}
+                    autoPlay muted loop playsInline preload="metadata"
+                  />
+                )}
+              </span>
+              <span className="text-[11px] uppercase tracking-[0.2em] text-accent">Latest</span>
+              <span className="text-(length:--text-sm) text-white">Noted — Expense Tracker</span>
+              <span className="ml-1 text-content-light transition-transform duration-300 group-hover/latest:translate-x-1" aria-hidden>→</span>
+            </a>
+
+            {/* Popover: desktop only. Hidden on touch, where the pill is enough. */}
+            <span
+              aria-hidden
+              className="pointer-events-none absolute right-0 top-[calc(100%+14px)] z-20 w-[460px] origin-top-right scale-95 overflow-hidden rounded-xl opacity-0 shadow-[0_30px_80px_-20px_rgba(0,0,0,.85)] ring-1 ring-white/10 transition-[opacity,transform] duration-300 ease-(--ease-out-soft) group-hover/latest:scale-100 group-hover/latest:opacity-100 group-focus-within/latest:scale-100 group-focus-within/latest:opacity-100 touch:hidden max-md:hidden"
+            >
+              {reduced ? (
+                <img src={asset('/images/noted/hero-loop-poster.jpg')} alt="" className="block aspect-video w-full object-cover" />
+              ) : (
+                <video
+                  className="block aspect-video w-full object-cover"
+                  src={asset('/project-video/noted-hero-loop.mp4')}
+                  poster={asset('/images/noted/hero-loop-poster.jpg')}
+                  autoPlay muted loop playsInline preload="metadata"
+                />
+              )}
+            </span>
+          </div>
           </motion.div>
 
           <motion.h1
@@ -125,49 +168,16 @@ export function Intro() {
             <Button href="#contact" onClick={scrollTo('contact')} variant="stroke" withArrow className="btn--block-mobile">
               Hire me
             </Button>
+            <a
+              href="/project/modal-13"
+              className="hidden items-center gap-2 text-(length:--text-sm) text-content md:hidden max-md:flex max-xs:justify-center"
+            >
+              <span className="text-[11px] uppercase tracking-[0.2em] text-accent">Latest</span>
+              Noted — Expense Tracker →
+            </a>
           {/* "Latest" pill: a thumbnail-sized loop that expands to the full
               promo on hover or focus. Keeps motion above the fold without
               giving the hero's width to a video card. On touch it is a link. */}
-          <div className="group/latest relative ml-2 inline-block max-md:ml-0 max-md:mt-2 max-xs:block">
-            <a
-              href="/project/modal-13"
-              aria-label="Latest project: Noted, expense tracker"
-              className="flex items-center gap-3 rounded-full border border-white/10 bg-white/[0.04] py-1.5 pl-1.5 pr-4 transition-colors hover:border-accent/50 hover:bg-white/[0.07] focus-visible:border-accent/50 focus-visible:outline-none"
-            >
-              <span className="relative block h-9 w-14 shrink-0 overflow-hidden rounded-full bg-black/40">
-                {reduced ? (
-                  <img src={asset('/images/noted/hero-loop-poster.jpg')} alt="" className="size-full object-cover" />
-                ) : (
-                  <video
-                    className="size-full object-cover"
-                    src={asset('/project-video/noted-hero-loop.mp4')}
-                    poster={asset('/images/noted/hero-loop-poster.jpg')}
-                    autoPlay muted loop playsInline preload="metadata"
-                  />
-                )}
-              </span>
-              <span className="text-[11px] uppercase tracking-[0.2em] text-accent">Latest</span>
-              <span className="text-(length:--text-sm) text-white">Noted — Expense Tracker</span>
-              <span className="ml-1 text-content-light transition-transform duration-300 group-hover/latest:translate-x-1" aria-hidden>→</span>
-            </a>
-
-            {/* Popover: desktop only. Hidden on touch, where the pill is enough. */}
-            <span
-              aria-hidden
-              className="pointer-events-none absolute bottom-0 left-[calc(100%+14px)] z-20 w-[360px] origin-bottom-left scale-95 overflow-hidden rounded-xl opacity-0 shadow-[0_30px_80px_-20px_rgba(0,0,0,.85)] ring-1 ring-white/10 transition-[opacity,transform] duration-300 ease-(--ease-out-soft) group-hover/latest:scale-100 group-hover/latest:opacity-100 group-focus-within/latest:scale-100 group-focus-within/latest:opacity-100 touch:hidden max-md:hidden"
-            >
-              {reduced ? (
-                <img src={asset('/images/noted/hero-loop-poster.jpg')} alt="" className="block aspect-video w-full object-cover" />
-              ) : (
-                <video
-                  className="block aspect-video w-full object-cover"
-                  src={asset('/project-video/noted-hero-loop.mp4')}
-                  poster={asset('/images/noted/hero-loop-poster.jpg')}
-                  autoPlay muted loop playsInline preload="metadata"
-                />
-              )}
-            </span>
-          </div>
 
           </motion.div>
 
