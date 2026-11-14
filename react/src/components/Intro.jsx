@@ -78,7 +78,7 @@ export function Intro() {
           URL bar, so a 100vh hero is always taller than the visible viewport
           and the scroll cue sits below the fold on first paint. */}
       <motion.div
-        className="row row--wide min-h-[calc(25.5*var(--space))] items-center justify-center pb-(--vspace-3) pt-[calc(16vh+var(--header-height))] max-md:min-h-[100svh] max-md:pb-(--vspace-4) max-md:pt-[calc(var(--header-height)+var(--vspace-3))]"
+        className="row row--wide min-h-[calc(25.5*var(--space))] items-center justify-center pb-(--vspace-3) pt-[calc(6vh+var(--header-height))] max-md:min-h-[100svh] max-md:pb-(--vspace-4) max-md:pt-[calc(var(--header-height)+var(--vspace-3))]"
         style={{ y: contentY, opacity: contentOpacity }}
       >
         <div className="column">
@@ -93,23 +93,23 @@ export function Intro() {
           </motion.div>
 
           <motion.h1
-            className="text-huge-title pr-[5vw] max-md:pr-0"
+            className="text-huge-title pr-[5vw] max-md:pr-0 md:[--text-huge-multiplier:0.72] xl:[--text-huge-multiplier:0.8]"
             {...slideIn(HERO_DELAY.title)}
           >
             I design and build{' '}
             <br className="max-md:hidden" />
-            web apps that ship.
+            websites and apps that ship.
           </motion.h1>
 
           <motion.p
-            className="mb-(--vspace-1) mt-0 max-w-[60rem] text-(length:--text-md) leading-relaxed text-content"
+            className="mb-(--vspace-0_75) mt-0 max-w-[60rem] text-(length:--text-md) leading-relaxed text-content"
             {...slideIn(HERO_DELAY.title + 0.25)}
           >
             React, Next.js and Figma, from first wireframe to live domain. Shipped{' '}
             <a href="/project/modal-01" className="text-white underline decoration-accent/60 underline-offset-4 hover:text-accent">Orniva Packaging</a>{' '}
             and{' '}
             <a href="/project/modal-02" className="text-white underline decoration-accent/60 underline-offset-4 hover:text-accent">Modern Display</a>{' '}
-            for clients, and designed{' '}
+            for clients, and designed and built{' '}
             <a href="/project/modal-13" className="text-white underline decoration-accent/60 underline-offset-4 hover:text-accent">Noted</a>{' '}
             end to end.
           </motion.p>
