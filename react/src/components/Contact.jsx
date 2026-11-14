@@ -44,37 +44,59 @@ export function Contact() {
             text="Have a project or a role in mind? Tell me about it and I'll reply within a day."
             delay={0.05}
           />
+          <Reveal
+            as="ul"
+            delay={0.15}
+            className="m-0 mt-(--vspace-0_75) flex list-none flex-wrap items-center gap-x-6 gap-y-2 p-0 text-(length:--text-sm) text-content"
+          >
+            <li className="flex items-center gap-2">
+              <span className="relative flex size-2">
+                <span className="absolute inline-flex size-full animate-ping rounded-full bg-accent/60" />
+                <span className="relative inline-flex size-2 rounded-full bg-accent" />
+              </span>
+              Taking new projects
+            </li>
+            <li>Replies within a day</li>
+            <li>Pune, India · IST (UTC+5:30)</li>
+          </Reveal>
         </div>
       </div>
 
-      <div className="row mt-(--vspace-2)">
-        <Reveal className="column col-8 max-xl:w-full">
+      <div className="row mt-(--vspace-2) items-start border-b border-hairline pb-(--vspace-3) max-md:flex-col-reverse">
+        <Reveal className="column col-7 max-xl:w-full">
           <ContactForm />
-        </Reveal>
-      </div>
-
-      <div className="row mt-(--vspace-2) items-start border-b border-hairline pb-(--vspace-3)">
-        <Reveal className="column col-4 max-xl:w-1/2 max-md:w-full max-md:mb-(--vspace-1)">
-          <h3 className="text-pretitle mb-(--vspace-0_5)">Reach Me At</h3>
-          <ul className="m-0 list-none space-y-(--vspace-0_25) p-0 text-(length:--text-md) font-light leading-(--vspace-1_25)">
-            <li>
-              <ContactLink href={`mailto:${site.email}`} icon="envelope">
-                {site.email}
-              </ContactLink>
-            </li>
-            <li>
-              <ContactLink href={`tel:${site.phone}`} icon="telephone">
-                {site.phone}
-              </ContactLink>
-            </li>
-          </ul>
         </Reveal>
 
         <Reveal
-          className="column col-4 max-xl:w-1/2 max-md:w-full max-md:mb-(--vspace-1)"
+          className="column col-5 pl-[4vw] max-xl:mt-(--vspace-2) max-xl:w-full max-xl:pl-0 max-md:mt-0 max-md:mb-(--vspace-2)"
           delay={0.1}
         >
-          <h3 className="text-pretitle mb-(--vspace-0_5)">Social</h3>
+          <h3 className="text-pretitle mb-(--vspace-0_5)">Or reach me directly</h3>
+          <ul className="m-0 list-none space-y-(--vspace-0_25) p-0 text-(length:--text-md) font-light leading-(--vspace-1_25)">
+            <li className="flex flex-wrap items-center gap-x-3">
+              <ContactLink href={`mailto:${site.email}`} icon="envelope">
+                {site.email}
+              </ContactLink>
+              <button
+                type="button"
+                onClick={sayHello}
+                className="inline-flex min-h-9 items-center rounded-full border border-white/10 px-3 text-(length:--text-xs) uppercase tracking-[0.18em] text-content-light transition-colors hover:border-accent/50 hover:text-accent"
+              >
+                {status === 'copied' ? 'Copied' : 'Copy'}
+              </button>
+            </li>
+            <li>
+              <ContactLink
+                href={`https://wa.me/${site.phone.replace(/\D/g, '')}?text=${encodeURIComponent('Hi Faizan, I saw your portfolio and wanted to talk about a project.')}`}
+                icon="telephone"
+                external
+              >
+                WhatsApp {site.phone}
+              </ContactLink>
+            </li>
+          </ul>
+
+          <h3 className="text-pretitle mb-(--vspace-0_5) mt-(--vspace-1_5)">Elsewhere</h3>
           <ul className="m-0 list-none space-y-(--vspace-0_25) p-0 text-(length:--text-md) font-light leading-(--vspace-1_25)">
             {socials.map(({ label, url, icon }) => (
               <li key={label}>
@@ -84,39 +106,19 @@ export function Contact() {
               </li>
             ))}
           </ul>
-        </Reveal>
-
-        <Reveal
-          className="column col-4 flex flex-col max-xl:w-full max-xl:mt-(--vspace-1)"
-          delay={0.2}
-        >
-          <Button
-            href={`mailto:${site.email}`}
-            onClick={sayHello}
-            fullWidth
-            magnetic
-            withArrow
-            wrapperClassName="mr-[5vw] max-xl:mr-0"
-          >
-            Say Hello.
-          </Button>
 
           <AnimatePresence>
-            {status && (
+            {status === 'shown' && (
               <motion.p
                 key="email-feedback"
-                // aria-live so the confirmation is announced: for anyone who
-                // cannot see the toast, a click that silently copies is the
-                // same dead end this is meant to fix.
                 aria-live="polite"
-                className="mb-0 mr-[5vw] mt-(--vspace-0_25) text-(length:--text-xs) leading-(--vspace-0_75) text-accent max-xl:mr-0"
+                className="mb-0 mt-(--vspace-0_5) text-(length:--text-xs) leading-(--vspace-0_75) text-accent"
                 initial={{ opacity: 0, y: -6 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0 }}
                 transition={{ duration: 0.25 }}
               >
-                {status === 'copied' ? 'Copied to clipboard — ' : 'Email me at '}
-                <span className="select-all break-all text-white">{site.email}</span>
+                Email me at <span className="select-all break-all text-white">{site.email}</span>
               </motion.p>
             )}
           </AnimatePresence>
@@ -263,7 +265,7 @@ function ContactForm() {
           required
           rows={4}
           maxLength={5000}
-          placeholder="Tell me about your project, or just say hi"
+          placeholder="What is it, who is it for, rough timeline, and a link to anything that exists already"
           className={`${INPUT_CLASSES} resize-y`}
         />
       </Field>
@@ -284,6 +286,9 @@ function ContactForm() {
           </p>
         )}
       </div>
+      <p className="mb-0 mt-(--vspace-0_5) text-(length:--text-xs) leading-(--vspace-0_75) text-content-light">
+        Your details are only used to reply. No newsletter, nothing shared.
+      </p>
     </form>
   )
 }
