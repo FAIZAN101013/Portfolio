@@ -2,10 +2,8 @@ import { useRef } from 'react'
 import { motion } from 'framer-motion'
 import { Marquee } from './Marquee'
 import { Reveal } from './Reveal'
-import { Skills } from './Skills'
-import { Timelines } from './Timelines'
 import { Button } from './Button'
-import { aboutParagraphs, site } from '../data/site'
+import { aboutParagraphs, experience, site, skillGroups } from '../data/site'
 import { asset } from '../lib/asset'
 import { useParallax } from '../hooks/useParallax'
 import { skills } from '../data/skills'
@@ -103,8 +101,50 @@ export function About() {
         </Marquee>
       </div>
 
-      <Skills />
-      <Timelines />
+      {/* Skills as four short lines and experience as three rows. The
+          20-tile logo wall and the two-column timeline were a full screen each
+          and said less than this does. Education lives in the CV. */}
+      <div id="skills" className="row scroll-mt-(--header-height) pt-(--vspace-2)">
+        <div className="column col-6 max-lg:w-full">
+          <Reveal as="h2" className="text-pretitle">
+            Skills
+          </Reveal>
+          <dl className="m-0 mt-(--vspace-0_75) grid grid-cols-[auto_1fr] gap-x-6 gap-y-3 max-xs:grid-cols-1 max-xs:gap-y-1">
+            {skillGroups.map(({ label, items }) => (
+              <Reveal key={label} as="div" className="contents">
+                <dt className="text-(length:--text-xs) font-medium uppercase leading-(--vspace-0_75) tracking-[0.18em] text-accent max-xs:mt-3">
+                  {label}
+                </dt>
+                <dd className="m-0 text-(length:--text-sm) leading-(--vspace-0_75) text-content">
+                  {items}
+                </dd>
+              </Reveal>
+            ))}
+          </dl>
+        </div>
+        <div className="column col-6 max-lg:w-full max-lg:pt-(--vspace-1_5)">
+          <Reveal as="h2" className="text-pretitle">
+            Experience
+          </Reveal>
+          <ol className="m-0 mt-(--vspace-0_75) list-none divide-y divide-white/10 p-0">
+            {experience.map((entry, index) => (
+              <Reveal key={entry.title} as="li" delay={0.06 * index} className="py-4 first:pt-0">
+                <div className="flex flex-wrap items-baseline justify-between gap-x-4">
+                  <span className="font-display text-(length:--text-md) text-white">
+                    {entry.title}
+                  </span>
+                  <span className="text-(length:--text-xs) uppercase tracking-[0.15em] text-content-light">
+                    {entry.meta}
+                  </span>
+                </div>
+                <p className="m-0 mt-1 text-(length:--text-sm) leading-(--vspace-0_75) text-content">
+                  {entry.desc}
+                </p>
+              </Reveal>
+            ))}
+          </ol>
+        </div>
+      </div>
     </section>
   )
 }

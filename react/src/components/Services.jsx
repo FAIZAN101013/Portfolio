@@ -15,19 +15,19 @@ import { Button } from './Button'
 const SERVICES = [
   {
     title: 'Marketing websites',
-    desc: 'Landing pages and brand sites that present your work properly and turn visitors into enquiries — designed, built, animated and deployed on your own domain, like ornivapackaging.com.',
+    desc: 'Brand sites and landing pages that turn visitors into enquiries, deployed on your own domain. See ornivapackaging.com.',
   },
   {
     title: 'Full-stack web applications',
-    desc: 'Dashboards, admin consoles and e-commerce — real products with authentication, roles, payments and a proper database, like the enquiry pipeline behind moderndisplay.store.',
+    desc: 'Dashboards, admin consoles and catalogues with auth, roles and a real database. See the CRM behind moderndisplay.store.',
   },
   {
     title: 'UI/UX design',
-    desc: 'Figma-first design: research, wireframes and high-fidelity prototypes — either handed off, or carried straight through into the working product by the same person.',
+    desc: 'Research, wireframes and high-fidelity Figma prototypes, handed off or built by the same person. See Noted.',
   },
   {
     title: 'APIs & integrations',
-    desc: 'Node and Express backends, PostgreSQL or MongoDB data layers, and the glue work — email delivery, payment gateways, third-party APIs — wired in and tested.',
+    desc: 'Node and Express backends, PostgreSQL or MongoDB, plus email, payments and third-party APIs wired in and tested.',
   },
 ]
 
@@ -42,7 +42,7 @@ export function Services() {
           <TextReveal
             as="p"
             className="text-h1 mt-0"
-            text="I take on freelance work — from a single landing page to a full product, built end to end."
+            text="Freelance work, from a single landing page to a full product."
             delay={0.05}
           />
 
@@ -75,8 +75,8 @@ export function Services() {
             delay={0.1}
           >
             <p className="mb-0 text-(length:--text-md) font-light text-content-light">
-              Every project so far has shipped and is live — the two above are in the
-              featured row.
+              Every project on this page is live. Tell me what you need and I will say
+              how I would build it.
             </p>
             <Button href="#contact" magnetic withArrow className="btn--block-mobile shrink-0">
               Start a project

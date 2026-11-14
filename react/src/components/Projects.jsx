@@ -46,7 +46,7 @@ export function Projects() {
           <TextReveal
             as="p"
             className="text-h1 mt-0"
-            text="Here are some of my favorite projects I've worked on. Feel free to check them out."
+            text="Client sites, products and designs. The ones with a gold frame shipped for paying clients."
             delay={0.05}
           />
 

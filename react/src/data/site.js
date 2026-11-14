@@ -21,35 +21,40 @@ export const socials = [
 ]
 
 export const navLinks = [
-  { id: 'intro', label: 'Intro' },
+  { id: 'works', label: 'Work' },
   { id: 'about', label: 'About' },
-  { id: 'skills', label: 'Skills' },
-  { id: 'works', label: 'Projects' },
   { id: 'services', label: 'Services' },
-  { id: 'contact', label: 'Say Hello' },
+  { id: 'contact', label: 'Contact' },
 ]
 
 export const aboutParagraphs = [
-  `<strong>Hi there!</strong> I'm a creative developer passionate about building engaging and user-friendly digital experiences. I specialize in modern web technologies and love turning ideas into clean, interactive interfaces.`,
-  `My toolkit includes <strong>React</strong>, <strong>JavaScript</strong>, <strong>Python</strong>, and <strong>Figma</strong>, which I use for designing intuitive UI/UX flows before bringing them to life in code. I'm dedicated to crafting seamless user experiences backed by clean, well-structured code.`,
-  `<strong>Let's build something amazing together!</strong>`,
+  `I'm a software developer and UI/UX designer from Pune. I take a project from the first Figma wireframe to a live domain, and I have done that solo for paying clients: <strong>Orniva Packaging</strong>, a marketing site with an enquiry API, and <strong>Modern Display</strong>, a catalogue with a full CRM behind it.`,
+  `I work in <strong>React</strong>, <strong>Next.js</strong> and <strong>Node</strong> with PostgreSQL or Supabase underneath, and I design in <strong>Figma</strong> before I build. I'm available for freelance work and open to full-time roles.`,
+]
+
+/** Shown as four short lines under the About text, in place of a logo wall. */
+export const skillGroups = [
+  { label: 'Frontend', items: 'React, Next.js, JavaScript, Tailwind CSS, Framer Motion' },
+  { label: 'Backend', items: 'Node, Express, PostgreSQL, Prisma, Supabase, MongoDB' },
+  { label: 'Design', items: 'Figma, UI/UX research, wireframes, prototypes' },
+  { label: 'Also', items: 'Git, Playwright, Netlify, Vercel, AI-assisted development' },
 ]
 
 export const experience = [
   {
-    title: 'Freelancing',
-    meta: 'Full-Stack Developer | March 2026 - Present',
-    desc: 'Sole developer on client projects end to end — design to deployment. Shipped Orniva Packaging (ornivapackaging.com), a marketing site with an enquiry API; Modern Display (moderndisplay.store), a catalogue site with a full admin console on Next.js and PostgreSQL; and a session-booking page for an independent client.',
+    title: 'Freelance developer & designer',
+    meta: 'March 2026 – present',
+    desc: 'Orniva Packaging, Modern Display and a session-booking site, each shipped solo from design to deployment.',
   },
   {
-    title: 'Eniacworld Media Pvt ltd',
-    meta: 'UI/UX and React.js Intern | 28 March 2025 - 30 May 2025',
-    desc: 'Contributed to the development of a travel website and CRM, delivering responsive UIs and scalable backend APIs with React.js and Express.js. Worked on the TrekingMantra website and CRM.',
+    title: 'Eniacworld Media',
+    meta: 'UI/UX and React intern · Mar – May 2025',
+    desc: 'Built responsive UIs and Express APIs for the TrekingMantra travel site and its CRM.',
   },
   {
-    title: 'Varcons Tech Pvt Ltd',
-    meta: 'Full Stack Intern | Sep - Oct 2023',
-    desc: 'Built responsive web interfaces and enhanced application performance.',
+    title: 'Varcons Tech',
+    meta: 'Full-stack intern · Sep – Oct 2023',
+    desc: 'Responsive interfaces and performance work on client web apps.',
   },
 ]
 

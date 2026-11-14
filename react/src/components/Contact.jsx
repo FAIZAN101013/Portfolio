@@ -41,7 +41,7 @@ export function Contact() {
           <TextReveal
             as="p"
             className="text-h1 mt-0"
-            text="I love to hear from you. Whether you have a question or just want to chat about design, tech and art, shoot me a message."
+            text="Have a project or a role in mind? Tell me about it and I'll reply within a day."
             delay={0.05}
           />
         </div>
