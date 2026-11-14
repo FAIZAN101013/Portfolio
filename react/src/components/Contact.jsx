@@ -85,15 +85,6 @@ export function Contact() {
                 {status === 'copied' ? 'Copied' : 'Copy'}
               </button>
             </li>
-            <li>
-              <ContactLink
-                href={`https://wa.me/${site.phone.replace(/\D/g, '')}?text=${encodeURIComponent('Hi Faizan, I saw your portfolio and wanted to talk about a project.')}`}
-                icon="telephone"
-                external
-              >
-                WhatsApp {site.phone}
-              </ContactLink>
-            </li>
           </ul>
 
           <h3 className="text-pretitle mb-(--vspace-0_5) mt-(--vspace-1_5)">Elsewhere</h3>
