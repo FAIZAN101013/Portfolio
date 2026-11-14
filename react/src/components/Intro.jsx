@@ -2,6 +2,7 @@ import { useRef } from 'react'
 import { motion, useScroll, useTransform } from 'framer-motion'
 import { Button } from './Button'
 import { Icon } from './Icon'
+import { asset } from '../lib/asset'
 import { site, socials } from '../data/site'
 import { useReducedMotion } from '../hooks/useReducedMotion'
 import {
@@ -78,22 +79,23 @@ export function Intro() {
           URL bar, so a 100vh hero is always taller than the visible viewport
           and the scroll cue sits below the fold on first paint. */}
       <motion.div
-        className="row row--wide min-h-[calc(25.5*var(--space))] items-center justify-center pb-(--vspace-3) pt-[calc(6vh+var(--header-height))] max-md:min-h-[100svh] max-md:pb-(--vspace-4) max-md:pt-[calc(var(--header-height)+var(--vspace-3))]"
+        className="row row--wide min-h-[calc(25.5*var(--space))] items-center justify-center pb-(--vspace-3) pt-[calc(3vh+var(--header-height))] max-md:min-h-[100svh] max-md:pb-(--vspace-4) max-md:pt-[calc(var(--header-height)+var(--vspace-3))]"
         style={{ y: contentY, opacity: contentOpacity }}
       >
-        <div className="column">
+        <div className="column grid grid-cols-[minmax(0,1.3fr)_minmax(0,0.7fr)] items-center gap-10 max-xl:grid-cols-1 max-xl:gap-0">
+          <div>
           {/* The -6rem transform on .text-pretitle--line is what pulls the
               rule out into the gutter; keep it off the animated element so
               the two transforms don't fight. */}
           <motion.div {...slideIn(HERO_DELAY.pretitle)}>
             <div className="text-pretitle text-pretitle--line">
-              <span className="max-md:hidden">Faizan Patel · Software developer &amp; UI/UX designer</span>
-              <span className="md:hidden">Faizan Patel · Developer &amp; designer</span>
+              <span className="max-[1500px]:hidden">Faizan Patel · Software developer &amp; UI/UX designer</span>
+              <span className="min-[1500px]:hidden">Faizan Patel · Developer &amp; designer</span>
             </div>
           </motion.div>
 
           <motion.h1
-            className="text-huge-title pr-[5vw] max-md:pr-0 md:[--text-huge-multiplier:0.72] xl:[--text-huge-multiplier:0.8]"
+            className="text-huge-title pr-[5vw] max-md:pr-0 md:[--text-huge-multiplier:0.72] xl:[--text-huge-multiplier:0.58] 2xl:[--text-huge-multiplier:0.62]"
             {...slideIn(HERO_DELAY.title)}
           >
             I design and build{' '}
@@ -124,6 +126,48 @@ export function Intro() {
             <Button href="#contact" onClick={scrollTo('contact')} variant="stroke" withArrow className="btn--block-mobile">
               Hire me
             </Button>
+          </motion.div>
+
+          </div>
+
+          {/* One piece of motion above the fold: the Noted promo as a silent
+              loop, poster-only when motion is reduced. Hidden below xl so the
+              phone hero keeps its buttons above the fold. */}
+          <motion.div
+            className="relative pr-20 max-2xl:pr-14 max-xl:hidden"
+            initial={{ opacity: 0, y: 24 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: HERO_DURATION, delay: HERO_DELAY.title + 0.6, ease: EASE_IN_OUT_CUBIC }}
+          >
+            <a
+              href="/project/modal-13"
+              aria-label="Noted — expense tracker, watch the 23 second promo"
+              className="group/loop relative block overflow-hidden rounded-xl ring-1 ring-white/10 shadow-[0_30px_80px_-30px_rgba(0,0,0,.8)]"
+            >
+              {reduced ? (
+                <img src={asset('/images/noted/hero-loop-poster.jpg')} alt="" className="block aspect-video w-full object-cover" />
+              ) : (
+                <video
+                  className="block aspect-video w-full object-cover"
+                  src={asset('/project-video/noted-hero-loop.mp4')}
+                  poster={asset('/images/noted/hero-loop-poster.jpg')}
+                  autoPlay
+                  muted
+                  loop
+                  playsInline
+                  preload="metadata"
+                />
+              )}
+              <span className="absolute inset-x-0 bottom-0 flex items-center justify-between bg-linear-to-t from-black/70 to-transparent px-5 pb-4 pt-10 text-white">
+                <span>
+                  <span className="block text-[10px] uppercase tracking-[0.22em] text-accent">Latest</span>
+                  <span className="block font-display text-[18px] leading-tight">Noted — Expense Tracker</span>
+                </span>
+                <span className="grid size-9 place-items-center rounded-full border border-white/30 transition-colors group-hover/loop:border-accent group-hover/loop:bg-accent group-hover/loop:text-black">
+                  <svg viewBox="0 0 24 24" className="size-4" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
+                </span>
+              </span>
+            </a>
           </motion.div>
 
           {/* ---- mobile social row (< 800px) ---- */}
