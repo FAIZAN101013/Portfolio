@@ -1,5 +1,6 @@
-import { Fragment, useRef } from 'react'
+import { useRef } from 'react'
 import { motion, useScroll, useTransform } from 'framer-motion'
+import { Button } from './Button'
 import { Icon } from './Icon'
 import { site, socials } from '../data/site'
 import { useReducedMotion } from '../hooks/useReducedMotion'
@@ -39,10 +40,11 @@ export function Intro() {
   const sectionRef = useRef(null)
   const reduced = useReducedMotion()
 
-  const scrollToAbout = (event) => {
+  const scrollTo = (id) => (event) => {
     event.preventDefault()
-    document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' })
+    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' })
   }
+  const scrollToAbout = scrollTo('about')
 
   // 'start start' → 'end start': progress runs 0 → 1 over exactly the distance
   // it takes to scroll the hero off the top. Fading out over that span means
@@ -84,29 +86,45 @@ export function Intro() {
               rule out into the gutter; keep it off the animated element so
               the two transforms don't fight. */}
           <motion.div {...slideIn(HERO_DELAY.pretitle)}>
-            <div className="text-pretitle text-pretitle--line">Welcome</div>
+            <div className="text-pretitle text-pretitle--line">
+              <span className="max-md:hidden">Faizan Patel · Software developer &amp; UI/UX designer</span>
+              <span className="md:hidden">Faizan Patel · Developer &amp; designer</span>
+            </div>
           </motion.div>
 
           <motion.h1
             className="text-huge-title pr-[5vw] max-md:pr-0"
             {...slideIn(HERO_DELAY.title)}
           >
-            Hi, I&apos;m Faizan
-            <br />
-            <span className="relative inline-block">
-              {site.roles.map((role, index) => (
-                <Fragment key={role}>
-                  {/* The original had a newline between these two inline-block
-                      spans, which renders as a word space. JSX drops it, so it
-                      is put back explicitly. */}
-                  {index > 0 && ' '}
-                  <span className="role-word" style={{ animationDelay: `${index * 0.5}s` }}>
-                    {role}
-                  </span>
-                </Fragment>
-              ))}
-            </span>
+            I design and build{' '}
+            <br className="max-md:hidden" />
+            web apps that ship.
           </motion.h1>
+
+          <motion.p
+            className="mb-(--vspace-1) mt-0 max-w-[60rem] text-(length:--text-md) leading-relaxed text-content"
+            {...slideIn(HERO_DELAY.title + 0.25)}
+          >
+            React, Next.js and Figma, from first wireframe to live domain. Shipped{' '}
+            <a href="/project/modal-01" className="text-white underline decoration-accent/60 underline-offset-4 hover:text-accent">Orniva Packaging</a>{' '}
+            and{' '}
+            <a href="/project/modal-02" className="text-white underline decoration-accent/60 underline-offset-4 hover:text-accent">Modern Display</a>{' '}
+            for clients, and designed{' '}
+            <a href="/project/modal-13" className="text-white underline decoration-accent/60 underline-offset-4 hover:text-accent">Noted</a>{' '}
+            end to end.
+          </motion.p>
+
+          <motion.div
+            className="flex flex-wrap items-center gap-3 max-xs:flex-col max-xs:items-stretch"
+            {...slideIn(HERO_DELAY.title + 0.45)}
+          >
+            <Button href="#works" onClick={scrollTo('works')} withArrow className="btn--block-mobile">
+              See the work
+            </Button>
+            <Button href="#contact" onClick={scrollTo('contact')} variant="stroke" withArrow className="btn--block-mobile">
+              Hire me
+            </Button>
+          </motion.div>
 
           {/* ---- mobile social row (< 800px) ---- */}
           <ul className="mt-(--vspace-1) hidden list-none flex-wrap gap-3 p-0 max-md:flex">

@@ -5,13 +5,45 @@ import { projects } from '../data/projects'
 import { useReducedMotion } from '../hooks/useReducedMotion'
 import { EASE_OUT_SOFT } from '../lib/motion'
 
-const INTERVAL_MS = 15 * 1000 // a new random project every 15 seconds
-const SHOW_MS = 9 * 1000 // visible for 9s, then a short gap before the next one
+const FIRST_DELAY_MS = 25 * 1000 // let the visitor settle in first
+const RETRY_MS = 10 * 1000 // try again if the moment was wrong
+const SHOW_MS = 9 * 1000
+const SESSION_KEY = 'project-nudge-shown'
+
+function alreadyShown() {
+  try {
+    return sessionStorage.getItem(SESSION_KEY) === '1'
+  } catch {
+    return false
+  }
+}
+
+function rememberShown() {
+  try {
+    sessionStorage.setItem(SESSION_KEY, '1')
+  } catch {
+    /* storage blocked: it will simply show once per page load */
+  }
+}
 
 /**
- * One-line toast that suggests a random project every 15 seconds. It never
- * suggests the project page the visitor is already reading, and never shows
- * the same project twice in a row.
+ * True only while the visitor is in the middle of the home page: past the
+ * hero and not yet at the contact form. Anywhere else the toast would be in
+ * the way rather than helpful.
+ */
+function goodMoment() {
+  if (window.location.pathname !== '/') return false
+  const hero = document.getElementById('intro')
+  const contact = document.getElementById('contact')
+  if (!hero || !contact) return false
+  const pastHero = window.scrollY > hero.offsetHeight * 0.6
+  const contactTop = contact.getBoundingClientRect().top
+  return pastHero && contactTop > window.innerHeight * 0.8
+}
+
+/**
+ * One-line toast that suggests a random project, once per visit, while the
+ * visitor is browsing the middle of the home page.
  */
 export function ProjectNudge() {
   const { pathname } = useLocation()
@@ -19,20 +51,24 @@ export function ProjectNudge() {
   const [project, setProject] = useState(null)
 
   useEffect(() => {
-    let last = null
+    if (alreadyShown()) return undefined
+    let timer
     let hideTimer
-    const show = () => {
-      const pool = projects.filter(
-        (p) => `/project/${p.id}` !== window.location.pathname && p.id !== last,
-      )
+    const attempt = () => {
+      if (alreadyShown()) return
+      if (!goodMoment()) {
+        timer = setTimeout(attempt, RETRY_MS)
+        return
+      }
+      const pool = projects.filter((p) => !p.featured)
       const pick = pool[Math.floor(Math.random() * pool.length)]
-      last = pick.id
+      rememberShown()
       setProject(pick)
       hideTimer = setTimeout(() => setProject(null), SHOW_MS)
     }
-    const interval = setInterval(show, INTERVAL_MS)
+    timer = setTimeout(attempt, FIRST_DELAY_MS)
     return () => {
-      clearInterval(interval)
+      clearTimeout(timer)
       clearTimeout(hideTimer)
     }
   }, [])
