@@ -1,7 +1,7 @@
-import { useRef } from 'react'
+import { useRef, useState } from 'react'
 import { motion } from 'framer-motion'
 import { Link } from 'react-router-dom'
-import { getThumbnail } from '../data/projects'
+import { getPreviewVideo, getThumbnail } from '../data/projects'
 import { asset } from '../lib/asset'
 import { useParallax } from '../hooks/useParallax'
 import { useReducedMotion } from '../hooks/useReducedMotion'
@@ -25,6 +25,9 @@ const MotionLink = motion.create(Link)
  */
 export function ProjectCard({ project }) {
   const thumbnail = asset(getThumbnail(project))
+  const preview = getPreviewVideo(project)
+  const [playing, setPlaying] = useState(false)
+  const videoRef = useRef(null)
   const ref = useRef(null)
   const reduced = useReducedMotion()
 
@@ -44,6 +47,20 @@ export function ProjectCard({ project }) {
       to={`/project/${project.id}`}
       aria-label={`${project.title} — ${project.category}`}
       className="group/card block w-full"
+      onMouseEnter={() => {
+        if (!preview || reduced) return
+        setPlaying(true)
+        const v = videoRef.current
+        if (v) v.play().catch(() => {})
+      }}
+      onMouseLeave={() => {
+        setPlaying(false)
+        const v = videoRef.current
+        if (v) {
+          v.pause()
+          v.currentTime = 0
+        }
+      }}
       whileTap={reduced ? undefined : { scale: 0.985 }}
       transition={{ type: 'spring', stiffness: 400, damping: 30 }}
     >
@@ -62,6 +79,29 @@ export function ProjectCard({ project }) {
           style={{ y }}
           className="absolute left-0 top-0 h-auto w-full origin-top-left scale-[1.1] transition-transform duration-[700ms] ease-(--ease-out-soft) group-hover/card:scale-[1.14]"
         />
+        {preview && !reduced && (
+          <video
+            ref={videoRef}
+            src={asset(preview)}
+            muted
+            loop
+            playsInline
+            preload="none"
+            aria-hidden="true"
+            className={`absolute inset-0 size-full object-cover object-top transition-opacity duration-500 ${
+              playing ? 'opacity-100' : 'opacity-0'
+            }`}
+          />
+        )}
+        {preview && (
+          <span
+            aria-hidden="true"
+            className="absolute bottom-3 left-3 z-3 flex items-center gap-1.5 rounded-full bg-black/60 px-2.5 py-1 text-[10px] uppercase tracking-[0.18em] text-white backdrop-blur-sm"
+          >
+            <svg viewBox="0 0 24 24" className="size-3" fill="currentColor"><path d="M8 5v14l11-7z" /></svg>
+            Hover to play
+          </span>
+        )}
         <span
           className="absolute inset-0 bg-black/20 opacity-0 transition-opacity duration-400 group-hover/card:opacity-100 group-focus-visible/card:opacity-100"
           aria-hidden="true"

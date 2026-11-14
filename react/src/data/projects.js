@@ -121,6 +121,7 @@ export const projects = [
   },
   {
     id: 'modal-13',
+    preview: '/project-video/noted-hero-loop.mp4',
     title: 'Noted — Expense Tracker',
     category: 'Mobile App & Landing Page',
     liveDemo: 'https://getnoted-app.netlify.app/',
@@ -505,3 +506,8 @@ export const getProjectById = (id) => projects.find((p) => p.id === id)
 /** First still image, falling back to whatever media exists. */
 export const getThumbnail = (project) =>
   (project.media.find((m) => m.type === 'image') ?? project.media[0])?.src ?? ''
+
+/** Video to play on card hover: an explicit light `preview`, else the first
+ *  video in the gallery, else nothing. */
+export const getPreviewVideo = (project) =>
+  project.preview ?? project.media.find((m) => m.type === 'video')?.src ?? null
