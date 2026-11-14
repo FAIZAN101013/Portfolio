@@ -102,7 +102,7 @@ export function Projects() {
             ) : (
               <motion.div
                 layout={!reduced}
-                className="grid grid-cols-3 gap-2 max-lg:grid-cols-2 max-md:grid-cols-1"
+                className="grid grid-cols-3 gap-x-6 gap-y-10 max-lg:grid-cols-2 max-md:grid-cols-1 max-md:gap-y-8"
               >
                 <AnimatePresence mode="popLayout" initial={false}>
                   {shown.map((project, index) => (
