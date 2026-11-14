@@ -86,25 +86,25 @@ export function ProjectNudge() {
           animate={{ opacity: 1, y: 0, scale: 1 }}
           exit={{ opacity: 0, y: reduced ? 0 : 12, scale: reduced ? 1 : 0.98 }}
           transition={{ duration: reduced ? 0 : 0.45, ease: EASE_OUT_SOFT }}
-          className="fixed bottom-4 left-4 right-4 z-40 overflow-hidden rounded-xl border border-white/10 bg-[#1b1c1e]/90 shadow-[0_12px_32px_rgba(0,0,0,.4)] backdrop-blur-md sm:left-auto sm:right-6 sm:bottom-6 sm:w-[340px]"
+          className="fixed bottom-3 left-3 right-3 z-40 max-sm:left-auto max-sm:max-w-[300px] overflow-hidden rounded-xl border border-white/10 bg-[#1b1c1e]/90 shadow-[0_12px_32px_rgba(0,0,0,.4)] backdrop-blur-md sm:left-auto sm:right-6 sm:bottom-6 sm:w-[340px]"
         >
           <Link
             to={`/project/${project.id}`}
-            className="group flex items-center gap-4 px-5 py-4 pr-16 transition-colors hover:bg-white/[0.04]"
+            className="group flex items-center gap-4 px-5 py-4 pr-16 max-sm:px-4 max-sm:py-3 max-sm:pr-12 transition-colors hover:bg-white/[0.04]"
           >
             <span className="flex min-w-0 flex-1 flex-col gap-1">
               <span className="flex items-center gap-2 text-[10px] font-semibold uppercase tracking-[0.22em] text-content/80">
                 <span className="size-1.5 rounded-full bg-accent" />
                 Have you seen
               </span>
-              <span className="line-clamp-2 font-display text-[22px] leading-[1.15] text-accent">
+              <span className="line-clamp-2 font-display text-[22px] leading-[1.15] text-accent max-sm:text-[17px]">
                 {project.title}
               </span>
-              <span className="truncate text-[13px] text-content/80">{project.category}</span>
+              <span className="truncate text-[13px] text-content/80 max-sm:text-[12px]">{project.category}</span>
             </span>
             <span
               aria-hidden
-              className="absolute right-4 top-1/2 grid size-9 -translate-y-1/2 place-items-center rounded-full border border-accent/40 text-accent transition-all duration-300 group-hover:bg-accent group-hover:text-body"
+              className="absolute right-4 top-1/2 grid size-9 max-sm:right-3 max-sm:size-7 -translate-y-1/2 place-items-center rounded-full border border-accent/40 text-accent transition-all duration-300 group-hover:bg-accent group-hover:text-body"
             >
               <svg viewBox="0 0 24 24" className="size-4" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M5 12h14M13 6l6 6-6 6" />
