@@ -95,8 +95,8 @@ export const projects = [
   },
   {
     id: 'modal-04',
-    title: 'ShoNgo',
-    category: 'E-commerce Project (In Progress)',
+    title: 'ShopNGo',
+    category: 'E-commerce Web App',
     githubLink: 'https://github.com/FAIZAN101013/ShopNGo',
     liveDemo: 'https://shop-n-go.vercel.app/',
     tags: ['project'],
@@ -237,7 +237,7 @@ export const projects = [
   {
     id: 'modal-06',
     title: 'HandyMan',
-    category: 'Web Application',
+    category: 'Service Booking Platform',
     githubLink: 'https://handymangunicorn-handyman-wsgi.onrender.com/',
     tags: ['project'],
     media: [

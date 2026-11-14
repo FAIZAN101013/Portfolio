@@ -5,8 +5,7 @@ export const site = {
   roles: ['Software', 'Developer'],
   email: 'faizan.m.patel10@gmail.com',
   phone: '+918805910192',
-  cvUrl:
-    'https://drive.google.com/file/d/1-Z9lvHd8ZQ4vAf9IpsnkNeCltV36Bphm/view?usp=drive_link',
+  cvUrl: '/Faizan-Patel-Resume.pdf',
   photo: '/images/prof.jpg',
 }
 
@@ -37,24 +36,19 @@ export const skillGroups = [
   { label: 'Frontend', items: 'React, Next.js, JavaScript, Tailwind CSS, Framer Motion' },
   { label: 'Backend', items: 'Node, Express, PostgreSQL, Prisma, Supabase, MongoDB' },
   { label: 'Design', items: 'Figma, UI/UX research, wireframes, prototypes' },
-  { label: 'Also', items: 'Git, Playwright, Netlify, Vercel, AI-assisted development' },
+  { label: 'Also', items: 'Python, Django, AWS S3, Git, Playwright, Vercel, Netlify' },
 ]
 
 export const experience = [
   {
-    title: 'Freelance developer & designer',
+    title: 'Freelance full-stack developer',
     meta: 'March 2026 – present',
-    desc: 'Orniva Packaging, Modern Display and a session-booking site, each shipped solo from design to deployment.',
+    desc: 'Sole developer on moderndisplay.store, a wholesale catalogue with a built-in CRM, and ornivapackaging.com, an animated site with a stateless enquiry API.',
   },
   {
     title: 'Eniacworld Media',
-    meta: 'UI/UX and React intern · Mar – May 2025',
-    desc: 'Built responsive UIs and Express APIs for the TrekingMantra travel site and its CRM.',
-  },
-  {
-    title: 'Varcons Tech',
-    meta: 'Full-stack intern · Sep – Oct 2023',
-    desc: 'Responsive interfaces and performance work on client web apps.',
+    meta: 'Frontend developer intern · Mar – May 2025',
+    desc: 'Owned the internal admin CRM for TrekkingMantra: responsive React and Next.js interfaces, Figma designs turned into reusable components, REST APIs integrated.',
   },
 ]
 
