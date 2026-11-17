@@ -79,6 +79,11 @@ export const projects = [
     featured: true,
     media: [
       { type: 'image', src: '/images/shortlist/hero.jpg' },
+      { type: 'image', src: '/images/shortlist/app-dashboard.jpg' },
+      { type: 'image', src: '/images/shortlist/app-tracker.jpg' },
+      { type: 'image', src: '/images/shortlist/app-optimizer.jpg' },
+      { type: 'image', src: '/images/shortlist/app-builder.jpg' },
+      { type: 'image', src: '/images/shortlist/app-assistant.jpg' },
       { type: 'image', src: '/images/shortlist/pipeline.jpg' },
       { type: 'image', src: '/images/shortlist/modules.jpg' },
       { type: 'image', src: '/images/shortlist/paste-once.jpg' },
