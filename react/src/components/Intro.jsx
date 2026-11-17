@@ -1,4 +1,4 @@
-import { useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { motion, useScroll, useTransform } from 'framer-motion'
 import { Button } from './Button'
 import { Icon } from './Icon'
@@ -94,46 +94,7 @@ export function Intro() {
               <span className="max-[1500px]:hidden">Faizan Patel · Software developer &amp; UI/UX designer</span>
               <span className="min-[1500px]:hidden">Faizan Patel · Developer &amp; designer</span>
             </div>
-          <div className="group/latest relative inline-block max-md:hidden">
-            <a
-              href="/project/modal-13"
-              aria-label="Latest project: Noted, expense tracker"
-              className="flex items-center gap-3 rounded-full border border-white/10 bg-white/[0.04] py-1.5 pl-1.5 pr-4 transition-colors hover:border-accent/50 hover:bg-white/[0.07] focus-visible:border-accent/50 focus-visible:outline-none"
-            >
-              <span className="relative block h-9 w-14 shrink-0 overflow-hidden rounded-full bg-black/40">
-                {reduced ? (
-                  <img src={asset('/images/noted/hero-loop-poster.jpg')} alt="" className="size-full object-cover" />
-                ) : (
-                  <video
-                    className="size-full object-cover"
-                    src={asset('/project-video/noted-hero-loop.mp4')}
-                    poster={asset('/images/noted/hero-loop-poster.jpg')}
-                    autoPlay muted loop playsInline preload="metadata"
-                  />
-                )}
-              </span>
-              <span className="text-[11px] uppercase tracking-[0.2em] text-accent">Latest</span>
-              <span className="text-(length:--text-sm) text-white">Noted — Expense Tracker</span>
-              <span className="ml-1 text-content-light transition-transform duration-300 group-hover/latest:translate-x-1" aria-hidden>→</span>
-            </a>
-
-            {/* Popover: desktop only. Hidden on touch, where the pill is enough. */}
-            <span
-              aria-hidden
-              className="pointer-events-none absolute right-0 top-[calc(100%+14px)] z-20 w-[460px] origin-top-right scale-95 overflow-hidden rounded-xl opacity-0 shadow-[0_30px_80px_-20px_rgba(0,0,0,.85)] ring-1 ring-white/10 transition-[opacity,transform] duration-300 ease-(--ease-out-soft) group-hover/latest:scale-100 group-hover/latest:opacity-100 group-focus-within/latest:scale-100 group-focus-within/latest:opacity-100 touch:hidden max-md:hidden"
-            >
-              {reduced ? (
-                <img src={asset('/images/noted/hero-loop-poster.jpg')} alt="" className="block aspect-video w-full object-cover" />
-              ) : (
-                <video
-                  className="block aspect-video w-full object-cover"
-                  src={asset('/project-video/noted-hero-loop.mp4')}
-                  poster={asset('/images/noted/hero-loop-poster.jpg')}
-                  autoPlay muted loop playsInline preload="metadata"
-                />
-              )}
-            </span>
-          </div>
+          <LatestPill reduced={reduced} />
           </motion.div>
 
           <motion.h1
@@ -305,5 +266,86 @@ function ScrollCue({ onClick, className = '', style, withRing = false }) {
         </motion.span>
       </motion.a>
     </motion.div>
+  )
+}
+
+/** The newest work, rotating. Each entry needs a title, its page, a poster,
+ *  and optionally a silent loop. Add to the top of the list as things ship. */
+const LATEST = [
+  { id: 'modal-13', title: 'Noted — Expense Tracker', poster: '/images/noted/hero-loop-poster.jpg', video: '/project-video/noted-hero-loop.mp4' },
+  { id: 'modal-03', title: 'Shortlist', poster: '/images/shortlist/hero.jpg', video: '/project-video/shortlist-loop.mp4' },
+  { id: 'modal-figma-09', title: 'QUICKK — Brand Concept', poster: '/images/quickk/logo-on-green.jpg' },
+]
+const ROTATE_MS = 7000
+
+function LatestPill({ reduced }) {
+  const [index, setIndex] = useState(0)
+  const [paused, setPaused] = useState(false)
+  useEffect(() => {
+    if (paused || reduced) return undefined
+    const t = setInterval(() => setIndex((i) => (i + 1) % LATEST.length), ROTATE_MS)
+    return () => clearInterval(t)
+  }, [paused, reduced])
+  const item = LATEST[index]
+
+  const media = (cls) =>
+    item.video && !reduced ? (
+      <video
+        key={item.id}
+        className={cls}
+        src={asset(item.video)}
+        poster={asset(item.poster)}
+        autoPlay
+        muted
+        loop
+        playsInline
+        preload="metadata"
+      />
+    ) : (
+      <img key={item.id} src={asset(item.poster)} alt="" className={cls} />
+    )
+
+  return (
+    <div
+      className="group/latest relative inline-block max-md:hidden"
+      onMouseEnter={() => setPaused(true)}
+      onMouseLeave={() => setPaused(false)}
+      onFocus={() => setPaused(true)}
+      onBlur={() => setPaused(false)}
+    >
+      <a
+        href={`/project/${item.id}`}
+        aria-label={`Latest project: ${item.title}`}
+        className="flex items-center gap-3 rounded-full border border-white/10 bg-white/[0.04] py-1.5 pl-1.5 pr-4 transition-colors hover:border-accent/50 hover:bg-white/[0.07] focus-visible:border-accent/50 focus-visible:outline-none"
+      >
+        <span className="relative block h-9 w-14 shrink-0 overflow-hidden rounded-full bg-black/40">
+          {media('size-full object-cover')}
+        </span>
+        <span className="text-[11px] uppercase tracking-[0.2em] text-accent">Latest</span>
+        <motion.span
+          key={item.id}
+          initial={{ opacity: 0, y: 4 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.35 }}
+          className="text-(length:--text-sm) text-white"
+        >
+          {item.title}
+        </motion.span>
+        <span className="ml-1 flex items-center gap-1" aria-hidden>
+          {LATEST.map((l, i) => (
+            <span key={l.id} className={`size-1 rounded-full ${i === index ? 'bg-accent' : 'bg-white/25'}`} />
+          ))}
+        </span>
+        <span className="ml-1 text-content-light transition-transform duration-300 group-hover/latest:translate-x-1" aria-hidden>→</span>
+      </a>
+
+      {/* Popover: desktop only. Hidden on touch, where the pill is enough. */}
+      <span
+        aria-hidden
+        className="pointer-events-none absolute right-0 top-[calc(100%+14px)] z-20 w-[460px] origin-top-right scale-95 overflow-hidden rounded-xl opacity-0 shadow-[0_30px_80px_-20px_rgba(0,0,0,.85)] ring-1 ring-white/10 transition-[opacity,transform] duration-300 ease-(--ease-out-soft) group-hover/latest:scale-100 group-hover/latest:opacity-100 group-focus-within/latest:scale-100 group-focus-within/latest:opacity-100 touch:hidden max-md:hidden"
+      >
+        {media('block aspect-video w-full object-cover')}
+      </span>
+    </div>
   )
 }
