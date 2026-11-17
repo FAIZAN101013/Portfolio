@@ -165,6 +165,8 @@ export function ProjectDetail() {
           </Reveal>
         )}
 
+        {project.architecture && <Architecture arch={project.architecture} />}
+
         {project.features?.length > 0 && (
           <section className="mt-(--vspace-2)">
             <Reveal as="h2" className="text-pretitle">
@@ -491,6 +493,78 @@ function ProcessBlock({ block, index }) {
         )}
       </div>
     </Reveal>
+  )
+}
+
+/** Architecture: the request flow as a chain, the layers with what each
+ *  uses, and the decisions that shaped them. Only the parts given render. */
+function Architecture({ arch }) {
+  return (
+    <section className="mt-(--vspace-2) border-t border-hairline pt-(--vspace-1_5)">
+      <Reveal as="h2" className="text-pretitle">
+        How it&apos;s built
+      </Reveal>
+      {arch.summary && (
+        <Reveal as="p" delay={0.05} className="mb-0 mt-(--vspace-0_5) max-w-[64ch] text-(length:--text-md) leading-(--vspace-1) text-content">
+          {arch.summary}
+        </Reveal>
+      )}
+
+      {arch.flow?.length > 0 && (
+        <Reveal delay={0.1} className="mt-(--vspace-1)">
+          <h3 className="text-pretitle mb-(--vspace-0_375) text-(length:--text-xs)">Request flow</h3>
+          <ol className="m-0 flex list-none flex-wrap items-center gap-y-3 p-0">
+            {arch.flow.map((step, i) => (
+              <li key={step} className="flex items-center">
+                <span className="rounded-md border border-white/10 bg-white/[0.04] px-3.5 py-2 text-(length:--text-sm) text-white">
+                  {step}
+                </span>
+                {i < arch.flow.length - 1 && (
+                  <span aria-hidden="true" className="px-2.5 text-accent/70">→</span>
+                )}
+              </li>
+            ))}
+          </ol>
+        </Reveal>
+      )}
+
+      {arch.layers?.length > 0 && (
+        <div className="mt-(--vspace-1) grid grid-cols-4 gap-4 max-lg:grid-cols-2 max-xs:grid-cols-1">
+          {arch.layers.map((layer, i) => (
+            <Reveal key={layer.title} delay={0.06 * i} className="rounded-lg border border-white/10 bg-white/[0.02] p-5">
+              <h3 className="m-0 text-(length:--text-xs) font-medium uppercase tracking-[0.18em] text-accent">
+                {layer.title}
+              </h3>
+              <ul className="m-0 mt-3 flex list-none flex-wrap gap-1.5 p-0">
+                {layer.items.map((item) => (
+                  <li key={item} className="rounded-full border border-white/10 px-3 py-1 text-(length:--text-xs) text-white/90">
+                    {item}
+                  </li>
+                ))}
+              </ul>
+              {layer.note && (
+                <p className="mb-0 mt-3 text-(length:--text-sm) leading-(--vspace-0_75) text-content">
+                  {layer.note}
+                </p>
+              )}
+            </Reveal>
+          ))}
+        </div>
+      )}
+
+      {arch.decisions?.length > 0 && (
+        <Reveal delay={0.15} className="mt-(--vspace-1)">
+          <h3 className="text-pretitle mb-(--vspace-0_375) text-(length:--text-xs)">Decisions</h3>
+          <ul className="m-0 grid list-none grid-cols-2 gap-x-(--vspace-1_25) gap-y-(--vspace-0_5) p-0 max-lg:grid-cols-1">
+            {arch.decisions.map((d) => (
+              <li key={d} className="relative pl-6 text-(length:--text-md) leading-(--vspace-1) text-content before:absolute before:left-0 before:top-[0.6em] before:size-1.5 before:rounded-full before:bg-accent">
+                {d}
+              </li>
+            ))}
+          </ul>
+        </Reveal>
+      )}
+    </section>
   )
 }
 

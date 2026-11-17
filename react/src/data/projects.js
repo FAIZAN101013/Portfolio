@@ -10,6 +10,22 @@
 export const projects = [
   {
     id: 'modal-01',
+    architecture: {
+      summary: 'A static React site and a one-endpoint Express API. The only thing that runs on a server is the enquiry handler, and it stores nothing.',
+      flow: ['Visitor', 'React site on Netlify', 'POST /enquiry', 'Express API', 'Resend', 'Client inbox'],
+      layers: [
+        { title: 'Frontend', items: ['React 19', 'Vite', 'Tailwind CSS v4', 'Anime.js'], note: 'Single page, sections animated on scroll, static build.' },
+        { title: 'API', items: ['Express 5', 'Zod validation', 'Rate limit'], note: 'One route. Validates, sends the email, returns 200. No queue, no retries to manage.' },
+        { title: 'Email', items: ['Resend', 'Branded HTML template'], note: 'Every enquiry lands in the team inbox with the form fields laid out.' },
+        { title: 'Hosting', items: ['Netlify', 'Custom domain', 'HTTPS'], note: 'Free tier covers the traffic a manufacturer gets.' },
+      ],
+      decisions: [
+        'No database. Enquiries are emails, so the client has nothing to log into or back up.',
+        'Stateless API so a crash loses nothing and a redeploy fixes everything.',
+        'Animations in Anime.js, not a heavy motion library, to keep the bundle small on mobile.',
+        'Cookie consent before analytics, measured only with permission.',
+      ],
+    },
     brief:
       'Marketing site for a Pune manufacturer of luxury jewellery packaging, supplying 430+ brands. Built solo: an animated one-page site with a quote form that emails the team, and nothing for them to maintain.',
     facts: { Role: 'Sole developer, design to deploy', Client: 'Orniva Packaging, Pune', Year: '2026', Status: 'Live on client domain' },
@@ -42,6 +58,22 @@ export const projects = [
   },
   {
     id: 'modal-02',
+    architecture: {
+      summary: 'One Next.js app with two faces: the public catalogue, and the CRM behind NextAuth. They share a PostgreSQL database through Prisma so an enquiry on the site is a lead in the console the same second.',
+      flow: ['Buyer', 'Catalogue (Next.js)', 'Enquiry form', 'Server action', 'Prisma', 'PostgreSQL', 'CRM lead list'],
+      layers: [
+        { title: 'Frontend', items: ['Next.js App Router', 'Tailwind CSS', 'React Hook Form', 'Zod'], note: 'Public pages are server-rendered for SEO. The console is a client app behind a login.' },
+        { title: 'Auth', items: ['NextAuth', 'Role-based access', 'Middleware'], note: 'Admin, sales and viewer roles. Routes and server actions check the role, not just the UI.' },
+        { title: 'Data', items: ['PostgreSQL', 'Prisma', 'Audit log table'], note: 'Leads, quotes, notes, users. Every change writes an audit row with who, what and when.' },
+        { title: 'Quality', items: ['Playwright e2e', 'Zod schemas', 'TypeScript'], note: 'End-to-end tests cover enquiry to lead to quote.' },
+      ],
+      decisions: [
+        'No cart or checkout. Trade buyers want a quote, so the whole site funnels to one form.',
+        'Enquiries become leads in a pipeline with explicit stages, so nothing sits in an inbox.',
+        'Role checks on the server, so a hidden button is never the only protection.',
+        'Audit trail from day one, because a sales console without history is unverifiable.',
+      ],
+    },
     brief:
       'Public catalogue and enquiry form for a jewellery display manufacturer, plus a CRM behind a login where every enquiry becomes a tracked lead. Two products, one codebase, built solo.',
     facts: { Role: 'Sole developer, design to deploy', Client: 'Modern Display, Mumbai', Year: '2026', Status: 'Live on client domain' },
@@ -77,6 +109,22 @@ export const projects = [
   },
   {
     id: 'modal-03',
+    architecture: {
+      summary: 'A React single-page app on Supabase. Auth, the database and row-level security are Supabase; the AI features call a model through a small server function so the key never reaches the browser.',
+      flow: ['User', 'React app', 'Supabase Auth', 'Postgres (RLS)', 'Edge function', 'AI model', 'Back to the UI'],
+      layers: [
+        { title: 'Frontend', items: ['React', 'Vite', 'Tailwind CSS', 'Framer Motion'], note: 'Six modules in one app: tracker, optimizer, builder, prep, assistant, analytics.' },
+        { title: 'Auth', items: ['Supabase Auth', 'Google OAuth', 'Protected routes'], note: 'Email and Google sign-in with persistent sessions.' },
+        { title: 'Data', items: ['Postgres', 'Row-level security', 'CSV export'], note: 'Every row is scoped to its user by policy, not by application code.' },
+        { title: 'AI', items: ['Server-side calls', 'Prompt per module', 'JD as shared context'], note: 'The job description pasted once feeds scoring, interview prep and emails.' },
+      ],
+      decisions: [
+        'One source of truth: the job description in the tracker drives every other module.',
+        'Row-level security so a bug in the UI cannot leak another user\u2019s data.',
+        'AI calls go through a function, not the browser, so keys and prompts stay private.',
+        'Free to use, so no billing code, which kept the scope shippable.',
+      ],
+    },
     brief:
       'Your whole job search in one place: track applications, score your resume against each job description, prepare for interviews, and let AI write the follow-ups.',
     facts: { Role: 'Designer & developer', Stack: 'React, Supabase', Year: '2026', Status: 'Live, free to use' },
@@ -113,6 +161,20 @@ export const projects = [
   },
   {
     id: 'modal-04',
+    architecture: {
+      summary: 'A MERN store: React in front, Express and MongoDB behind, with Stripe and Razorpay for payment so Indian and international cards both work.',
+      flow: ['Shopper', 'React app', 'Express API', 'MongoDB', 'Stripe / Razorpay', 'Order confirmed'],
+      layers: [
+        { title: 'Frontend', items: ['React', 'React Router', 'Context for cart'], note: 'Listings, search, filters and a cart held in context so it survives navigation.' },
+        { title: 'API', items: ['Node', 'Express', 'REST routes'], note: 'Products, cart, orders and payment intents.' },
+        { title: 'Data', items: ['MongoDB', 'Mongoose'], note: 'Products and orders as documents, which suits a catalogue that changes shape.' },
+        { title: 'Payments', items: ['Stripe', 'Razorpay'], note: 'Two gateways behind one checkout so the buyer never sees the choice.' },
+      ],
+      decisions: [
+        'Cart state in React Context rather than a store library, enough for one cart.',
+        'Two payment providers to cover UPI and cards without forcing one on every buyer.',
+      ],
+    },
     title: 'ShopNGo',
     category: 'E-commerce Web App',
     githubLink: 'https://github.com/FAIZAN101013/ShopNGo',
@@ -252,6 +314,20 @@ export const projects = [
   },
   {
     id: 'modal-14',
+    architecture: {
+      summary: 'Three static sites. The Solar Co. is React with GSAP for scroll animation; Vybemation is hand-written HTML and CSS with a pinned scroll sequence; the Solar Shop gallery is a static index of design exports. All deploy on Vercel from Git.',
+      flow: ['Git push', 'Vercel build', 'Static files on the edge', 'Visitor'],
+      layers: [
+        { title: 'The Solar Co.', items: ['React', 'Vite', 'Tailwind CSS', 'GSAP'], note: 'Lead form, price-history chart, two hero versions switched by route.' },
+        { title: 'Vybemation', items: ['HTML', 'CSS', 'Vanilla JS'], note: 'Scroll-pinned hero animating a note into code, no framework.' },
+        { title: 'Solar Shop gallery', items: ['Static HTML', 'Design exports'], note: 'Rounds and variants as a browsable index.' },
+        { title: 'Hosting', items: ['Vercel'], note: 'Preview URLs per commit made client review easy.' },
+      ],
+      decisions: [
+        'No backend on any of them: a pitch has to be live in days and cost nothing to leave up.',
+        'Framework only where animation needed it; plain HTML where it did not.',
+      ],
+    },
     brief:
       'Three landing pages built as pitches for prospective clients. The deals did not close, but each is a complete, live, production-quality page.',
     facts: { Role: 'Designer & developer', Pages: '3 live sites, 2 versions of one', Year: '2026', Status: 'Live on Vercel' },
@@ -297,6 +373,20 @@ export const projects = [
   },
   {
     id: 'modal-05',
+    architecture: {
+      summary: 'A React admin console over an Express API with JWT sessions, backed by MongoDB, with Chart.js for the dashboard numbers.',
+      flow: ['Admin', 'React console', 'JWT in header', 'Express API', 'MongoDB', 'Charts'],
+      layers: [
+        { title: 'Frontend', items: ['React', 'Chart.js', 'Protected routes'], note: 'Dashboard, customers, deals and reports.' },
+        { title: 'Auth', items: ['JWT', 'bcrypt', 'Role middleware'], note: 'Token issued at login, checked on every API route.' },
+        { title: 'API', items: ['Node', 'Express', 'REST'], note: 'CRUD for customers, deals and activity.' },
+        { title: 'Data', items: ['MongoDB'], note: 'Customers, deals, notes and users.' },
+      ],
+      decisions: [
+        'JWT over sessions so the API stays stateless and easy to host anywhere.',
+        'Charts computed from the API, not in the browser, so numbers match across users.',
+      ],
+    },
     title: 'Admin CRM',
     category: 'Web Application',
     githubLink: 'https://github.com/FAIZAN101013/Admin-CRM',
@@ -325,6 +415,20 @@ export const projects = [
   ,
   {
     id: 'modal-06',
+    architecture: {
+      summary: 'A Django platform with Django REST Framework endpoints, PostgreSQL for data and AWS S3 for uploaded photos, served through Gunicorn.',
+      flow: ['Customer', 'Django views / DRF', 'PostgreSQL', 'S3 for images', 'Booking confirmed'],
+      layers: [
+        { title: 'App', items: ['Django', 'Django REST Framework', 'Templates'], note: 'Customer and provider sides share the same models.' },
+        { title: 'Auth', items: ['Django auth', 'Profiles', 'Permissions'], note: 'Customers book, providers manage requests and approvals.' },
+        { title: 'Data', items: ['PostgreSQL', 'Migrations'], note: 'Users, services, bookings, ratings and reviews.' },
+        { title: 'Files & hosting', items: ['AWS S3', 'Gunicorn', 'Render'], note: 'Profile and job photos go to S3, not the app server.' },
+      ],
+      decisions: [
+        'Images on S3 so the app server is disposable and uploads do not fill its disk.',
+        'Ratings and reviews on the booking, not the provider, so every review is tied to a real job.',
+      ],
+    },
     title: 'HandyMan',
     category: 'Service Booking Platform',
     githubLink: 'https://handymangunicorn-handyman-wsgi.onrender.com/',
@@ -346,10 +450,24 @@ export const projects = [
       'User reviews and ratings',
       'Location-based search',
     ],
-    techStack: ['HTML', 'CSS', 'JavaScript', 'Node.js', 'Express', 'MongoDB'],
+    techStack: ['Django', 'Django REST Framework', 'PostgreSQL', 'AWS S3', 'HTML', 'CSS', 'JavaScript'],
   },
   {
     id: 'modal-07',
+    architecture: {
+      summary: 'A React app with one serverless function. The function fetches a subreddit from the Reddit API, scores each post with an AFINN word list, and returns the numbers; the browser never calls Reddit directly.',
+      flow: ['User types a subreddit', 'React app', 'Vercel function', 'Reddit API', 'AFINN scoring', 'Chart'],
+      layers: [
+        { title: 'Frontend', items: ['React 19', 'Vite'], note: 'Input, loading state, and the sentiment breakdown.' },
+        { title: 'Function', items: ['Vercel Serverless', 'Reddit JSON API'], note: 'Avoids browser CORS limits and keeps request headers off the client.' },
+        { title: 'Scoring', items: ['sentiment (AFINN-165)'], note: 'A dictionary approach: fast, free and explainable, no model to host.' },
+        { title: 'Hosting', items: ['Vercel'], note: 'Static front, one function, zero servers to keep up.' },
+      ],
+      decisions: [
+        'Dictionary sentiment instead of an LLM: instant results, no cost, and you can see why a post scored the way it did.',
+        'Serverless proxy so Reddit rate limits and headers are handled in one place.',
+      ],
+    },
     title: 'The Subreddit Vibe Check',
     category: 'Web Application',
     githubLink: 'https://github.com/FAIZAN101013/subreddit-vibe-check',
@@ -394,6 +512,16 @@ export const projects = [
   },
   {
     id: 'modal-09',
+    architecture: {
+      summary: 'React front end with React Router, Express API with JWT auth, MongoDB Atlas for storage.',
+      flow: ['User', 'React (Router 7)', 'Express 5 API', 'JWT check', 'MongoDB Atlas'],
+      layers: [
+        { title: 'Frontend', items: ['React 19', 'React Router 7', 'Vite'], note: 'Lists, filters and task detail as routes.' },
+        { title: 'API', items: ['Node', 'Express 5', 'JWT'], note: 'Tasks scoped to the signed-in user on every route.' },
+        { title: 'Data', items: ['MongoDB Atlas'], note: 'Hosted cluster, no database to run locally in production.' },
+      ],
+      decisions: ['Atlas over a self-hosted database so the demo stays up without maintenance.'],
+    },
     title: 'Task Tracker',
     category: 'Web Application',
     githubLink: 'https://github.com/FAIZAN101013/task-tracker',
