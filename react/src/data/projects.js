@@ -179,15 +179,33 @@ export const projects = [
       {
         title: 'Onboarding that earns the sign-up',
         text: 'Three steps: log one spend, set a monthly number, then save progress. The account is asked for after the app has already been useful.',
+        images: [{ src: '/images/noted/brand/screens-01.jpg', caption: 'Splash, first expense, budget, save progress, first home' }],
+      },
+      {
+        title: 'One number, four tabs',
+        text: 'Home leads with what is safe to spend today. Activity, Plan and Insights sit behind a floating tab bar with the add button always in reach.',
         images: [
-          { src: '/images/noted/Container-1.png', caption: 'Step 1: the first expense' },
-          { src: '/images/noted/Container-2.png', caption: 'Step 2: a monthly budget, turned into a daily number' },
+          { src: '/images/noted/brand/screens-03.jpg', caption: 'Home, Activity, Plan and Account' },
+          { src: '/images/noted/brand/screens-04.jpg', caption: 'Add an expense, create and edit a budget, delete with undo' },
         ],
       },
       {
         title: 'Splits without the app',
-        text: 'A split sends each friend a UPI payment link. Their share counts against your budget until they pay, then drops back.',
-        images: [],
+        text: 'A split sends each friend a UPI payment link. Their share counts against your budget until they pay, then drops back. Friends never need to install anything.',
+        images: [{ src: '/images/noted/brand/screens-13.jpg', caption: 'Split an expense, send links, the friend’s payment page, the group' }],
+      },
+      {
+        title: 'The unhappy paths',
+        text: 'Empty states, no internet, failed sync and a declined payment were designed as carefully as the happy path, because that is most of what a money app shows on a bad day.',
+        images: [
+          { src: '/images/noted/brand/screens-06.jpg', caption: 'Empty states' },
+          { src: '/images/noted/brand/screens-07.jpg', caption: 'Errors and offline' },
+        ],
+      },
+      {
+        title: 'Earning the upgrade',
+        text: 'Free covers tracking and three budgets. Plus is shown at the moment it would help, with a preview of the locked feature instead of a wall.',
+        images: [{ src: '/images/noted/brand/screens-12.jpg', caption: 'Limit reached, locked preview, free vs Plus' }],
       },
     ],
     title: 'Noted — Expense Tracker',
