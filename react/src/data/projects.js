@@ -78,6 +78,7 @@ export const projects = [
     tags: ['project'],
     featured: true,
     media: [
+      { type: 'video', src: '/project-video/shortlist-loop.mp4' },
       { type: 'image', src: '/images/shortlist/hero.jpg' },
       { type: 'image', src: '/images/shortlist/app-dashboard.jpg' },
       { type: 'image', src: '/images/shortlist/app-tracker.jpg' },
