@@ -90,6 +90,7 @@ export function ProjectDetail() {
           View Figma Prototype
         </ActionButton>
       )}
+      {project.related && <RelatedButton related={project.related} />}
     </>
   )
 
@@ -341,6 +342,7 @@ function DesignDetail({ project, previous, next }) {
                 Code
               </ActionButton>
             )}
+            {project.related && <RelatedButton related={project.related} />}
           </Reveal>
         </header>
 
@@ -565,6 +567,16 @@ function Architecture({ arch }) {
         </Reveal>
       )}
     </section>
+  )
+}
+
+/** Internal link to the sibling entry: the design case study of a build, or
+ *  the build of a design. Same button, different destination. */
+function RelatedButton({ related }) {
+  return (
+    <Button to={`/project/${related.id}`} variant="stroke" withArrow className="btn--block-mobile">
+      {related.label}
+    </Button>
   )
 }
 

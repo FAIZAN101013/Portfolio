@@ -201,106 +201,47 @@ export const projects = [
   },
   {
     id: 'modal-13',
-    preview: '/project-video/noted-hero-loop.mp4',
-    brief:
-      'A personal expense tracker for India: log a spend in two taps, see what is safe to spend today, and split bills over UPI links. Designed end to end in Figma, then built.',
-    facts: {
-      Role: 'Product designer & developer',
-      Tools: 'Figma, React, Tailwind',
-      Year: '2026',
-      Deliverables: 'Brand identity, design system, 54 screens, landing page',
-    },
-    decision: `Capture a real expense before asking for an account, so the first thing a new user does is the thing the app is for. Put one number on the home screen, "safe to spend today", instead of a dashboard. Let friends pay a split through a link so they never need the app. And design the unhappy paths first: offline, sync failed, nothing logged yet, payment declined, because that is most of what a finance app actually shows.`,
-    process: [
-      {
-        title: 'Brand identity',
-        text: 'A mark that draws an N inside a rounded tile, with a lime tick for the entry you just made. Nine-page guidelines cover logo versions, clear space, colour, type, iconography and voice.',
-        images: [
-          { src: '/images/noted/brand/brand-logo.jpg', caption: 'The mark, construction and logo versions' },
-          { src: '/images/noted/brand/brand-colour.jpg', caption: 'Clear space and misuse, and the palette' },
-        ],
-      },
-      {
-        title: 'Voice',
-        text: 'Noted talks like a friend who is good with money: short, specific, never preachy. Every message in the app was written against four rules before any screen was drawn.',
-        images: [{ src: '/images/noted/brand/brand-voice.jpg', caption: 'Voice and tone, and the brand in the product' }],
-      },
-      {
-        title: 'Design system',
-        text: 'Tokens and components used across all 54 screens: colour roles, a type scale with tabular numbers for every amount, spacing, buttons, inputs, cards, navigation and feedback states.',
-        images: [
-          { src: '/images/noted/brand/system-colour.jpg', caption: 'Colour roles: brand, text, surfaces, success, warning, danger' },
-          { src: '/images/noted/brand/system-cards.jpg', caption: 'Cards, lists, navigation and feedback' },
-        ],
-      },
-      {
-        title: 'Icons',
-        text: 'Phosphor icons in three weights with one job each: regular for controls, duotone for categories, fill for the active tab.',
-        images: [{ src: '/images/noted/brand/icons-regular.jpg', caption: 'The regular set' }],
-      },
-      {
-        title: 'Onboarding that earns the sign-up',
-        text: 'Three steps: log one spend, set a monthly number, then save progress. The account is asked for after the app has already been useful.',
-        images: [{ src: '/images/noted/brand/screens-01.jpg', caption: 'Splash, first expense, budget, save progress, first home' }],
-      },
-      {
-        title: 'One number, four tabs',
-        text: 'Home leads with what is safe to spend today. Activity, Plan and Insights sit behind a floating tab bar with the add button always in reach.',
-        images: [
-          { src: '/images/noted/brand/screens-03.jpg', caption: 'Home, Activity, Plan and Account' },
-          { src: '/images/noted/brand/screens-04.jpg', caption: 'Add an expense, create and edit a budget, delete with undo' },
-        ],
-      },
-      {
-        title: 'Splits without the app',
-        text: 'A split sends each friend a UPI payment link. Their share counts against your budget until they pay, then drops back. Friends never need to install anything.',
-        images: [{ src: '/images/noted/brand/screens-13.jpg', caption: 'Split an expense, send links, the friend’s payment page, the group' }],
-      },
-      {
-        title: 'The unhappy paths',
-        text: 'Empty states, no internet, failed sync and a declined payment were designed as carefully as the happy path, because that is most of what a money app shows on a bad day.',
-        images: [
-          { src: '/images/noted/brand/screens-06.jpg', caption: 'Empty states' },
-          { src: '/images/noted/brand/screens-07.jpg', caption: 'Errors and offline' },
-        ],
-      },
-      {
-        title: 'Earning the upgrade',
-        text: 'Free covers tracking and three budgets. Plus is shown at the moment it would help, with a preview of the locked feature instead of a wall.',
-        images: [{ src: '/images/noted/brand/screens-12.jpg', caption: 'Limit reached, locked preview, free vs Plus' }],
-      },
-    ],
     title: 'Noted — Expense Tracker',
     category: 'Mobile App & Landing Page',
     liveDemo: 'https://getnoted-app.netlify.app/',
     githubLink: 'https://github.com/FAIZAN101013/noted',
-    prototypeLink:
-      'https://www.figma.com/design/RH2NGwUR4PUsPh5mgzn1s6/Noted---Expense-Tracker?node-id=44-14367&t=kRoEFssKdXUdGoJO-1',
-    embedUrl: 'https://embed.figma.com/design/RH2NGwUR4PUsPh5mgzn1s6/Noted---Expense-Tracker?node-id=44-14367&embed-host=share',
-    tags: ['project', 'design'],
+    related: { id: 'modal-figma-06', label: 'See the design case study' },
+    tags: ['project'],
+    preview: '/project-video/noted-hero-loop.mp4',
     cover: '/images/noted/landing-hero.jpg',
+    brief:
+      'A personal expense tracker for India: log a spend in two taps, see what is safe to spend today, and split bills over UPI links. Landing page live, Android app in progress.',
+    facts: { Role: 'Designer & developer', Stack: 'React, Vite, Tailwind', Year: '2026', Status: 'Landing page live, app in progress' },
     media: [
       { type: 'video', src: '/project-video/noted-promo.mp4' },
-      { type: 'image', src: '/images/noted/brand/brand-cover.jpg' },
-      { type: 'image', src: '/images/noted/brand/brand-logo.jpg' },
-      { type: 'image', src: '/images/noted/brand/brand-colour.jpg' },
-      { type: 'image', src: '/images/noted/brand/brand-type-icons.jpg' },
-      { type: 'image', src: '/images/noted/brand/system-colour.jpg' },
-      { type: 'image', src: '/images/noted/brand/system-cards.jpg' },
-      { type: 'image', src: '/images/noted/Container.png' },
+      { type: 'image', src: '/images/noted/landing-hero.jpg' },
+      { type: 'image', src: '/images/noted/landing-how.jpg' },
       { type: 'image', src: '/images/noted/3 (1).png' },
       { type: 'image', src: '/images/noted/3 (5).png' },
       { type: 'image', src: '/images/noted/3 (3).png' },
       { type: 'image', src: '/images/noted/4 (4).png' },
+      { type: 'image', src: '/images/noted/3 (8).png' },
       { type: 'image', src: '/images/noted/4 (7).png' },
-      { type: 'image', src: '/images/noted/landing-hero.jpg' },
     ],
-    description:
-      'Noted is a personal expense tracker for India: log a spend in two taps, see what is safe to spend today, split bills with friends over UPI links, and get budget alerts before you go over. I designed the whole product in Figma — logo, 60+ screens across onboarding, budgets, goals, splits, paywall and empty states — and built the landing page that ships it. Live: <a href="https://getnoted-app.netlify.app/" target="_blank" rel="noopener noreferrer">getnoted-app.netlify.app</a>',
+    description: 'Noted is a personal expense tracker for India: log a spend in two taps, see what is safe to spend today, split bills with friends over UPI links, and get budget alerts before you go over. I designed the whole product in Figma — logo, 60+ screens across onboarding, budgets, goals, splits, paywall and empty states — and built the landing page that ships it. Live: <a href="https://getnoted-app.netlify.app/" target="_blank" rel="noopener noreferrer">getnoted-app.netlify.app</a>',
     problemStatement: `Most expense apps either ask for bank access up front or bury the one number people care about: how much can I spend today? Noted had to work with no sign-up, make the first entry take seconds, and handle the messy real-world case of splitting a dinner with friends who do not have the app.`,
-    research: `Mapped the full journey from first expense to getting paid back, then designed every state along it — onboarding that captures a real entry before asking for an account, a "safe to spend today" number that does the budgeting math, split flows where friends pay via a UPI link without installing anything, plus offline, sync-failed, empty and paywall states.`,
-    result: `A complete Figma design system and screen set, a branded logo and icon, and a live landing page built in React. The Android app walkthrough is coming next.`,
+    result: `Landing page shipped on Netlify with a download call to action, how-it-works and feature sections, and the promo film. The product is fully designed and the Android build is next. The brand, design system and all 54 screens are documented in the design case study.`,
     learning: `First project where I owned the product end to end: brand, UX research, a full screen inventory in Figma, and the marketing site — and learned how much of app design is the edge cases, not the happy path.`,
+    architecture: {
+      summary: 'The landing page is a static React site. The app is designed mobile-first for Android with an offline-first data model: entries live on the phone until the user chooses to back them up.',
+      flow: ['Visitor', 'Landing page (React, Netlify)', 'Download', 'Android app', 'Local store', 'Optional sync'],
+      layers: [
+        { title: 'Landing page', items: ['React', 'Vite', 'Tailwind CSS'], note: 'Static, fast, one call to action. The promo plays inline.' },
+        { title: 'App UI', items: ['Design system', 'Phosphor icons', 'Manrope'], note: 'Every screen built from the tokens and components in the design case study.' },
+        { title: 'Data', items: ['Offline-first', 'Local store', 'Sync when signed in'], note: 'No sign-up to start. Entries stay on the device until the user opts in to backup.' },
+        { title: 'Splits', items: ['UPI payment links', 'Shareable pages'], note: 'Friends pay through a link and never need the app.' },
+      ],
+      decisions: [
+        'No account before the first entry, so the first thing a user does is the thing the app is for.',
+        'Offline first, because a money app that needs a connection to log a chai is useless on the metro.',
+        'Splits settle through UPI links, not in-app wallets, so there is nothing to top up or regulate.',
+      ],
+    },
     features: [
       'Two-tap expense entry with category chips and a numeric keypad',
       '"Safe to spend today" budgeting with per-category alerts at 80%',
@@ -310,7 +251,6 @@ export const projects = [
       'Landing page with download CTA, how-it-works and feature sections',
     ],
     techStack: ['React', 'Vite', 'Tailwind CSS', 'Netlify'],
-    tools: ['Figma'],
   },
   {
     id: 'modal-14',
@@ -605,6 +545,102 @@ It is a responsive website that is built using Bootstrap.`,
 
   /* ---------------------------- design ---------------------------- */
 
+  {
+    id: 'modal-figma-06',
+    title: 'Noted — Brand & Product Design',
+    category: 'UI/UX Design',
+    related: { id: 'modal-13', label: 'See the build' },
+    prototypeLink:
+      'https://www.figma.com/design/RH2NGwUR4PUsPh5mgzn1s6/Noted---Expense-Tracker?node-id=44-14367&t=kRoEFssKdXUdGoJO-1',
+    embedUrl:
+      'https://embed.figma.com/design/RH2NGwUR4PUsPh5mgzn1s6/Noted---Expense-Tracker?node-id=44-14367&embed-host=share',
+    tags: ['design'],
+    cover: '/images/noted/brand/brand-cover.jpg',
+    brief:
+      'The brand, design system and 54 screens for Noted, a personal expense tracker. Logo to paywall, happy path to offline, designed end to end in Figma.',
+    facts: {
+      Role: 'Product designer',
+      Tools: 'Figma',
+      Year: '2026',
+      Deliverables: 'Brand identity, design system, 54 screens, prototype',
+    },
+    media: [
+      { type: 'image', src: '/images/noted/brand/brand-cover.jpg' },
+      { type: 'image', src: '/images/noted/brand/brand-logo.jpg' },
+      { type: 'image', src: '/images/noted/brand/brand-colour.jpg' },
+      { type: 'image', src: '/images/noted/brand/brand-type-icons.jpg' },
+      { type: 'image', src: '/images/noted/brand/system-colour.jpg' },
+      { type: 'image', src: '/images/noted/brand/system-cards.jpg' },
+      { type: 'image', src: '/images/noted/Container.png' },
+      { type: 'image', src: '/images/noted/3 (1).png' },
+      { type: 'image', src: '/images/noted/3 (5).png' },
+      { type: 'image', src: '/images/noted/4 (4).png' },
+    ],
+    description: `Brand identity, design system and the full screen set for Noted, designed in Figma.`,
+    problemStatement: `Most expense apps either ask for bank access up front or bury the one number people care about: how much can I spend today? Noted had to work with no sign-up, make the first entry take seconds, and handle the messy real-world case of splitting a dinner with friends who do not have the app.`,
+    decision: `Capture a real expense before asking for an account, so the first thing a new user does is the thing the app is for. Put one number on the home screen, "safe to spend today", instead of a dashboard. Let friends pay a split through a link so they never need the app. And design the unhappy paths first: offline, sync failed, nothing logged yet, payment declined, because that is most of what a finance app actually shows.`,
+    research: `Mapped the full journey from first expense to getting paid back, then designed every state along it — onboarding that captures a real entry before asking for an account, a "safe to spend today" number that does the budgeting math, split flows where friends pay via a UPI link without installing anything, plus offline, sync-failed, empty and paywall states.`,
+    process: [
+      {
+        title: 'Brand identity',
+        text: 'A mark that draws an N inside a rounded tile, with a lime tick for the entry you just made. Nine-page guidelines cover logo versions, clear space, colour, type, iconography and voice.',
+        images: [
+          { src: '/images/noted/brand/brand-logo.jpg', caption: 'The mark, construction and logo versions' },
+          { src: '/images/noted/brand/brand-colour.jpg', caption: 'Clear space and misuse, and the palette' },
+        ],
+      },
+      {
+        title: 'Voice',
+        text: 'Noted talks like a friend who is good with money: short, specific, never preachy. Every message in the app was written against four rules before any screen was drawn.',
+        images: [{ src: '/images/noted/brand/brand-voice.jpg', caption: 'Voice and tone, and the brand in the product' }],
+      },
+      {
+        title: 'Design system',
+        text: 'Tokens and components used across all 54 screens: colour roles, a type scale with tabular numbers for every amount, spacing, buttons, inputs, cards, navigation and feedback states.',
+        images: [
+          { src: '/images/noted/brand/system-colour.jpg', caption: 'Colour roles: brand, text, surfaces, success, warning, danger' },
+          { src: '/images/noted/brand/system-cards.jpg', caption: 'Cards, lists, navigation and feedback' },
+        ],
+      },
+      {
+        title: 'Icons',
+        text: 'Phosphor icons in three weights with one job each: regular for controls, duotone for categories, fill for the active tab.',
+        images: [{ src: '/images/noted/brand/icons-regular.jpg', caption: 'The regular set' }],
+      },
+      {
+        title: 'Onboarding that earns the sign-up',
+        text: 'Three steps: log one spend, set a monthly number, then save progress. The account is asked for after the app has already been useful.',
+        images: [{ src: '/images/noted/brand/screens-01.jpg', caption: 'Splash, first expense, budget, save progress, first home' }],
+      },
+      {
+        title: 'One number, four tabs',
+        text: 'Home leads with what is safe to spend today. Activity, Plan and Insights sit behind a floating tab bar with the add button always in reach.',
+        images: [
+          { src: '/images/noted/brand/screens-03.jpg', caption: 'Home, Activity, Plan and Account' },
+          { src: '/images/noted/brand/screens-04.jpg', caption: 'Add an expense, create and edit a budget, delete with undo' },
+        ],
+      },
+      {
+        title: 'Splits without the app',
+        text: 'A split sends each friend a UPI payment link. Their share counts against your budget until they pay, then drops back. Friends never need to install anything.',
+        images: [{ src: '/images/noted/brand/screens-13.jpg', caption: 'Split an expense, send links, the friend’s payment page, the group' }],
+      },
+      {
+        title: 'The unhappy paths',
+        text: 'Empty states, no internet, failed sync and a declined payment were designed as carefully as the happy path, because that is most of what a money app shows on a bad day.',
+        images: [
+          { src: '/images/noted/brand/screens-06.jpg', caption: 'Empty states' },
+          { src: '/images/noted/brand/screens-07.jpg', caption: 'Errors and offline' },
+        ],
+      },
+      {
+        title: 'Earning the upgrade',
+        text: 'Free covers tracking and three budgets. Plus is shown at the moment it would help, with a preview of the locked feature instead of a wall.',
+        images: [{ src: '/images/noted/brand/screens-12.jpg', caption: 'Limit reached, locked preview, free vs Plus' }],
+      },
+    ],
+    tools: ['Figma'],
+  },
   {
     id: 'modal-figma-01',
     brief: 'A mobile shop for gaming accessories, designed to make comparing gear across platforms simple.',
