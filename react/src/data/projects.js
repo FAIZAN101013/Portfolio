@@ -146,14 +146,35 @@ export const projects = [
       Role: 'Product designer & developer',
       Tools: 'Figma, React, Tailwind',
       Year: '2026',
-      Deliverables: 'Logo, 60+ screens, prototype, landing page',
+      Deliverables: 'Brand identity, design system, 54 screens, landing page',
     },
     decision: `Capture a real expense before asking for an account, so the first thing a new user does is the thing the app is for. Put one number on the home screen, "safe to spend today", instead of a dashboard. Let friends pay a split through a link so they never need the app. And design the unhappy paths first: offline, sync failed, nothing logged yet, payment declined, because that is most of what a finance app actually shows.`,
     process: [
       {
-        title: 'Journey first',
-        text: 'Mapped the path from first expense to getting paid back by a friend, then designed every state along it rather than the happy path alone.',
-        images: [],
+        title: 'Brand identity',
+        text: 'A mark that draws an N inside a rounded tile, with a lime tick for the entry you just made. Nine-page guidelines cover logo versions, clear space, colour, type, iconography and voice.',
+        images: [
+          { src: '/images/noted/brand/brand-logo.jpg', caption: 'The mark, construction and logo versions' },
+          { src: '/images/noted/brand/brand-colour.jpg', caption: 'Clear space and misuse, and the palette' },
+        ],
+      },
+      {
+        title: 'Voice',
+        text: 'Noted talks like a friend who is good with money: short, specific, never preachy. Every message in the app was written against four rules before any screen was drawn.',
+        images: [{ src: '/images/noted/brand/brand-voice.jpg', caption: 'Voice and tone, and the brand in the product' }],
+      },
+      {
+        title: 'Design system',
+        text: 'Tokens and components used across all 54 screens: colour roles, a type scale with tabular numbers for every amount, spacing, buttons, inputs, cards, navigation and feedback states.',
+        images: [
+          { src: '/images/noted/brand/system-colour.jpg', caption: 'Colour roles: brand, text, surfaces, success, warning, danger' },
+          { src: '/images/noted/brand/system-cards.jpg', caption: 'Cards, lists, navigation and feedback' },
+        ],
+      },
+      {
+        title: 'Icons',
+        text: 'Phosphor icons in three weights with one job each: regular for controls, duotone for categories, fill for the active tab.',
+        images: [{ src: '/images/noted/brand/icons-regular.jpg', caption: 'The regular set' }],
       },
       {
         title: 'Onboarding that earns the sign-up',
