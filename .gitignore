@@ -19,3 +19,8 @@ build/
 # OS files
 .DS_Store
 Thumbs.db
+
+# Raw source exports kept locally; the site uses compressed copies
+images/**/*Promo*.mp4
+images/**/*Loop*.mp4
+images/shortlist/shortlist-in.vercel.app_*.png
