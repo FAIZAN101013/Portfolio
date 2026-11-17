@@ -342,6 +342,11 @@ function DesignDetail({ project, previous, next }) {
                 Code
               </ActionButton>
             )}
+            {project.downloads?.map((d) => (
+              <ActionButton key={d.url} href={d.url} variant="stroke">
+                {d.label}
+              </ActionButton>
+            ))}
             {project.related && <RelatedButton related={project.related} />}
           </Reveal>
         </header>

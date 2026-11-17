@@ -618,6 +618,7 @@ It is a responsive website that is built using Bootstrap.`,
     category: 'Brand Concept (Pitch)',
     tags: ['design'],
     cover: '/images/quickk/logo-on-green.jpg',
+    downloads: [{ label: 'Brand guide (PDF, 19 pages)', url: '/QUICKK-Brand-Guide.pdf' }],
     brief:
       'A complete brand identity package for a quick-commerce delivery startup: 19-page guidelines, logo system, app icons, favicon kit, colour tokens, rider gear with supplier spec sheets, mockups and a social kit. Built as a pitch. The client went another way.',
     facts: { Role: 'Brand designer', Client: 'Delivery startup (pitch)', Year: '2026', Status: 'Not selected' },
