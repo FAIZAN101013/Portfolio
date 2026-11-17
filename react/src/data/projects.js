@@ -77,9 +77,12 @@ export const projects = [
     liveDemo: 'https://shortlist-in.vercel.app/',
     tags: ['project'],
     featured: true,
-    // Placeholder shot of the live landing page — drop real media into
-    // images/resume-optimizer/ and list it here.
-    media: [{ type: 'image', src: '/images/resume-optimizer/home.png' }],
+    media: [
+      { type: 'image', src: '/images/shortlist/hero.jpg' },
+      { type: 'image', src: '/images/shortlist/pipeline.jpg' },
+      { type: 'image', src: '/images/shortlist/modules.jpg' },
+      { type: 'image', src: '/images/shortlist/paste-once.jpg' },
+    ],
     description:
       'Shortlist is an AI-powered career management platform that keeps your whole job search in one place — track applications, tailor your resume to each job with AI, prepare for interviews, and see what is actually working. Live demo: <a href="https://shortlist-in.vercel.app/" target="_blank" rel="noopener noreferrer">https://shortlist-in.vercel.app/</a>',
     problemStatement: `Job seekers juggle applications across spreadsheets, email threads and sticky notes — statuses get lost, follow-ups slip, and nothing shows what's actually working. Shortlist set out to put the whole search in one place: every application tracked from Applied to Offer, with AI handling the repetitive communication around it.`,
