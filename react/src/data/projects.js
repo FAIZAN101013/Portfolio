@@ -546,6 +546,114 @@ It is a responsive website that is built using Bootstrap.`,
   /* ---------------------------- design ---------------------------- */
 
   {
+    id: 'modal-figma-07',
+    title: 'Finlinks.de — Logo & Banner Package',
+    category: 'Brand & Graphic Design',
+    liveDemo: 'https://www.finlinks.de/',
+    tags: ['design', 'freelance'],
+    cover: '/images/finlinks/cover.jpg',
+    brief:
+      'A minimalist logo redesign, favicon set and a full banner package for a German finance link portal. Paid client work, delivered through Freelancer.com with a five-star review.',
+    facts: { Role: 'Brand & graphic designer', Client: 'Finlinks.de, Germany', Year: '2026', Status: 'Delivered, 5-star review' },
+    media: [
+      { type: 'image', src: '/images/finlinks/cover.jpg' },
+      { type: 'image', src: '/images/finlinks/logo-colour.jpg' },
+      { type: 'image', src: '/images/finlinks/logo-dark.jpg' },
+      { type: 'image', src: '/images/finlinks/banners-dark.jpg' },
+      { type: 'image', src: '/images/finlinks/banners-light.jpg' },
+      { type: 'image', src: '/images/finlinks/favicons.jpg' },
+    ],
+    description: `Logo redesign, favicon set and banner package for Finlinks.de.`,
+    problemStatement: `Finlinks.de collects the best German finance blogs and YouTube channels in one place. The existing mark did not scale: it broke at favicon size and had no version for dark backgrounds or partner sites. The brief was a minimalist logo that works from 16px to a billboard, plus every banner size a partner site might ask for.`,
+    decision: `Two interlocking links as the symbol, so the name is the idea. Three lockups, horizontal, stacked and symbol-only, each in colour, black, grey, white and a dark-background version, delivered as SVG and PNG at three widths. A complete favicon set with the manifest and head snippet, and twelve banner sizes in light and dark with ready embed codes, so the client could hand partners a link and nothing else.`,
+    process: [
+      { title: 'The mark', text: 'Interlocking links, drawn on a square grid so the symbol stays crisp at every size.', images: [
+        { src: '/images/finlinks/logo-colour.jpg', caption: 'Horizontal, stacked and symbol lockups in brand green' },
+        { src: '/images/finlinks/logo-dark.jpg', caption: 'Dark-background versions' },
+        { src: '/images/finlinks/logo-mono.jpg', caption: 'Black and grey for print and single-colour use' },
+      ]},
+      { title: 'Favicons', text: 'Nine sizes from 16px to 512px, apple touch icon, ICO and SVG, with the manifest and head snippet included.', images: [
+        { src: '/images/finlinks/favicons.jpg', caption: 'The full favicon set' },
+      ]},
+      { title: 'Banner package', text: 'Nine standard ad sizes, each in light and dark, with embed codes so partner sites can place them in a minute.', images: [
+        { src: '/images/finlinks/banners-dark.jpg', caption: 'Dark set' },
+        { src: '/images/finlinks/banners-light.jpg', caption: 'Light set' },
+      ]},
+    ],
+    tools: ['Figma', 'Illustrator', 'SVG'],
+  },
+  {
+    id: 'modal-figma-08',
+    title: 'LehrerLinks.net — Banner Set',
+    category: 'Brand & Graphic Design',
+    liveDemo: 'https://www.lehrerlinks.net/',
+    tags: ['design', 'freelance'],
+    cover: '/images/lehrerlinks/cover.jpg',
+    brief:
+      'Twelve banner sizes in two colourways for a German link portal for teachers. Second job for the same client, each size reviewed and signed off individually.',
+    facts: { Role: 'Graphic designer', Client: 'LehrerLinks.net, Germany', Year: '2026', Status: 'Delivered, 5-star review' },
+    media: [
+      { type: 'image', src: '/images/lehrerlinks/cover.jpg' },
+      { type: 'image', src: '/images/lehrerlinks/banners-blue.jpg' },
+      { type: 'image', src: '/images/lehrerlinks/banners-white.jpg' },
+      { type: 'image', src: '/images/lehrerlinks/leaderboards.jpg' },
+    ],
+    description: `Banner set for LehrerLinks.net: twelve sizes, blue and white, delivered as PNG at 1x and 2x plus the Figma source.`,
+    problemStatement: `LehrerLinks.net needed banners that partner sites and newsletters could drop in, from a 728×90 leaderboard down to an 80×15 micro button, and the existing logo had to read at every one of those sizes without being redrawn.`,
+    decision: `One system, scaled by rules rather than by eye: symbol height, wordmark width and spacing set per size band, so the 160×600 and the 88×31 are visibly the same family. Blue and white versions of every size, 1x and 2x exports, and a sign-off sheet where the client approved each of the twenty-four files with notes. Two tweaks came back, both to the small sizes, and both were fixed the same day.`,
+    process: [
+      { title: 'Twelve sizes, one system', text: 'Every standard web banner size from leaderboard to micro button.', images: [
+        { src: '/images/lehrerlinks/banners-blue.jpg', caption: 'Blue set' },
+        { src: '/images/lehrerlinks/banners-white.jpg', caption: 'White set' },
+      ]},
+      { title: 'Sign-off per size', text: 'The client reviewed all twenty-four files individually. The notes that came back were about the small sizes: a slightly stronger blue for the wordmark on white, and tighter spacing on the skyscraper.', images: [
+        { src: '/images/lehrerlinks/leaderboards.jpg', caption: 'Leaderboards after the sign-off tweaks' },
+      ]},
+    ],
+    tools: ['Figma', 'PNG 1x/2x', 'SVG'],
+  },
+  {
+    id: 'modal-figma-09',
+    title: 'QUICKK — Delivery Brand Concept',
+    category: 'Brand Concept (Pitch)',
+    tags: ['design'],
+    cover: '/images/quickk/delivery-handoff.jpg',
+    brief:
+      'A full brand concept for a quick-commerce delivery startup: logo, app icon, rider gear, packaging and social templates. Built as a pitch. The client went another way.',
+    facts: { Role: 'Brand designer', Client: 'Delivery startup (pitch)', Year: '2026', Status: 'Not selected' },
+    media: [
+      { type: 'image', src: '/images/quickk/delivery-handoff.jpg' },
+      { type: 'image', src: '/images/quickk/logo-on-green.jpg' },
+      { type: 'image', src: '/images/quickk/splash-board.jpg' },
+      { type: 'image', src: '/images/quickk/rider-gear-board.jpg' },
+      { type: 'image', src: '/images/quickk/rider-scooter.jpg' },
+      { type: 'image', src: '/images/quickk/overview-board.jpg' },
+      { type: 'image', src: '/images/quickk/instagram-post.jpg' },
+    ],
+    description: `Brand concept for QUICKK, a delivery startup: logo, app icon, rider uniform, packaging and social kit.`,
+    problemStatement: `A delivery brand is seen for three seconds on a moving scooter and on a bag at the door. The brief was a mark that reads at that distance, a colour the eye catches in traffic, and a kit the startup could hand to a uniform supplier and a printer on day one.`,
+    decision: `The double chevron does the work: it is the K in QUICKK, an arrow, and a symbol that reads on a helmet from across the street. Deep green with a lime accent, the opposite of the orange and red every competitor uses. The package included vector logos in every format, an app icon in light and dark, tech flats for the jacket, T-shirt, bag and box so a supplier could quote without questions, mockups on riders and gear, and social templates. The client chose a different direction. The concept stands as the most complete brand package I have produced.`,
+    process: [
+      { title: 'The mark and the colour', text: 'A double chevron as the K, in deep green and lime.', images: [
+        { src: '/images/quickk/logo-on-green.jpg', caption: 'Primary logo on green' },
+        { src: '/images/quickk/icons-mono.jpg', caption: 'App icons and monochrome versions' },
+      ]},
+      { title: 'On the rider', text: 'Jacket, helmet and bag mocked up so the client could see it in traffic, not on a slide.', images: [
+        { src: '/images/quickk/rider-gear-board.jpg', caption: 'Rider gear board' },
+        { src: '/images/quickk/rider-helmet.jpg', caption: 'Helmet' },
+        { src: '/images/quickk/rider-jacket.jpg', caption: 'Jacket' },
+      ]},
+      { title: 'Tech flats for production', text: 'Measured drawings for the jacket, T-shirt, bag, helmet and delivery box, ready for a supplier to quote.', images: [
+        { src: '/images/quickk/tech-flats.jpg', caption: 'Jacket, T-shirt, bag and helmet, delivery box', scroll: true },
+      ]},
+      { title: 'App and social', text: 'Splash screens, an Instagram post and story, and a LinkedIn banner, so launch day had assets.', images: [
+        { src: '/images/quickk/splash-screens.jpg', caption: 'Splash screens, light and dark' },
+        { src: '/images/quickk/linkedin-banner.jpg', caption: 'LinkedIn banner' },
+      ]},
+    ],
+    tools: ['Illustrator', 'Figma', 'Mockups'],
+  },
+  {
     id: 'modal-figma-06',
     title: 'Noted — Brand & Product Design',
     category: 'UI/UX Design',

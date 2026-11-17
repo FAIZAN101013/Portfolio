@@ -55,6 +55,37 @@ const STEPS = [
   { title: 'Handover', text: 'Walkthrough videos of how to use and update what I built, so you are never stuck.' },
 ]
 
+/** Real reviews, quoted as written, from Freelancer.com. */
+const REVIEWS = [
+  {
+    quote:
+      'Amazing work once again! This is my second time working with him, and I\u2019m extremely satisfied with the results. The graphics turned out fantastic, and all my revision requests were implemented perfectly. Great communication, professional work, and a smooth collaboration from start to finish. Highly recommended!',
+    name: 'Tom',
+    meta: 'LehrerLinks.net, Germany · banner set',
+    project: 'modal-figma-08',
+  },
+  {
+    quote:
+      'Great to work with. Delivered on time, explained everything as we went, and the cost was fair for what we got. Five out of five, I would recommend him.',
+    name: 'Rahil',
+    meta: 'Owner, Orniva Packaging · marketing site',
+    project: 'modal-01',
+  },
+  {
+    quote:
+      'Timely delivery and clear explanations at every step. Cost-effective for a site and a CRM together. Would recommend.',
+    name: 'Owner',
+    meta: 'Modern Display · catalogue and CRM',
+    project: 'modal-02',
+  },
+  {
+    quote: 'Thank you for your great work!',
+    name: 'Tom',
+    meta: 'Finlinks.de, Germany · logo, favicon and banner package',
+    project: 'modal-figma-07',
+  },
+]
+
 /** Scrolls to the form and preselects the matching "What do you need?" option. */
 const formHref = (service) => `#contact?need=${encodeURIComponent(service)}`
 
@@ -132,6 +163,44 @@ export function Services() {
               </Reveal>
             ))}
           </ul>
+
+          {/* What clients say */}
+          <div className="mt-(--vspace-1_5)">
+            <Reveal as="h3" className="text-pretitle">
+              What clients say
+            </Reveal>
+            <ul className="m-0 mt-(--vspace-0_75) grid list-none grid-cols-2 gap-4 p-0 max-lg:grid-cols-1">
+              {REVIEWS.map((r, i) => (
+                <Reveal
+                  as="li"
+                  key={r.project}
+                  delay={0.06 * i}
+                  className="flex flex-col rounded-lg border border-white/10 bg-white/[0.02] p-6"
+                >
+                  <span className="text-accent" aria-label="5 out of 5 stars">
+                    ★★★★★
+                  </span>
+                  <p className="mb-0 mt-3 flex-1 text-(length:--text-md) leading-(--vspace-1) text-white/90">
+                    “{r.quote}”
+                  </p>
+                  <span className="mt-4 flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
+                    <span className="text-(length:--text-sm) text-content">
+                      <span className="font-semibold text-white">{r.name}</span> · {r.meta}
+                    </span>
+                    <Link
+                      to={`/project/${r.project}`}
+                      className="text-(length:--text-xs) uppercase tracking-[0.18em] text-accent transition-colors hover:text-white"
+                    >
+                      See the work →
+                    </Link>
+                  </span>
+                </Reveal>
+              ))}
+            </ul>
+            <p className="mb-0 mt-3 text-(length:--text-xs) text-content-light">
+              Tom’s reviews are verified on Freelancer.com (5.0, 100% on time, 100% on budget). Rahil and Modern Display shared theirs directly, with permission.
+            </p>
+          </div>
 
           {/* How we work */}
           <ol className="m-0 mt-(--vspace-1_5) grid list-none grid-cols-4 gap-x-8 gap-y-6 p-0 max-lg:grid-cols-2 max-xs:grid-cols-1">
