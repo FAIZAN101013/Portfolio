@@ -62,6 +62,36 @@ export function ProjectDetail() {
   const chips = isDesign ? project.tools : project.techStack
   const chipsLabel = isDesign ? 'Tools' : 'Tech Stack'
   const result = project.result || project.learning
+  const isFreelance = project.tags.includes('freelance')
+  const brief = project.brief || firstSentences(project.description || '', 2)
+  const facts = project.facts || {
+    Role: isFreelance ? 'Sole developer, design to deploy' : 'Personal project',
+    Stack: (project.techStack || []).slice(0, 4).join(', '),
+    Status: project.liveDemo ? 'Live' : 'Code on GitHub',
+  }
+  const actions = (
+    <>
+      {project.codeLinks ? (
+        <ActionMenu label="View Project" items={project.codeLinks} />
+      ) : (
+        project.githubLink && <ActionButton href={project.githubLink}>View Project</ActionButton>
+      )}
+      {project.liveLinks ? (
+        <ActionMenu label="Live Demo" items={project.liveLinks} variant="stroke" />
+      ) : (
+        project.liveDemo && (
+          <ActionButton href={project.liveDemo} variant="stroke">
+            Live Demo
+          </ActionButton>
+        )
+      )}
+      {project.prototypeLink && (
+        <ActionButton href={project.prototypeLink} variant="stroke">
+          View Figma Prototype
+        </ActionButton>
+      )}
+    </>
+  )
 
   return (
     <main className="row flex-1 pb-(--vspace-3) pt-[calc(var(--header-height)+var(--vspace-1\_5))]">
@@ -79,32 +109,61 @@ export function ProjectDetail() {
             {project.title}
           </Reveal>
 
-          {chips?.length > 0 && (
-            <Reveal className="mt-(--vspace-0_75)" delay={0.1}>
-              <h2 className="sr-only">{chipsLabel}</h2>
-              <ul className="m-0 flex list-none flex-wrap gap-2 p-0">
-                {chips.map((chip) => (
-                  <li
-                    key={chip}
-                    className="rounded-full border border-accent/30 bg-accent/10 px-4 py-1.5 text-(length:--text-xs) font-semibold uppercase tracking-[.16em] text-accent transition-[background-color,transform] duration-300 ease-(--ease-out-soft) hover:-translate-y-0.5 hover:bg-accent/20"
-                  >
-                    {chip}
-                  </li>
-                ))}
-              </ul>
-            </Reveal>
+          {brief && (
+            <Reveal
+              as="p"
+              delay={0.1}
+              className="mb-0 mt-(--vspace-0_75) max-w-[64ch] text-(length:--text-lg) leading-(--vspace-1_25) text-content [&_a]:text-white [&_a]:underline [&_a]:underline-offset-2"
+              dangerouslySetInnerHTML={{ __html: brief }}
+            />
           )}
+
+          <Reveal delay={0.15} className="mt-(--vspace-1)">
+            <dl className="m-0 grid grid-cols-4 gap-x-8 gap-y-5 border-t border-hairline pt-(--vspace-0_75) max-lg:grid-cols-2 max-xs:grid-cols-1">
+              {Object.entries(facts).map(([label, value]) => (
+                <div key={label}>
+                  <dt className="text-(length:--text-xs) font-medium uppercase tracking-[0.18em] text-accent">
+                    {label}
+                  </dt>
+                  <dd className="m-0 mt-1 text-(length:--text-md) leading-(--vspace-1) text-white">
+                    {value}
+                  </dd>
+                </div>
+              ))}
+            </dl>
+          </Reveal>
+
+          <Reveal
+            delay={0.2}
+            className="mt-(--vspace-0_75) flex flex-wrap items-center gap-2 max-xs:flex-col max-xs:items-stretch"
+          >
+            {actions}
+          </Reveal>
         </header>
 
         <MediaGallery media={project.media} title={project.title} />
 
         {/* ---------- narrative ---------- */}
         <div className="mt-(--vspace-2) grid grid-cols-2 gap-x-(--vspace-2) gap-y-(--vspace-1_25) max-lg:grid-cols-1">
-          <Section title="Overview" html={project.description} />
-          <Section title="Problem Statement">{project.problemStatement}</Section>
-          <Section title="Research">{project.research}</Section>
-          <Section title="Result / Learning">{result}</Section>
+          <Section title="The problem">{project.problemStatement}</Section>
+          <Section title="What shipped">{result}</Section>
         </div>
+
+        {project.techStack?.length > 0 && (
+          <Reveal className="mt-(--vspace-1_25)">
+            <h2 className="text-pretitle mb-(--vspace-0_375) text-(length:--text-xs)">Built with</h2>
+            <ul className="m-0 flex list-none flex-wrap gap-2 p-0">
+              {project.techStack.map((chip) => (
+                <li
+                  key={chip}
+                  className="rounded-full border border-white/10 px-4 py-1.5 text-(length:--text-xs) uppercase tracking-[.16em] text-content"
+                >
+                  {chip}
+                </li>
+              ))}
+            </ul>
+          </Reveal>
+        )}
 
         {project.features?.length > 0 && (
           <section className="mt-(--vspace-2)">
@@ -165,32 +224,8 @@ export function ProjectDetail() {
           </section>
         )}
 
-        {/* ---------- actions ----------
-            Stacks below 500px. "View Figma Prototype" at the button's 0.35em
-            tracking is wider than a 360px viewport, and .btn is nowrap, so
-            side-by-side was pushing the page into a horizontal scroll. */}
         <Reveal className="mt-(--vspace-2) flex flex-wrap items-center gap-2 max-xs:flex-col max-xs:items-stretch">
-          {project.codeLinks ? (
-            <ActionMenu label="View Project" items={project.codeLinks} />
-          ) : (
-            project.githubLink && (
-              <ActionButton href={project.githubLink}>View Project</ActionButton>
-            )
-          )}
-          {project.liveLinks ? (
-            <ActionMenu label="Live Demo" items={project.liveLinks} variant="stroke" />
-          ) : (
-            project.liveDemo && (
-              <ActionButton href={project.liveDemo} variant="stroke">
-                Live Demo
-              </ActionButton>
-            )
-          )}
-          {project.prototypeLink && (
-            <ActionButton href={project.prototypeLink} variant="stroke">
-              View Figma Prototype
-            </ActionButton>
-          )}
+          {actions}
         </Reveal>
 
         {/* ---------- prev / next ---------- */}
@@ -215,6 +250,10 @@ export function ProjectDetail() {
    ========================================================================= */
 
 const stripHtml = (html = '') => html.replace(/<[^>]+>/g, '').replace(/\s+/g, ' ').trim()
+const firstSentences = (text = '', n = 2) => {
+  const parts = text.match(/[^.!?]+[.!?]+(\s|$)/g) || [text]
+  return parts.slice(0, n).join(' ').replace(/\s+/g, ' ').trim()
+}
 const firstSentence = (text = '') => {
   const m = text.match(/^.*?[.!?](\s|$)/)
   return (m ? m[0] : text).trim()

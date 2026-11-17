@@ -86,7 +86,7 @@ export function MediaGallery({ media = [], title }) {
                 controlsList="nodownload"
                 playsInline
                 preload="metadata"
-                className="block max-h-[62vh] w-full object-contain"
+                className="block max-h-[78vh] w-full object-contain"
               >
                 <source src={asset(current.src)} type={videoMimeType(current.src)} />
                 Your browser does not support this video format.
@@ -100,7 +100,7 @@ export function MediaGallery({ media = [], title }) {
                 // The browser's own image-drag would start a file drag and
                 // swallow the pointer before the swipe gesture ever begins.
                 draggable="false"
-                className="block max-h-[62vh] w-full select-none object-contain"
+                className="block max-h-[78vh] w-full select-none object-contain"
               />
             )}
           </motion.div>

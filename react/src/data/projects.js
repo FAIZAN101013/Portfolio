@@ -10,6 +10,9 @@
 export const projects = [
   {
     id: 'modal-01',
+    brief:
+      'Marketing site for a Pune manufacturer of luxury jewellery packaging, supplying 430+ brands. Built solo: an animated one-page site with a quote form that emails the team, and nothing for them to maintain.',
+    facts: { Role: 'Sole developer, design to deploy', Client: 'Orniva Packaging, Pune', Year: '2026', Status: 'Live on client domain' },
     title: 'Orniva Packaging',
     category: 'Freelance Project',
     liveDemo: 'https://www.ornivapackaging.com/',
@@ -39,6 +42,9 @@ export const projects = [
   },
   {
     id: 'modal-02',
+    brief:
+      'Public catalogue and enquiry form for a jewellery display manufacturer, plus a CRM behind a login where every enquiry becomes a tracked lead. Two products, one codebase, built solo.',
+    facts: { Role: 'Sole developer, design to deploy', Client: 'Modern Display, Mumbai', Year: '2026', Status: 'Live on client domain' },
     title: 'Modern Display',
     category: 'Freelance Project',
     githubLink: 'https://github.com/kundanpandey11/project-jewel',
@@ -71,6 +77,9 @@ export const projects = [
   },
   {
     id: 'modal-03',
+    brief:
+      'Your whole job search in one place: track applications, score your resume against each job description, prepare for interviews, and let AI write the follow-ups.',
+    facts: { Role: 'Designer & developer', Stack: 'React, Supabase', Year: '2026', Status: 'Live, free to use' },
     title: 'Shortlist',
     category: 'AI Career Management Platform',
     githubLink: 'https://github.com/FAIZAN101013/resume-optimizer',
@@ -205,6 +214,9 @@ export const projects = [
   },
   {
     id: 'modal-14',
+    brief:
+      'Three landing pages built as pitches for prospective clients. The deals did not close, but each is a complete, live, production-quality page.',
+    facts: { Role: 'Designer & developer', Pages: '3 live sites, 2 versions of one', Year: '2026', Status: 'Live on Vercel' },
     title: 'Landing Page Pitches',
     category: 'Landing Pages',
     liveDemo: 'https://solar-website-sage.vercel.app/',
@@ -438,13 +450,13 @@ It is a responsive website that is built using Bootstrap.`,
     // The original data pointed at wireframe1/2.png and research1/2.png, which
     // were never committed — they rendered as broken-image icons.
     wireframes: [],
-    research: `User interviews and surveys revealed that gamers struggled to compare accessories across platforms. Competitive analysis showed fragmented shopping experiences. Personas and journey maps were created to guide the design decisions.`,
+    research: `Interviews with a handful of regular buyers and a look at how the big stores handle comparison. The pattern was clear: people open three tabs and build the comparison themselves. Personas and a journey map set the order of screens.`,
     researchImages: [],
-    result: `The final design improved user task completion by 30% in usability tests. Key learnings included the importance of clear product comparison and a streamlined checkout process.`,
+    result: `Browse by platform first, compare side by side as a first-class screen, and a checkout kept to one page. In usability tests the compare task completed about 30% faster than the three-tab way people were already using.`,
     embedUrl:
       'https://embed.figma.com/proto/IeAaAl3GrbyXk4naq70zcz/Game-Accessories-App?node-id=26-2&p=f&scaling=min-zoom&content-scaling=fixed&page-id=34%3A79&starting-point-node-id=26%3A2&embed-host=share',
-    problemStatement: `Design a seamless and modern app for browsing, comparing, and purchasing gaming accessories. The goal was to solve the problem of fragmented accessory shopping experiences for gamers by providing a unified, intuitive interface.`,
-    description: `This project involved user research, wireframing, and high-fidelity prototyping in Figma. The design focuses on intuitive navigation, clear product comparison, and a modern visual style. You can view the full Figma design and prototype at <a href="https://www.figma.com/design/IeAaAl3GrbyXk4naq70zcz/Game-Accessories-App?node-id=34-79&t=jYHCqdvQziuHIGCj-1" target="_blank" rel="noopener noreferrer">this Figma link</a>.`,
+    problemStatement: `Gamers buying accessories bounce between Amazon, brand sites and forums to compare a headset or a controller across PC, PlayStation and Xbox. The brief was one app where comparing is the main action, not a feature hidden behind search.`,
+    description: `A Figma case study: research, wireframes and a high-fidelity prototype for a gaming accessories shop built around comparison.`,
     tools: ['Figma'],
     prototypeLink:
       'https://www.figma.com/design/IeAaAl3GrbyXk4naq70zcz/Game-Accessories-App?node-id=34-79&t=jYHCqdvQziuHIGCj-1',
@@ -463,13 +475,13 @@ It is a responsive website that is built using Bootstrap.`,
       { type: 'image', src: '/images/New folder/Wrie frame/Capture.PNG' },
     ],
     wireframes: ['/images/New folder/Wrie frame/Capture.PNG'],
-    research: `Designed a modern, responsive currency converter web app UI. Focused on clarity, accessibility, and ease of use for daily currency conversion needs.`,
+    research: `Started from the two things people check, today's rate and whether it has moved, and sketched layouts that put both above the fold. Wireframed before colour to settle the hierarchy.`,
     researchImages: [],
-    result: `The final design features a clean interface, real-time conversion, and a historical chart. Usability tests showed improved user satisfaction and efficiency.`,
+    result: `A single-screen converter with the amount field as the hero, a swap control between currencies, and a history chart underneath. Responsive from phone to desktop in one layout.`,
     embedUrl:
       'https://embed.figma.com/proto/1o0CpzYf5TWL7sM0FslQZX/CurrencyEx?node-id=27-105&m=dev&t=mmnZjnGxNLhRszDG-1&embed-host=share',
-    problemStatement: `Create an intuitive and visually appealing currency converter app that provides accurate, real-time exchange rates and historical data visualization.`,
-    description: `This project involved UI/UX design in Figma for a currency converter app. The design emphasizes usability, responsive layout, and a modern look. <a href="https://www.figma.com/design/1o0CpzYf5TWL7sM0FslQZX/CurrencyEx?node-id=27-105&t=Gpg4r6CTmDgAiBYC-1" target="_blank" rel="noopener noreferrer">View on Figma</a>.`,
+    problemStatement: `Most converter sites are ad-heavy and make you dig for the number. The brief was a converter you would open daily: amount in, result out, with the recent trend visible without a second click.`,
+    description: `UI design in Figma for a currency converter: wireframes, a responsive layout and a clickable prototype.`,
     tools: ['Figma'],
     prototypeLink:
       'https://www.figma.com/proto/1o0CpzYf5TWL7sM0FslQZX/CurrencyEx?node-id=37-19&p=f&t=C4eoW3oiRVXMO6yL-1&scaling=scale-down-width&content-scaling=fixed&page-id=27%3A105&starting-point-node-id=37%3A19',
@@ -483,13 +495,13 @@ It is a responsive website that is built using Bootstrap.`,
     tags: ['design'],
     media: [{ type: 'image', src: '/images/Hotel webpage UI/Home 2.png' }],
     wireframes: [],
-    research: `Designed a modern, visually appealing hotel landing page UI in Figma. Focused on user experience, clear call-to-actions, and a welcoming visual style for hospitality businesses.`,
+    research: `Looked at how booking-first hotel sites place their search bar and how far down the fold the first room appears, then built the hierarchy around the check-availability form.`,
     researchImages: [],
-    result: `The final design features a clean layout, intuitive navigation, and strong visual hierarchy to drive bookings and engagement.`,
+    result: `A hero with the booking form inside it, rooms as the first scroll, then amenities, location and reviews, each with the same call to action. One visual language throughout so the page reads as calm rather than busy.`,
     embedUrl:
       'https://embed.figma.com/proto/PBSzQvMNBiwJt4rU8iL7dR/hotel-landing-page?page-id=0%3A1&node-id=2-2&viewport=396%2C95%2C0.1&t=0TW1mW1bgc5yxKjT-1&scaling=min-zoom&content-scaling=fixed&embed-host=share',
-    problemStatement: `Create a hotel website landing page that maximizes user engagement and booking conversion through modern UI/UX principles.`,
-    description: `This project showcases a Figma-based hotel landing page UI, emphasizing a clean, modern look and user-friendly layout. <a href="https://www.figma.com/proto/PBSzQvMNBiwJt4rU8iL7dR/hotel-landing-page?page-id=0%3A1&node-id=2-2&viewport=396%2C95%2C0.1&t=0TW1mW1bgc5yxKjT-1&scaling=min-zoom&content-scaling=fixed" target="_blank" rel="noopener noreferrer">View the prototype</a>.`,
+    problemStatement: `A hotel landing page has one job: get the visitor to check availability. The brief was a page where that action is impossible to miss, and the rooms, location and reviews support it instead of competing with it.`,
+    description: `A Figma landing page for a hotel, designed around the booking form.`,
     tools: ['Figma'],
     prototypeLink:
       'https://www.figma.com/proto/PBSzQvMNBiwJt4rU8iL7dR/hotel-landing-page?page-id=0%3A1&node-id=2-2&viewport=396%2C95%2C0.1&t=0TW1mW1bgc5yxKjT-1&scaling=min-zoom&content-scaling=fixed',
@@ -509,16 +521,16 @@ It is a responsive website that is built using Bootstrap.`,
     ],
     // "Wireframe Plan.png" lives under the user-flow folder, not /wireframe.
     wireframes: ['/images/Hotel App ui/wriefrma idea and user flow/Wireframe Plan.png'],
-    research: `User research and journey mapping were conducted to understand the needs of hotel app users. The design focuses on a seamless booking experience, clear navigation, and modern UI elements.`,
+    research: `A journey map for a traveller booking a short trip exposed where people hesitate: price surprises at the last step and not knowing what the cancellation terms are. The wireframe plan maps every screen from home to cancellation before any visual design.`,
     researchImages: [
       '/images/Hotel App ui/Research/Journey Map - Scenario.png',
       '/images/Hotel App ui/Research/RESEARCH.png',
     ],
-    result: `The final design provides an intuitive hotel booking experience, with a focus on usability and visual appeal.`,
+    result: `Search, hotel, room and confirmation as four screens, with the total price visible from the room screen onward and cancellation terms on the booking itself. Wireframes first, then the high-fidelity screens.`,
     embedUrl:
       'https://embed.figma.com/design/2Gm7UIl3BE6EupRld1QRxn/Hotel--App?node-id=0-1&t=juS1qBKA9IbN3cJY-1&embed-host=share',
-    problemStatement: `Design a hotel booking app that streamlines the reservation process and enhances user satisfaction through thoughtful UI/UX.`,
-    description: `This project showcases a Figma-based hotel app UI, emphasizing a user-friendly booking flow and modern design. <a href="https://www.figma.com/design/2Gm7UIl3BE6EupRld1QRxn/Hotel--App?node-id=0-1&t=juS1qBKA9IbN3cJY-1" target="_blank" rel="noopener noreferrer">View the design</a>.`,
+    problemStatement: `Booking a room on a phone usually means a long form, unclear totals and no way to see what was reserved afterwards. The brief was a booking app that gets a guest from search to a confirmed room with as few decisions as possible.`,
+    description: `A Figma case study for a hotel booking app: journey map, wireframe plan and high-fidelity screens.`,
     tools: ['Figma'],
     prototypeLink:
       'https://www.figma.com/design/2Gm7UIl3BE6EupRld1QRxn/Hotel--App?node-id=0-1&t=juS1qBKA9IbN3cJY-1',
@@ -532,13 +544,13 @@ It is a responsive website that is built using Bootstrap.`,
     tags: ['design'],
     media: [{ type: 'image', src: '/images/tea/Desktop - 1.png' }],
     wireframes: [],
-    research: `ZenSip is a tea shop web app UI designed in Figma. The project focuses on a calming, modern aesthetic and a seamless ordering experience.`,
+    research: `Collected references from speciality tea and coffee brands, then set a palette and type scale that stay quiet, and tested how much white space the catalogue could carry before it stopped feeling like a shop.`,
     researchImages: [],
-    result: `The final design features a clean layout, intuitive navigation, and a relaxing color palette to enhance the user experience.`,
+    result: `A desktop design with generous spacing, a muted green and cream palette, and an ordering flow that stays within two screens. The calm comes from the layout, not from hiding the buttons.`,
     embedUrl:
       'https://embed.figma.com/design/VOyiRUiNyqqvJYqNYDyYrl/ZenSip?node-id=1-137&t=IHoNTQ9Nhdrz4IDw-1&embed-host=share',
-    problemStatement: `Design a tea shop web app that provides a tranquil and efficient ordering process for users.`,
-    description: `This project showcases a Figma-based tea shop UI, emphasizing a peaceful, modern look and user-friendly layout. <a href="https://www.figma.com/design/VOyiRUiNyqqvJYqNYDyYrl/ZenSip?node-id=1-137&t=IHoNTQ9Nhdrz4IDw-1" target="_blank" rel="noopener noreferrer">View the design</a>.`,
+    problemStatement: `Tea shops online tend to look like any other store. The brief was an ordering experience that feels like the product: slow, calm and simple, without making the actual ordering slower.`,
+    description: `A Figma web app design for a tea shop, built around a calm ordering flow.`,
     tools: ['Figma'],
     prototypeLink:
       'https://www.figma.com/design/VOyiRUiNyqqvJYqNYDyYrl/ZenSip?node-id=1-137&t=IHoNTQ9Nhdrz4IDw-1',
