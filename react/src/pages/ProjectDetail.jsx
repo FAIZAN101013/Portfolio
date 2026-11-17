@@ -454,9 +454,18 @@ function ProcessBlock({ block, index }) {
             {images.map((img) => {
               const src = typeof img === 'string' ? img : img.src
               const caption = typeof img === 'string' ? '' : img.caption
+              const scroll = typeof img !== 'string' && img.scroll
               return (
                 <figure key={src} className="m-0">
-                  <span className="block overflow-hidden rounded-lg border border-white/10 bg-white/[0.03]">
+                  {/* Full-page captures are thousands of pixels tall; a
+                      scrollable frame keeps them readable and keeps the
+                      in-view reveal from waiting on an element that never
+                      fits the viewport. */}
+                  <span
+                    className={`block overflow-hidden rounded-lg border border-white/10 bg-white/[0.03] ${
+                      scroll ? 'max-h-[75vh] overflow-y-auto overscroll-contain' : ''
+                    }`}
+                  >
                     <img
                       src={asset(src)}
                       alt={caption || block.title}
@@ -465,6 +474,11 @@ function ProcessBlock({ block, index }) {
                       className="block w-full object-contain"
                     />
                   </span>
+                  {scroll && (
+                    <span className="mt-1 block text-(length:--text-xs) uppercase tracking-[0.18em] text-content-light/70">
+                      Scroll inside to see the whole page
+                    </span>
+                  )}
                   {caption && (
                     <figcaption className="mt-2 text-(length:--text-xs) text-content-light">
                       {caption}
