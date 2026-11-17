@@ -55,6 +55,10 @@ export function ProjectDetail() {
   const previous = siblings[position - 1]
   const next = siblings[position + 1]
 
+  if (isDesign) {
+    return <DesignDetail project={project} previous={previous} next={next} />
+  }
+
   const chips = isDesign ? project.tools : project.techStack
   const chipsLabel = isDesign ? 'Tools' : 'Tech Stack'
   const result = project.result || project.learning
@@ -201,6 +205,239 @@ export function ProjectDetail() {
         )}
       </div>
     </main>
+  )
+}
+
+/* =========================================================================
+   Design case study layout. Reads in the order a design review happens:
+   what it is, the facts, the screens, the problem and the decision, then
+   the process work, then the live prototype. Only rows with data render.
+   ========================================================================= */
+
+const stripHtml = (html = '') => html.replace(/<[^>]+>/g, '').replace(/\s+/g, ' ').trim()
+const firstSentence = (text = '') => {
+  const m = text.match(/^.*?[.!?](\s|$)/)
+  return (m ? m[0] : text).trim()
+}
+
+function DesignDetail({ project, previous, next }) {
+  const brief = project.brief || firstSentence(stripHtml(project.description))
+  const imageCount = project.media.filter((m) => m.type === 'image').length
+  const facts = project.facts || {
+    Role: 'UI/UX designer',
+    Tools: (project.tools || ['Figma']).join(', '),
+    Deliverables: `${imageCount} screen${imageCount === 1 ? '' : 's'}, prototype`,
+  }
+  const decision = project.decision || project.result || project.learning
+
+  // Process blocks: explicit `process` wins; otherwise build from the legacy
+  // research / wireframes fields so older entries still get a section.
+  const process =
+    project.process ||
+    [
+      project.research || project.researchImages?.length
+        ? { title: 'Research', text: project.research, images: project.researchImages || [] }
+        : null,
+      project.wireframes?.length ? { title: 'Wireframes', images: project.wireframes } : null,
+    ].filter(Boolean)
+
+  return (
+    <main className="row flex-1 pb-(--vspace-3) pt-[calc(var(--header-height)+var(--vspace-1\_5))]">
+      <div className="column col-12">
+        <Reveal y={12}>
+          <BackLink />
+        </Reveal>
+
+        {/* ---------- title + brief ---------- */}
+        <header className="mt-(--vspace-1)">
+          <Reveal as="p" className="text-pretitle text-pretitle--line mb-(--vspace-0_5)">
+            {project.category}
+          </Reveal>
+          <Reveal as="h1" className="text-h1 mb-0 mt-0" delay={0.05}>
+            {project.title}
+          </Reveal>
+          {brief && (
+            <Reveal
+              as="p"
+              delay={0.1}
+              className="mb-0 mt-(--vspace-0_75) max-w-[62ch] text-(length:--text-lg) leading-(--vspace-1_25) text-content"
+            >
+              {brief}
+            </Reveal>
+          )}
+
+          {/* facts strip */}
+          <Reveal delay={0.15} className="mt-(--vspace-1)">
+            <dl className="m-0 grid grid-cols-4 gap-x-8 gap-y-5 border-y border-hairline py-(--vspace-0_75) max-lg:grid-cols-2 max-xs:grid-cols-1">
+              {Object.entries(facts).map(([label, value]) => (
+                <div key={label}>
+                  <dt className="text-(length:--text-xs) font-medium uppercase tracking-[0.18em] text-accent">
+                    {label}
+                  </dt>
+                  <dd className="m-0 mt-1 text-(length:--text-md) leading-(--vspace-1) text-white">
+                    {value}
+                  </dd>
+                </div>
+              ))}
+            </dl>
+          </Reveal>
+
+          {/* actions, up top where a visitor who only wants the file finds them */}
+          <Reveal
+            delay={0.2}
+            className="mt-(--vspace-0_75) flex flex-wrap items-center gap-2 max-xs:flex-col max-xs:items-stretch"
+          >
+            {project.prototypeLink && (
+              <ActionButton href={project.prototypeLink}>Open in Figma</ActionButton>
+            )}
+            {project.liveDemo && (
+              <ActionButton href={project.liveDemo} variant="stroke">
+                Live Site
+              </ActionButton>
+            )}
+            {project.githubLink && (
+              <ActionButton href={project.githubLink} variant="stroke">
+                Code
+              </ActionButton>
+            )}
+          </Reveal>
+        </header>
+
+        {/* ---------- the screens ---------- */}
+        <MediaGallery media={project.media} title={project.title} />
+
+        {/* ---------- problem / decision ---------- */}
+        <div className="mt-(--vspace-2) grid grid-cols-2 gap-x-(--vspace-2) gap-y-(--vspace-1_25) max-lg:grid-cols-1">
+          <Section title="The problem">{project.problemStatement}</Section>
+          <Section title="What I decided">{decision}</Section>
+        </div>
+
+        {project.techStack?.length > 0 && (
+          <Reveal className="mt-(--vspace-1_25)">
+            <h2 className="text-pretitle mb-(--vspace-0_375) text-(length:--text-xs)">Built with</h2>
+            <ul className="m-0 flex list-none flex-wrap gap-2 p-0">
+              {project.techStack.map((chip) => (
+                <li
+                  key={chip}
+                  className="rounded-full border border-white/10 px-4 py-1.5 text-(length:--text-xs) uppercase tracking-[.16em] text-content"
+                >
+                  {chip}
+                </li>
+              ))}
+            </ul>
+          </Reveal>
+        )}
+
+        {/* ---------- process ---------- */}
+        {process.length > 0 && (
+          <section className="mt-(--vspace-2) border-t border-hairline pt-(--vspace-1_5)">
+            <Reveal as="h2" className="text-pretitle">
+              Process
+            </Reveal>
+            <div className="mt-(--vspace-1) space-y-(--vspace-2)">
+              {process.map((block, index) => (
+                <ProcessBlock key={block.title} block={block} index={index} />
+              ))}
+            </div>
+          </section>
+        )}
+
+        {/* ---------- prototype ---------- */}
+        {project.embedUrl && (
+          <section className="mt-(--vspace-2)">
+            <div className="flex flex-wrap items-baseline justify-between gap-4">
+              <Reveal as="h2" className="text-pretitle mb-0">
+                Live prototype
+              </Reveal>
+              {project.prototypeLink && (
+                <a
+                  href={project.prototypeLink}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-(length:--text-xs) uppercase tracking-[0.18em] text-content-light transition-colors hover:text-accent"
+                >
+                  Not loading? Open it in Figma →
+                </a>
+              )}
+            </div>
+            <Reveal className="mt-(--vspace-0_75) overflow-hidden rounded-xl border border-white/10 bg-black/40">
+              <iframe
+                title={`${project.title} prototype`}
+                src={project.embedUrl}
+                allowFullScreen
+                loading="lazy"
+                className="block h-[640px] w-full max-lg:h-[460px] max-sm:h-[320px]"
+              />
+            </Reveal>
+          </section>
+        )}
+
+        {(previous || next) && (
+          <nav
+            aria-label="Project navigation"
+            className="mt-(--vspace-2) flex items-stretch gap-2 border-t border-hairline pt-(--vspace-1) max-sm:flex-col"
+          >
+            <PagerLink project={previous} direction="prev" />
+            <PagerLink project={next} direction="next" />
+          </nav>
+        )}
+      </div>
+    </main>
+  )
+}
+
+/** One step of the process: a heading, a sentence, then the artefacts large
+ *  enough to read. One image spans the width; more sit two across. */
+function ProcessBlock({ block, index }) {
+  const images = block.images || []
+  return (
+    <Reveal as="article" delay={index * 0.05} className="grid grid-cols-[20rem_1fr] gap-x-(--vspace-2) max-xl:grid-cols-[16rem_1fr] max-lg:grid-cols-1 max-lg:gap-y-(--vspace-0_5)">
+      <div>
+        <span className="block text-(length:--text-xs) uppercase tracking-[0.2em] text-accent">
+          {String(index + 1).padStart(2, '0')}
+        </span>
+        <h3 className="m-0 mt-1 font-display text-(length:--text-lg) leading-tight text-white">
+          {block.title}
+        </h3>
+      </div>
+      <div className="min-w-0">
+        {block.text && (
+          <p className="mb-0 max-w-[62ch] text-(length:--text-md) leading-(--vspace-1) text-content">
+            {block.text}
+          </p>
+        )}
+        {images.length > 0 && (
+          <div
+            className={`mt-(--vspace-0_75) grid gap-4 ${
+              images.length === 1 ? 'grid-cols-1' : 'grid-cols-2 max-md:grid-cols-1'
+            }`}
+          >
+            {images.map((img) => {
+              const src = typeof img === 'string' ? img : img.src
+              const caption = typeof img === 'string' ? '' : img.caption
+              return (
+                <figure key={src} className="m-0">
+                  <span className="block overflow-hidden rounded-lg border border-white/10 bg-white/[0.03]">
+                    <img
+                      src={asset(src)}
+                      alt={caption || block.title}
+                      loading="lazy"
+                      decoding="async"
+                      className="block w-full object-contain"
+                    />
+                  </span>
+                  {caption && (
+                    <figcaption className="mt-2 text-(length:--text-xs) text-content-light">
+                      {caption}
+                    </figcaption>
+                  )}
+                </figure>
+              )
+            })}
+          </div>
+        )}
+      </div>
+    </Reveal>
   )
 }
 
