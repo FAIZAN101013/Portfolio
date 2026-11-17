@@ -217,22 +217,22 @@ export const projects = [
     embedUrl:
       'https://embed.figma.com/design/RH2NGwUR4PUsPh5mgzn1s6/Noted---Expense-Tracker?node-id=44-14367&embed-host=share',
     tags: ['project', 'design'],
+    cover: '/images/noted/landing-hero.jpg',
     media: [
       { type: 'video', src: '/project-video/noted-promo.mp4' },
-      { type: 'image', src: '/images/noted/landing-hero.jpg' },
-      { type: 'image', src: '/images/noted/landing-how.jpg' },
+      { type: 'image', src: '/images/noted/brand/brand-cover.jpg' },
+      { type: 'image', src: '/images/noted/brand/brand-logo.jpg' },
+      { type: 'image', src: '/images/noted/brand/brand-colour.jpg' },
+      { type: 'image', src: '/images/noted/brand/brand-type-icons.jpg' },
+      { type: 'image', src: '/images/noted/brand/system-colour.jpg' },
+      { type: 'image', src: '/images/noted/brand/system-cards.jpg' },
       { type: 'image', src: '/images/noted/Container.png' },
       { type: 'image', src: '/images/noted/3 (1).png' },
-      { type: 'image', src: '/images/noted/Container-1.png' },
-      { type: 'image', src: '/images/noted/Container-2.png' },
       { type: 'image', src: '/images/noted/3 (5).png' },
-      { type: 'image', src: '/images/noted/3 (6).png' },
       { type: 'image', src: '/images/noted/3 (3).png' },
-      { type: 'image', src: '/images/noted/3 (8).png' },
-      { type: 'image', src: '/images/noted/3 (11).png' },
       { type: 'image', src: '/images/noted/4 (4).png' },
       { type: 'image', src: '/images/noted/4 (7).png' },
-      { type: 'image', src: '/images/noted/4 (3).png' },
+      { type: 'image', src: '/images/noted/landing-hero.jpg' },
     ],
     description:
       'Noted is a personal expense tracker for India: log a spend in two taps, see what is safe to spend today, split bills with friends over UPI links, and get budget alerts before you go over. I designed the whole product in Figma — logo, 60+ screens across onboarding, budgets, goals, splits, paywall and empty states — and built the landing page that ships it. Live: <a href="https://getnoted-app.netlify.app/" target="_blank" rel="noopener noreferrer">getnoted-app.netlify.app</a>',
@@ -604,7 +604,7 @@ export const getProjectById = (id) => projects.find((p) => p.id === id)
 
 /** First still image, falling back to whatever media exists. */
 export const getThumbnail = (project) =>
-  (project.media.find((m) => m.type === 'image') ?? project.media[0])?.src ?? ''
+  project.cover ?? ((project.media.find((m) => m.type === 'image') ?? project.media[0])?.src ?? '')
 
 /** Video to play on card hover: an explicit light `preview`, else the first
  *  video in the gallery, else nothing. */
