@@ -71,18 +71,18 @@ export const projects = [
   },
   {
     id: 'modal-03',
-    title: 'JoBz',
+    title: 'Shortlist',
     category: 'AI Career Management Platform',
     githubLink: 'https://github.com/FAIZAN101013/resume-optimizer',
-    liveDemo: 'https://resume-optimizer-topaz-eight.vercel.app/',
+    liveDemo: 'https://shortlist-in.vercel.app/',
     tags: ['project'],
     featured: true,
     // Placeholder shot of the live landing page — drop real media into
     // images/resume-optimizer/ and list it here.
     media: [{ type: 'image', src: '/images/resume-optimizer/home.png' }],
     description:
-      'JoBz is an AI-powered career management platform that keeps your whole job search in one place — track applications, tailor your resume to each job with AI, prepare for interviews, and see what is actually working. Live demo: <a href="https://resume-optimizer-topaz-eight.vercel.app/" target="_blank" rel="noopener noreferrer">https://resume-optimizer-topaz-eight.vercel.app/</a>',
-    problemStatement: `Job seekers juggle applications across spreadsheets, email threads and sticky notes — statuses get lost, follow-ups slip, and nothing shows what's actually working. JoBz set out to put the whole search in one place: every application tracked from Applied to Offer, with AI handling the repetitive communication around it.`,
+      'Shortlist is an AI-powered career management platform that keeps your whole job search in one place — track applications, tailor your resume to each job with AI, prepare for interviews, and see what is actually working. Live demo: <a href="https://shortlist-in.vercel.app/" target="_blank" rel="noopener noreferrer">https://shortlist-in.vercel.app/</a>',
+    problemStatement: `Job seekers juggle applications across spreadsheets, email threads and sticky notes — statuses get lost, follow-ups slip, and nothing shows what's actually working. Shortlist set out to put the whole search in one place: every application tracked from Applied to Offer, with AI handling the repetitive communication around it.`,
     learning: `Built to level up on Supabase as a full backend — auth with email and Google OAuth, protected routes, and per-user data — and on shipping a SaaS-style product end to end: landing page, dashboard, and an AI writing feature that people can actually use.`,
     features: [
       'Job tracker with Applied → Interview → Offer → Rejected stages and CSV export',
