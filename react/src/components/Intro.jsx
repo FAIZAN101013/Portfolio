@@ -274,7 +274,7 @@ function ScrollCue({ onClick, className = '', style, withRing = false }) {
 const LATEST = [
   { id: 'modal-13', title: 'Noted — Expense Tracker', poster: '/images/noted/hero-loop-poster.jpg', video: '/project-video/noted-hero-loop.mp4' },
   { id: 'modal-03', title: 'Shortlist', poster: '/images/shortlist/hero.jpg', video: '/project-video/shortlist-loop.mp4' },
-  { id: 'modal-figma-09', title: 'QUICKK — Brand Concept', poster: '/images/quickk/logo-on-green.jpg' },
+  { id: 'modal-figma-09', title: 'QUICKK — Brand Concept', poster: '/images/quickk/delivery-handoff.jpg' },
 ]
 const ROTATE_MS = 7000
 
