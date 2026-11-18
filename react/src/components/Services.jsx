@@ -36,7 +36,7 @@ const SERVICES = [
     title: 'UI/UX design',
     desc: 'Research, wireframes and high-fidelity Figma prototypes, handed off or built by the same person.',
     timeline: '1 to 3 weeks',
-    proof: { id: 'modal-13', label: 'Noted, 60+ screens', image: '/images/noted/landing-hero.jpg' },
+    proof: { id: 'modal-13', label: 'Noted, 54 screens', image: '/images/noted/landing-hero.jpg' },
     form: 'UI/UX design',
   },
   {

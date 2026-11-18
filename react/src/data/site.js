@@ -28,7 +28,7 @@ export const navLinks = [
 ]
 
 export const aboutParagraphs = [
-  `I'm a software developer and UI/UX designer from Pune. I take a project from the first Figma wireframe to a live domain, and I have done that solo for paying clients: <strong>Orniva Packaging</strong>, a marketing site with an enquiry API, and <strong>Modern Display</strong>, a catalogue with a full CRM behind it.`,
+  `I'm a full-stack developer from Pune who also designs. I take a project from the first Figma wireframe to a live domain, and I have done that solo for paying clients: <strong>Orniva Packaging</strong>, a marketing site with an enquiry API, and <strong>Modern Display</strong>, a catalogue with a full CRM behind it.`,
   `I work in <strong>React</strong>, <strong>Next.js</strong> and <strong>Node</strong> with PostgreSQL or Supabase underneath, and I design in <strong>Figma</strong> before I build. I'm available for freelance work and open to full-time roles.`,
 ]
 

@@ -46,7 +46,10 @@ export function Skills() {
                 }}
               >
                 <SkillIcon skill={skill} />
-                <p className="m-0 text-center text-(length:--text-sm) leading-(--vspace-0_75) text-white/90 transition-colors group-hover:text-white max-md:text-[10px] max-md:leading-[1.4]">
+                {/* Every label reserves two lines, so a card with a wrapping
+                    name (AI Development) can't make its row taller than the
+                    rest — all cards stay exactly the same size. */}
+                <p className="m-0 flex min-h-[2lh] items-center justify-center text-center text-(length:--text-sm) leading-(--vspace-0_75) text-white/90 transition-colors group-hover:text-white max-md:text-[10px] max-md:leading-[1.4]">
                   {skill.name}
                 </p>
               </motion.li>
@@ -59,33 +62,35 @@ export function Skills() {
 }
 
 function SkillIcon({ skill }) {
+  // Every icon lives in the same fixed-height slot and is normalised to one
+  // visual size: a uniform height, with a width cap so wide marks (MySQL's
+  // dolphin, the Express wordmark) can't sprawl larger than the square ones.
   // `invert` flips black monochrome logos (Next.js, Express, GitHub) to white
   // so they read against the dark card background.
-  const className = `mb-4 size-[60px] transition-transform duration-300 ease-(--ease-out-soft) group-hover:scale-110 max-md:mb-2 max-md:size-8${skill.invert ? ' invert' : ''}`
-
-  if (skill.svg) {
-    return (
-      <svg
-        className={className}
-        viewBox={skill.svg.viewBox}
-        xmlns="http://www.w3.org/2000/svg"
-        aria-hidden="true"
-      >
-        <path d={skill.svg.d} fill={skill.svg.fill} />
-      </svg>
-    )
-  }
+  const iconClasses = `h-[48px] w-auto max-w-[58px] object-contain transition-transform duration-300 ease-(--ease-out-soft) group-hover:scale-110 max-md:h-7 max-md:max-w-9${
+    skill.invert ? ' invert' : ''
+  }`
 
   return (
-    <img
-      src={skill.icon}
-      alt=""
-      width="60"
-      height="60"
-      loading="lazy"
-      decoding="async"
-      className={className}
+    <span
+      className="mb-4 flex h-[52px] w-full items-center justify-center max-md:mb-2 max-md:h-8"
       aria-hidden="true"
-    />
+    >
+      {skill.svg ? (
+        <svg className={iconClasses} viewBox={skill.svg.viewBox} xmlns="http://www.w3.org/2000/svg">
+          <path d={skill.svg.d} fill={skill.svg.fill} />
+        </svg>
+      ) : (
+        <img
+          src={skill.icon}
+          alt=""
+          width="48"
+          height="48"
+          loading="lazy"
+          decoding="async"
+          className={iconClasses}
+        />
+      )}
+    </span>
   )
 }

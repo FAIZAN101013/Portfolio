@@ -13,8 +13,8 @@ const INITIAL_COUNT = 6
 const INCREMENT = 3
 
 const TABS = [
-  { key: 'projects', label: 'Projects', tag: 'project' },
-  { key: 'design', label: 'Design Projects', tag: 'design' },
+  { key: 'projects', label: 'Code', tag: 'project' },
+  { key: 'design', label: 'Design', tag: 'design' },
 ]
 
 export function Projects() {

@@ -30,7 +30,7 @@ export const projects = [
       'Marketing site for a Pune manufacturer of luxury jewellery packaging, supplying 430+ brands. Built solo: an animated one-page site with a quote form that emails the team, and nothing for them to maintain.',
     facts: { Role: 'Sole developer, design to deploy', Client: 'Orniva Packaging, Pune', Year: '2026', Status: 'Live on client domain' },
     title: 'Orniva Packaging',
-    category: 'Freelance Project',
+    category: 'Client · Marketing site',
     liveDemo: 'https://www.ornivapackaging.com/',
     tags: ['project', 'freelance'],
     featured: true,
@@ -43,8 +43,7 @@ export const projects = [
       { type: 'image', src: '/images/orniva/Screenshot (1618).png' },
       { type: 'image', src: '/images/orniva/Screenshot (1620).png' },
     ],
-    description:
-      'Marketing site for Orniva Packaging — a Pune manufacturer of luxury jewelry boxes, cases, trays and pouches. Built end to end as the sole developer: an animated one-page site backed by an enquiry API that emails every quote request straight to the team, with nothing to host but the site itself — no database, no admin, no maintenance. Live: <a href="https://www.ornivapackaging.com/" target="_blank" rel="noopener noreferrer">ornivapackaging.com</a>',
+    description: `Marketing site for Orniva Packaging, a Pune manufacturer of luxury jewellery boxes, trays and pouches supplying 430+ brands. Built solo: an animated one-page site with a quote form that emails the team, and nothing for them to maintain. Live at <a href="https://www.ornivapackaging.com/" target="_blank" rel="noopener noreferrer">ornivapackaging.com</a>.`,
     problemStatement: `A manufacturer supplying 430+ brands had no real web presence. They didn't need an online shop — they needed a site that presents the craft well enough for luxury clients and turns visitors into quote enquiries, without saddling a non-technical team with anything to maintain.`,
     result: `Delivered solo, from design to deployment, and running live for the client. The enquiry pipeline is deliberately stateless — form → API → email via Resend, nothing stored — so there is no database to break and nothing for the client to operate. My first production freelance build where the architecture decision was about the client's maintenance budget, not the tech.`,
     features: [
@@ -78,7 +77,7 @@ export const projects = [
       'Public catalogue and enquiry form for a jewellery display manufacturer, plus a CRM behind a login where every enquiry becomes a tracked lead. Two products, one codebase, built solo.',
     facts: { Role: 'Sole developer, design to deploy', Client: 'Modern Display, Mumbai', Year: '2026', Status: 'Live on client domain' },
     title: 'Modern Display',
-    category: 'Freelance Project',
+    category: 'Client · Catalogue + CRM',
     githubLink: 'https://github.com/kundanpandey11/project-jewel',
     liveDemo: 'https://moderndisplay.store/',
     tags: ['project', 'freelance'],
@@ -92,8 +91,7 @@ export const projects = [
       { type: 'image', src: '/images/moderndisplay/Screenshot (1632).png' },
       { type: 'image', src: '/images/moderndisplay/Screenshot (1634).png' },
     ],
-    description:
-      'Marketing site and business console for Modern Display — a manufacturer of luxury jewellery displays and packaging. Two products in one codebase, built solo: the public catalogue with an enquiry form (trade and wholesale only — no cart, no checkout, by design), and a full CRM behind a login where those enquiries become leads — a pipeline that tracks every enquiry from new to quoted, quote and note management on each lead, user administration with role-based access, and an audit trail of every change. Live: <a href="https://moderndisplay.store/" target="_blank" rel="noopener noreferrer">moderndisplay.store</a>',
+    description: `Public catalogue and enquiry form for Modern Display, a jewellery display manufacturer, plus a CRM behind a login where every enquiry becomes a tracked lead. Two products, one codebase, built solo. Live at <a href="https://moderndisplay.store/" target="_blank" rel="noopener noreferrer">moderndisplay.store</a>.`,
     problemStatement: `A trade manufacturer doesn't sell to consumers, so an online shop was the wrong product. The house needed its catalogue to bring in qualified wholesale enquiries — and then a real system for handling them, because enquiries scattered across inboxes don't become quotes.`,
     result: `Shipped both halves solo and live on the client's domain — the enquiry-first public site and the console their team actually works in. The biggest freelance step up so far: modelling a sales pipeline with Prisma and PostgreSQL, protecting the console with NextAuth and role-based access, and keeping an audit trail of every change.`,
     features: [
@@ -129,7 +127,7 @@ export const projects = [
       'Your whole job search in one place: track applications, score your resume against each job description, prepare for interviews, and let AI write the follow-ups.',
     facts: { Role: 'Designer & developer', Stack: 'React, Supabase', Year: '2026', Status: 'Live, free to use' },
     title: 'Shortlist',
-    category: 'AI Career Management Platform',
+    category: 'Web app · AI career tools',
     githubLink: 'https://github.com/FAIZAN101013/resume-optimizer',
     liveDemo: 'https://shortlist-in.vercel.app/',
     tags: ['project'],
@@ -146,8 +144,7 @@ export const projects = [
       { type: 'image', src: '/images/shortlist/modules.jpg' },
       { type: 'image', src: '/images/shortlist/paste-once.jpg' },
     ],
-    description:
-      'Shortlist is an AI-powered career management platform that keeps your whole job search in one place — track applications, tailor your resume to each job with AI, prepare for interviews, and see what is actually working. Live demo: <a href="https://shortlist-in.vercel.app/" target="_blank" rel="noopener noreferrer">https://shortlist-in.vercel.app/</a>',
+    description: `Your whole job search in one place: track applications, score your resume against each job description, prepare for interviews, and let AI write the follow-ups. Free to use.`,
     problemStatement: `Job seekers juggle applications across spreadsheets, email threads and sticky notes — statuses get lost, follow-ups slip, and nothing shows what's actually working. Shortlist set out to put the whole search in one place: every application tracked from Applied to Offer, with AI handling the repetitive communication around it.`,
     learning: `Built to level up on Supabase as a full backend — auth with email and Google OAuth, protected routes, and per-user data — and on shipping a SaaS-style product end to end: landing page, dashboard, and an AI writing feature that people can actually use.`,
     features: [
@@ -176,7 +173,7 @@ export const projects = [
       ],
     },
     title: 'ShopNGo',
-    category: 'E-commerce Web App',
+    category: 'Web app · E-commerce',
     githubLink: 'https://github.com/FAIZAN101013/ShopNGo',
     liveDemo: 'https://shop-n-go.vercel.app/',
     tags: ['project'],
@@ -185,8 +182,7 @@ export const projects = [
       { type: 'image', src: '/images/ShopNGo1.png' },
       { type: 'image', src: '/images/ShopNGo2.png' },
     ],
-    description:
-      'A full-featured MERN Stack e-commerce platform with secure payment integration. Also find the live demo at <a href="https://shop-n-go.vercel.app/" target="_blank" rel="noopener noreferrer">https://shop-n-go.vercel.app/</a>',
+    description: `An online store with search, filters, a cart and checkout through Stripe and Razorpay, plus an admin side for orders. Built on React, Express and MongoDB.`,
     problemStatement: `Build a complete e-commerce flow — browsing, search, cart, checkout and an admin back office — as one MERN application, with the hard part done properly: taking real payments securely through Stripe and Razorpay and keeping order state consistent from checkout to delivery tracking.`,
     learning: `My deep dive into the MERN stack. The biggest upskill was payment integration — wiring Stripe and Razorpay checkouts and learning how much care order state needs once real money is involved — plus building an admin side, not just the customer-facing store.`,
     features: [
@@ -202,7 +198,7 @@ export const projects = [
   {
     id: 'modal-13',
     title: 'Noted — Expense Tracker',
-    category: 'Mobile App & Landing Page',
+    category: 'Product · Mobile app + landing page',
     liveDemo: 'https://getnoted-app.netlify.app/',
     githubLink: 'https://github.com/FAIZAN101013/noted',
     related: { id: 'modal-figma-06', label: 'See the design case study' },
@@ -223,7 +219,7 @@ export const projects = [
       { type: 'image', src: '/images/noted/3 (8).png' },
       { type: 'image', src: '/images/noted/4 (7).png' },
     ],
-    description: 'Noted is a personal expense tracker for India: log a spend in two taps, see what is safe to spend today, split bills with friends over UPI links, and get budget alerts before you go over. I designed the whole product in Figma — logo, 60+ screens across onboarding, budgets, goals, splits, paywall and empty states — and built the landing page that ships it. Live: <a href="https://getnoted-app.netlify.app/" target="_blank" rel="noopener noreferrer">getnoted-app.netlify.app</a>',
+    description: `A personal expense tracker for India: log a spend in two taps, see what is safe to spend today, split bills with friends over UPI links. Landing page live, Android app in progress.`,
     problemStatement: `Most expense apps either ask for bank access up front or bury the one number people care about: how much can I spend today? Noted had to work with no sign-up, make the first entry take seconds, and handle the messy real-world case of splitting a dinner with friends who do not have the app.`,
     result: `Landing page shipped on Netlify with a download call to action, how-it-works and feature sections, and the promo film. The product is fully designed and the Android build is next. The brand, design system and all 54 screens are documented in the design case study.`,
     learning: `First project where I owned the product end to end: brand, UX research, a full screen inventory in Figma, and the marketing site — and learned how much of app design is the edge cases, not the happy path.`,
@@ -272,7 +268,7 @@ export const projects = [
       'Three landing pages built as pitches for prospective clients. The deals did not close, but each is a complete, live, production-quality page.',
     facts: { Role: 'Designer & developer', Pages: '3 live sites, 2 versions of one', Year: '2026', Status: 'Live on Vercel' },
     title: 'Landing Page Pitches',
-    category: 'Landing Pages',
+    category: 'Pitch work · Landing pages',
     liveDemo: 'https://solar-website-sage.vercel.app/',
     githubLink: 'https://github.com/FAIZAN101013/solar-website',
     // Several pages in one project: the buttons open a menu of these.
@@ -298,8 +294,7 @@ export const projects = [
       { type: 'image', src: '/images/landing-pitches/solarshop-gallery.jpg' },
       { type: 'image', src: '/images/landing-pitches/solarshop-rounds.jpg' },
     ],
-    description:
-      'Three landing pages built as pitches for prospective clients. The deals did not close, but each one is a complete, live, production-quality page. <strong>The Solar Co.</strong> — a conversion-focused site for a New Zealand solar installer with a lead form, pricing argument and how-it-works walkthrough, delivered in two hero versions for the client to choose from: <a href="https://solar-website-sage.vercel.app/" target="_blank" rel="noopener noreferrer">Version A (light hero)</a> · <a href="https://solar-website-sage.vercel.app/b.html" target="_blank" rel="noopener noreferrer">Version B (video hero)</a> · <a href="https://github.com/FAIZAN101013/solar-website" target="_blank" rel="noopener noreferrer">code</a>. <strong>Solar Shop hero gallery</strong> — a client presentation site collecting 22 hero concepts across 10 design rounds, with desktop, mobile and style-token variations: <a href="https://solarshophero.vercel.app/" target="_blank" rel="noopener noreferrer">live</a>. <strong>Vybemation</strong> — a hero concept for a note-to-automation product, with a pinned scroll story that turns a handwritten note into running code: <a href="https://vybemation.vercel.app/" target="_blank" rel="noopener noreferrer">live</a> · <a href="https://github.com/FAIZAN101013/Vybemation" target="_blank" rel="noopener noreferrer">code</a>.',
+    description: `Three landing pages built as pitches for prospective clients. The deals did not close, but each is a complete, live, production-quality page. <strong>The Solar Co.</strong>: <a href="https://solar-website-sage.vercel.app/" target="_blank" rel="noopener noreferrer">Version A</a> · <a href="https://solar-website-sage.vercel.app/b.html" target="_blank" rel="noopener noreferrer">Version B</a>. <strong>Solar Shop hero gallery</strong>: <a href="https://solarshophero.vercel.app/" target="_blank" rel="noopener noreferrer">live</a>. <strong>Vybemation</strong>: <a href="https://vybemation.vercel.app/" target="_blank" rel="noopener noreferrer">live</a>.`,
     problemStatement: `Each prospect needed to see the idea working, not a mockup. The brief was to build a real landing page fast enough to pitch with, strong enough to convert if it shipped, and specific to the client’s business: a solar installer selling quotes, a solar retailer reviewing hero directions, and a startup explaining an abstract product.`,
     result: `Three live pages, each built in days. The Solar Co. page carries the full sales argument from the 80% bill-cut headline to a three-field quote form. The Solar Shop gallery turned 10 rounds of hero iterations into a browsable presentation the client could review on their own. Vybemation uses a scroll-pinned sequence to make "write a sentence, get working Python" tangible. None of the clients signed, but the pages became my fastest proof of what I can deliver before a contract exists.`,
     learning: `Pitch work taught me to scope for the decision, not the launch: lead with the one promise the client sells on, keep every section earning its place, and make the page good enough to ship so the only open question is the deal itself.`,
@@ -328,7 +323,7 @@ export const projects = [
       ],
     },
     title: 'Admin CRM',
-    category: 'Web Application',
+    category: 'Web app · CRM',
     githubLink: 'https://github.com/FAIZAN101013/Admin-CRM',
     liveDemo: 'https://admin-crm-one.vercel.app/',
     tags: ['project'],
@@ -338,8 +333,7 @@ export const projects = [
       { type: 'image', src: '/images/Crm/Screenshot (351).png' },
       { type: 'image', src: '/images/Crm/Screenshot (352).png' },
     ],
-    description:
-      'Admin CRM is a comprehensive Customer Relationship Management platform for businesses to manage clients, sales, and support. Features include dashboards, analytics, and user management. <br>Live demo: <a href="https://admin-crm-one.vercel.app/" target="_blank" rel="noopener noreferrer">https://admin-crm-one.vercel.app/</a>',
+    description: `A CRM for small teams: clients, sales pipeline, tasks and analytics in one dashboard, with roles so each person sees what they should.`,
     problemStatement: `Small businesses track clients in one tool, sales in another and support in a third, so nobody sees the full relationship. Admin CRM brings clients, pipeline, tasks and analytics into a single dashboard, with roles and permissions so each team member sees exactly what they should.`,
     learning: `An upskilling project in structuring a larger React app: role-based access with JWTs, dashboard analytics with Chart.js, and keeping a growing codebase organised once it's more than a handful of components.`,
     features: [
@@ -370,7 +364,7 @@ export const projects = [
       ],
     },
     title: 'HandyMan',
-    category: 'Service Booking Platform',
+    category: 'Web app · Marketplace',
     githubLink: 'https://handymangunicorn-handyman-wsgi.onrender.com/',
     tags: ['project'],
     media: [
@@ -380,8 +374,7 @@ export const projects = [
       { type: 'image', src: '/images/handyman/list.jpeg' },
       { type: 'image', src: '/images/handyman/work.png' },
     ],
-    description:
-      'Handyman is a web application that connects skilled workers such as plumbers, electricians, and carpenters with consumers seeking their services.',
+    description: `A two-sided marketplace that connects plumbers, electricians and carpenters with people who need them: profiles, bookings, ratings and reviews.`,
     problemStatement: `Finding a trustworthy local plumber, electrician or carpenter still runs on word of mouth — and skilled workers have no easy way to be found. HandyMan connects the two sides: providers register their services, and consumers search by location, book, and judge quality from real reviews.`,
     learning: `One of my first full-stack builds — where I learned to connect a plain HTML/CSS/JavaScript frontend to a Node/Express/MongoDB backend, model a two-sided marketplace (providers and consumers), and design a booking flow.`,
     features: [
@@ -409,13 +402,12 @@ export const projects = [
       ],
     },
     title: 'The Subreddit Vibe Check',
-    category: 'Web Application',
+    category: 'Web app · Data tool',
     githubLink: 'https://github.com/FAIZAN101013/subreddit-vibe-check',
     liveDemo: 'https://subreddit-vibe-check-nu.vercel.app/',
     tags: ['project'],
     media: [{ type: 'image', src: '/images/subreddit-vibe-check/home.png' }],
-    description:
-      'Discover the mood of a subreddit — fetches the 50 hottest posts from any subreddit and scores each title’s emotional tone right in the browser, with a three-tier OAuth/JSON/RSS fallback for Reddit data. Live demo: <a href="https://subreddit-vibe-check-nu.vercel.app/" target="_blank" rel="noopener noreferrer">https://subreddit-vibe-check-nu.vercel.app/</a> · Read the full case study: <a href="https://github.com/FAIZAN101013/subreddit-vibe-check/blob/main/ENGINEERING_NOTES.md" target="_blank" rel="noopener noreferrer">Engineering Notes — The 403 Investigation</a>',
+    description: `Type a subreddit, get its mood. Fetches the 50 hottest posts and scores each title's tone, with a three-tier fallback for Reddit data that kept the app alive when every official route returned 403.`,
     problemStatement: `Every documented way to read a subreddit returned 403 Forbidden — the public JSON API, api.reddit.com, even oauth.reddit.com without a token. Spoofing a full set of Chrome headers changed nothing, so the app's data source was dead before the first feature was built.`,
     research: `The obvious explanation was that Reddit blocks datacenter IPs. I tested it directly: the same request from a browser on a home connection returned 200, but the identical request from Node on the same machine and same connection still got 403 — ruling out the network entirely and pointing at TLS client fingerprinting plus session cookies. Fetching from the user's browser was also tested and failed for two independent reasons: no CORS header, and cookies don't cross origins. A server-side proxy wasn't a preference — it was mandatory.`,
     result: `The final architecture is a three-tier fallback behind one /api/reddit endpoint: OAuth first, the public JSON second, and Reddit's RSS feed last — with 404s and authenticated 403s short-circuiting into clear errors instead of vague ones, failures never cached, and the UI naming its data source when it degrades. Sentiment uses AFINN comparative scoring (per-word, with a ±0.08 neutral dead zone) so long titles don't score higher just by being long. Biggest lesson: optional chaining plus '|| []' silently converted a wrong-shape bug into an empty page — defensive defaults can hide real failures.`,
@@ -431,14 +423,14 @@ export const projects = [
   {
     id: 'modal-08',
     title: 'MoviesX',
-    category: 'Web Application',
+    category: 'Web app · API client',
     githubLink: 'https://github.com/FAIZAN101013/moviesx',
     tags: ['project'],
     media: [
       { type: 'image', src: '/images/moviesx/mov1.png' },
       { type: 'image', src: '/images/moviesx/mov2.png' },
     ],
-    description: `MOVIEX - Movie Explorer App  A simple movie explorer web app built with React.js and TMDB API. Browse popular movies, search for films, and manage your favorites with a sleek UI. 🚀`,
+    description: `Browse and search movies on the TMDB API, with favourites that survive a reload. No backend, React state and local storage do the work.`,
     problemStatement: `Build a fast, pleasant way to browse and search movies on top of a third-party API (TMDB) — including favorites that survive a page reload — without any backend at all, using React state patterns and LocalStorage to do the persistence.`,
     learning: `Upskilled on working against a third-party API: reading TMDB's docs, handling loading and error states properly, sharing state with Context instead of prop-drilling, and persisting favorites in LocalStorage.`,
     features: [
@@ -463,13 +455,12 @@ export const projects = [
       decisions: ['Atlas over a self-hosted database so the demo stays up without maintenance.'],
     },
     title: 'Task Tracker',
-    category: 'Web Application',
+    category: 'Web app · Auth-first',
     githubLink: 'https://github.com/FAIZAN101013/task-tracker',
     liveDemo: 'https://task-tracker-six-plum-38.vercel.app/',
     tags: ['project'],
     media: [{ type: 'image', src: '/images/task-tracker/home.png' }],
-    description:
-      'A full-stack MERN task manager with cookie-based JWT authentication — each user gets their own private workspace with database-level security. Live demo: <a href="https://task-tracker-six-plum-38.vercel.app/" target="_blank" rel="noopener noreferrer">https://task-tracker-six-plum-38.vercel.app/</a>',
+    description: `A task manager where auth is the feature: JWTs in httpOnly cookies, every query scoped to its owner, so each user gets a genuinely private workspace.`,
     problemStatement: `Most todo-app demos skip real security — tokens in localStorage, every user seeing the same data. Task Tracker treats auth as the core feature: JWTs live in httpOnly cookies where scripts can't read them, and every database query is scoped to its owner so each user gets a genuinely private workspace.`,
     learning: `Built specifically to upskill on production-grade auth: httpOnly JWT cookies instead of localStorage tokens, CORS with credentials across separate frontend and API deployments (Vercel + Render), and scoping every query to its owner at the database level.`,
     features: [
@@ -484,13 +475,12 @@ export const projects = [
   {
     id: 'modal-10',
     title: 'Rutuja Portfolio',
-    category: 'Freelance Project',
+    category: 'Client · Booking page',
     githubLink: 'https://github.com/FAIZAN101013/rutuja-portfolio',
     liveDemo: 'https://rutujaapatil-form.vercel.app/',
     tags: ['project', 'freelance'],
     media: [{ type: 'image', src: '/images/rutuja-portfolio/booking.png' }],
-    description:
-      'My first freelance project — a session-booking page built for a client: a simple form wired to an API. Live site: <a href="https://rutujaapatil-form.vercel.app/" target="_blank" rel="noopener noreferrer">https://rutujaapatil-form.vercel.app/</a>',
+    description: `My first freelance job: a session-booking page for an independent client. One clean form wired to an API, replacing bookings taken over Instagram DMs.`,
     problemStatement: `The client was taking session bookings through Instagram DMs — details scattered, slots double-booked. She needed a simple page where people could book a session themselves: a clean form that collects the details and submits them to an API, nothing more.`,
     learning: `Less about code, more about freelancing itself: scoping a small job, communicating with a real client, and shipping something they actually use. Technically simple by design — the lesson was delivering, not over-engineering.`,
     features: ['Session booking form with client details', 'Form submission wired to an API', 'Responsive design'],
@@ -499,7 +489,7 @@ export const projects = [
   {
     id: 'modal-11',
     title: 'TodoApp',
-    category: 'Mobile Application',
+    category: 'Mobile app · React Native',
     githubLink: 'https://github.com/FAIZAN101013/TodoApp',
     tags: ['project'],
     // No live demo (mobile app) — the demo video stands in for one.
@@ -507,8 +497,7 @@ export const projects = [
       { type: 'video', src: '/project-video/TodoApp.mp4' },
       { type: 'image', src: '/images/todoapp/home.png' },
     ],
-    description:
-      'A full-stack cross-platform todo app built with React Native and TypeScript. Users register, log in, and manage their personal tasks, backed by an Express and MongoDB API with authenticated routes.',
+    description: `A cross-platform todo app in React Native and TypeScript. Tasks belong to an account, not a device, backed by an authenticated Express and MongoDB API.`,
     problemStatement: `Take task management off the desktop: a cross-platform mobile app where tasks belong to an account, not a device — backed by an authenticated Express/MongoDB API so a user's list follows them across installs instead of living in local storage.`,
     learning: `My first React Native project — upskilling from web to mobile: screens and navigation instead of routes, TypeScript throughout, and reusing the Express/MongoDB API patterns I knew from the web against a mobile client.`,
     features: [
@@ -522,15 +511,11 @@ export const projects = [
   {
     id: 'modal-12',
     title: 'Portfolio Website',
-    category: 'Web Application',
+    category: 'Website · First portfolio',
     githubLink: 'https://faziansportfolio.netlify.app/',
     tags: ['project'],
     media: [{ type: 'image', src: '/images/portiflito.png' }],
-    description: `A personal portfolio website showcasing my projects and skills.
-This is a simple and clean portfolio website that showcases my projects and skills.
-It is a single page website that is responsive and uses a modern design.
-It is a static website that is built using HTML, CSS and JavaScript.
-It is a responsive website that is built using Bootstrap.`,
+    description: `The first version of this site: a single responsive page in HTML, CSS and Bootstrap. The fundamentals this portfolio was later rebuilt on.`,
     problemStatement: `Projects scattered across GitHub repos don't tell a story to a recruiter. This first portfolio put everything in one place — a single responsive page presenting projects and skills clearly, built with plain HTML, CSS and Bootstrap.`,
     learning: `Where the fundamentals got practised: semantic HTML, responsive layout with Bootstrap, and vanilla JavaScript for interactions — the foundation this whole portfolio was later rebuilt on.`,
     features: [

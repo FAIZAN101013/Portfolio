@@ -26,7 +26,7 @@ export function Footer() {
     <footer className="mt-auto pb-(--vspace-3) pt-(--vspace-1) text-content-light">
       <div className="row relative">
         <div className="column -mt-(--vspace-0_25) mr-[5.2rem] leading-(--vspace-0_875) max-sm:mr-0">
-          <span className="inline-block text-(length:--text-sm)">Copyright Faizan</span>
+          <span className="inline-block text-(length:--text-sm)">© {new Date().getFullYear()} Faizan Patel · Pune, India</span>
         </div>
 
         <motion.div
