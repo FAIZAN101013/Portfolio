@@ -235,6 +235,46 @@
 }
 :root[data-theme="blend"] body { background: #0b2a2e; color: #f6f0e4; }
 
+/* ---- Blend-light: ricotta cream 60, raven teal 30 (ink), apricot 10. ---- */
+:root[data-theme="blend-light"] {
+  --color-white: #0b2a2e; --color-black: #f6f0e4; --color-body: #f6f0e4;
+  --color-content: #35504f; --color-content-light: #6f8583;
+  --color-hairline: rgb(11 42 46 / 0.12);
+  --color-accent: #e8893c; --color-accent-lighter: #fbe0c6; --color-accent-light: #f4a261;
+  --color-accent-dark: #c86f26; --color-accent-darker: #a4591c;
+  --color-teal: #0b2a2e; --color-teal-light: #1b4a4c;
+  --color-gray-9: #e9e1d2; --color-gray-8: #d9cfbd; --color-gray-7: #6f8583; --color-gray-4: #35504f;
+  color-scheme: light;
+}
+:root[data-theme="blend-light"] body { background: #f6f0e4; color: #0b2a2e; }
+:root[data-theme="blend-light"] .btn:not(.btn--stroke) { background-color: var(--color-white); border-color: var(--color-white); color: var(--color-black); }
+:root[data-theme="blend-light"] .btn:not(.btn--stroke):hover,
+:root[data-theme="blend-light"] .btn:not(.btn--stroke):focus-visible { background-color: var(--color-accent); border-color: var(--color-accent); color: #fff; }
+
+/* ---- Blend-deep: obsidian ink 60, ricotta cream 30, apricot 10. ---- */
+:root[data-theme="blend-deep"] {
+  --color-white: #f6f0e4; --color-black: #0b1a24; --color-body: #0b1a24;
+  --color-content: #d8d0c0; --color-content-light: #9c9484;
+  --color-hairline: rgb(246 240 228 / 0.12);
+  --color-accent: #f4a261; --color-accent-lighter: #fbe0c6; --color-accent-light: #f7bd8a;
+  --color-accent-dark: #e8893c; --color-accent-darker: #c86f26;
+  --color-teal: #3f8f78; --color-teal-light: #5aab92;
+  --color-gray-9: #16303f; --color-gray-8: #1f3d4e; --color-gray-7: #9c9484; --color-gray-4: #d8d0c0;
+}
+:root[data-theme="blend-deep"] body { background: #0b1a24; color: #f6f0e4; }
+
+/* ---- Blend-green: raven teal 60, chantilly cream 30, lime flash 10. ---- */
+:root[data-theme="blend-green"] {
+  --color-white: #f7f3e8; --color-black: #0b2a2e; --color-body: #0b2a2e;
+  --color-content: #d9d3c4; --color-content-light: #9c9787;
+  --color-hairline: rgb(247 243 232 / 0.14);
+  --color-accent: #c6f12e; --color-accent-lighter: #eefbc2; --color-accent-light: #d9f66f;
+  --color-accent-dark: #a8d01a; --color-accent-darker: #86a812;
+  --color-teal: #3f8f78; --color-teal-light: #5aab92;
+  --color-gray-9: #123a3d; --color-gray-8: #1b4a4c; --color-gray-7: #9c9787; --color-gray-4: #d9d3c4;
+}
+:root[data-theme="blend-green"] body { background: #0b2a2e; color: #f7f3e8; }
+
 /* Solid buttons: ink on paper reads; red on tan does not. Stroke stays red. */
 :root[data-theme="cream"] .btn:not(.btn--stroke) {
   background-color: var(--color-white);
