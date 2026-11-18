@@ -129,31 +129,52 @@ export function About() {
           <Reveal as="h2" className="text-pretitle">
             Experience
           </Reveal>
-          <ol className="relative m-0 mt-(--vspace-0_75) list-none divide-y divide-white/10 p-0 max-lg:divide-y-0 max-lg:border-l max-lg:border-white/10 max-lg:pl-6">
+          <ol className="relative m-0 mt-(--vspace-0_75) list-none divide-y divide-white/10 p-0 max-lg:divide-y-0 max-lg:space-y-2">
             {experience.map((entry, index) => {
               const open = tab === index
+              const last = index === experience.length - 1
               return (
-                <Reveal key={entry.title} as="li" delay={0.06 * index} className="py-5 first:pt-0 max-lg:relative max-lg:py-3">
-                  <span
-                    aria-hidden="true"
-                    className={`absolute -left-[31px] top-[1.15rem] hidden size-[11px] rounded-full border-2 border-body max-lg:block ${
-                      open ? 'bg-accent' : 'bg-white/30'
-                    }`}
-                  />
+                <Reveal
+                  key={entry.title}
+                  as="li"
+                  delay={0.06 * index}
+                  className={`py-5 first:pt-0 max-lg:relative max-lg:rounded-lg max-lg:py-4 max-lg:pl-12 max-lg:pr-4 max-lg:transition-colors ${
+                    open ? 'max-lg:bg-white/[0.04] max-lg:ring-1 max-lg:ring-white/10' : ''
+                  }`}
+                >
+                  {/* timeline: dot and connector, phones only */}
+                  <span aria-hidden="true" className="absolute left-4 top-[1.35rem] hidden max-lg:block">
+                    <span
+                      className={`block size-4 rounded-full border-2 ${
+                        open ? 'border-accent bg-accent shadow-[0_0_0_4px_rgba(234,190,124,.18)]' : 'border-white/30 bg-body'
+                      }`}
+                    />
+                    {!last && <span className="absolute left-1/2 top-4 h-[calc(100%+2.5rem)] w-px -translate-x-1/2 bg-white/10" />}
+                  </span>
                   <button
                     type="button"
                     aria-expanded={open}
                     onClick={() => setTab(open ? -1 : index)}
-                    className="flex w-full flex-wrap items-baseline justify-between gap-x-4 text-left lg:pointer-events-none"
+                    className="flex w-full items-start justify-between gap-3 text-left lg:pointer-events-none"
                   >
-                    <span className={`font-display text-(length:--text-lg) transition-colors ${open ? 'text-white' : 'text-white max-lg:text-content'}`}>
-                      {entry.title}
+                    <span className="min-w-0">
+                      <span className={`block font-display text-(length:--text-lg) leading-tight ${open ? 'text-white' : 'text-white/80'}`}>
+                        {entry.title}
+                      </span>
+                      <span className={`mt-1 block text-(length:--text-xs) uppercase tracking-[0.15em] ${open ? 'text-accent' : 'text-content-light'}`}>
+                        {entry.meta}
+                      </span>
                     </span>
-                    <span className="text-(length:--text-xs) uppercase tracking-[0.15em] text-content-light">
-                      {entry.meta}
+                    <span
+                      aria-hidden="true"
+                      className={`mt-1 hidden size-7 shrink-0 place-items-center rounded-full border border-white/15 text-accent transition-transform duration-300 max-lg:grid ${
+                        open ? 'rotate-45' : ''
+                      }`}
+                    >
+                      +
                     </span>
                   </button>
-                  <p className={`m-0 mt-1 text-(length:--text-md) leading-(--vspace-1) text-content ${open ? '' : 'max-lg:hidden'}`}>
+                  <p className={`m-0 mt-2 text-(length:--text-md) leading-(--vspace-1) text-content ${open ? '' : 'max-lg:hidden'}`}>
                     {entry.desc}
                   </p>
                 </Reveal>

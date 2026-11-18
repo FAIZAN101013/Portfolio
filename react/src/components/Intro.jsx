@@ -91,8 +91,7 @@ export function Intro() {
             {...slideIn(HERO_DELAY.pretitle)}
           >
             <div className="text-pretitle text-pretitle--line mb-0">
-              <span className="max-[1500px]:hidden">Faizan Patel · Software developer &amp; UI/UX designer</span>
-              <span className="min-[1500px]:hidden">Faizan Patel · Developer &amp; designer</span>
+              <span>Faizan Patel · Full-stack developer</span>
             </div>
           <LatestPill reduced={reduced} />
           </motion.div>

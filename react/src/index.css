@@ -357,16 +357,16 @@
      keeps the display face doing its job and gets it back to four. */
   @media screen and (max-width: 800px) {
     .text-h1 {
-      font-size: var(--text-xxxl);
-      line-height: calc(1.625 * var(--space));
-      margin-top: var(--vspace-1_5);
+      font-size: var(--text-xl);
+      line-height: calc(1.25 * var(--space));
+      margin-top: var(--vspace-1);
     }
   }
 
   @media screen and (max-width: 500px) {
     .text-h1 {
-      font-size: var(--text-xxl);
-      line-height: var(--vspace-1_5);
+      font-size: var(--text-xl);
+      line-height: calc(1.25 * var(--space));
     }
   }
 
