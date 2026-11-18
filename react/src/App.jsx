@@ -18,7 +18,7 @@ export default function App() {
 
   // Theme: ?theme=cream sets it, then it sticks in localStorage.
   useEffect(() => {
-    const q = new URLSearchParams(window.location.search).get('theme')
+    const q = (new URLSearchParams(window.location.search).get('theme') || '').toLowerCase() || null
     let t = q
     try {
       if (q) localStorage.setItem('theme', q)
