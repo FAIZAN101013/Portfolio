@@ -89,11 +89,11 @@ export function About() {
           the same names are listed, readably, in the section below — so it is
           aria-hidden inside Marquee. */}
       <div className="mt-(--vspace-2) border-y border-hairline py-(--vspace-0_75) max-md:mt-(--vspace-1_5)">
-        <Marquee baseVelocity={2.4} className="mask-fade-x">
+        <Marquee baseVelocity={1.2} className="mask-fade-x">
           {MARQUEE_WORDS.map((word) => (
             <span
               key={word}
-              className="flex items-center whitespace-nowrap font-display text-(length:--text-xxl) leading-none text-white/15 max-md:text-(length:--text-xl)"
+              className="flex items-center whitespace-nowrap font-display text-(length:--text-xxl) leading-none text-white/35 max-md:text-(length:--text-xl)"
             >
               {word}
               <span className="mx-8 inline-block size-2 shrink-0 rounded-full bg-accent/50 max-md:mx-5" />

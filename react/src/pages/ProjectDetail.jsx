@@ -513,6 +513,24 @@ function ProcessBlock({ block, index }) {
 /** Architecture: the request flow as a chain, the layers with what each
  *  uses, and the decisions that shaped them. Only the parts given render. */
 function Architecture({ arch }) {
+  // Click a step in the flow and the layer it belongs to lights up, with a
+  // one-line note on what happens there. Steps map to layers by keyword
+  // match; `active` is null when nothing is selected.
+  const [active, setActive] = useState(null)
+  const layers = arch.layers || []
+  const flow = arch.flow || []
+  const layerFor = (step) => {
+    const t = step.toLowerCase()
+    const idx = layers.findIndex((l) =>
+      [l.title, ...(l.items || [])].some((w) => {
+        const k = String(w).toLowerCase().split(/[\s(]/)[0]
+        return k.length > 2 && t.includes(k)
+      }),
+    )
+    return idx
+  }
+  const activeLayer = active == null ? -1 : layerFor(flow[active])
+
   return (
     <section className="mt-(--vspace-2) border-t border-hairline pt-(--vspace-1_5)">
       <Reveal as="h2" className="text-pretitle">
@@ -524,45 +542,73 @@ function Architecture({ arch }) {
         </Reveal>
       )}
 
-      {arch.flow?.length > 0 && (
+      {flow.length > 0 && (
         <Reveal delay={0.1} className="mt-(--vspace-1)">
-          <h3 className="text-pretitle mb-(--vspace-0_375) text-(length:--text-xs)">Request flow</h3>
+          <div className="flex items-baseline justify-between gap-4">
+            <h3 className="text-pretitle mb-(--vspace-0_375) text-(length:--text-xs)">Request flow</h3>
+            <span className="text-(length:--text-xs) text-content-light">Tap a step to follow it</span>
+          </div>
           <ol className="m-0 flex list-none flex-wrap items-center gap-y-3 p-0">
-            {arch.flow.map((step, i) => (
-              <li key={step} className="flex items-center">
-                <span className="rounded-md border border-white/10 bg-white/[0.04] px-3.5 py-2 text-(length:--text-sm) text-white">
-                  {step}
-                </span>
-                {i < arch.flow.length - 1 && (
-                  <span aria-hidden="true" className="px-2.5 text-accent/70">→</span>
-                )}
-              </li>
-            ))}
+            {flow.map((step, i) => {
+              const on = active === i
+              const reached = active != null && i <= active
+              return (
+                <li key={step} className="flex items-center">
+                  <button
+                    type="button"
+                    onClick={() => setActive(on ? null : i)}
+                    aria-pressed={on}
+                    className={`rounded-md border px-3.5 py-2 text-(length:--text-sm) transition-colors ${
+                      on
+                        ? 'border-accent bg-accent text-black'
+                        : reached
+                          ? 'border-accent/50 bg-white/[0.04] text-white'
+                          : 'border-white/10 bg-white/[0.04] text-white hover:border-accent/50'
+                    }`}
+                  >
+                    {step}
+                  </button>
+                  {i < flow.length - 1 && (
+                    <span aria-hidden="true" className={`px-2.5 transition-colors ${reached && i < active ? 'text-accent' : 'text-accent/40'}`}>→</span>
+                  )}
+                </li>
+              )
+            })}
           </ol>
         </Reveal>
       )}
 
-      {arch.layers?.length > 0 && (
+      {layers.length > 0 && (
         <div className="mt-(--vspace-1) grid grid-cols-4 gap-4 max-lg:grid-cols-2 max-md:snap-rail max-md:no-scrollbar max-md:-mx-[4vw] max-md:flex max-md:gap-x-3 max-md:px-[4vw] max-md:[&>*]:snap-card max-md:[&>*]:w-[78vw]">
-          {arch.layers.map((layer, i) => (
-            <Reveal key={layer.title} delay={0.06 * i} className="rounded-lg border border-white/10 bg-white/[0.02] p-5">
-              <h3 className="m-0 text-(length:--text-xs) font-medium uppercase tracking-[0.18em] text-accent">
-                {layer.title}
-              </h3>
-              <ul className="m-0 mt-3 flex list-none flex-wrap gap-1.5 p-0">
-                {layer.items.map((item) => (
-                  <li key={item} className="rounded-full border border-white/10 px-3 py-1 text-(length:--text-xs) text-white/90">
-                    {item}
-                  </li>
-                ))}
-              </ul>
-              {layer.note && (
-                <p className="mb-0 mt-3 text-(length:--text-sm) leading-(--vspace-0_75) text-content">
-                  {layer.note}
-                </p>
-              )}
-            </Reveal>
-          ))}
+          {layers.map((layer, i) => {
+            const lit = activeLayer === i
+            const dim = activeLayer >= 0 && !lit
+            return (
+              <Reveal
+                key={layer.title}
+                delay={0.06 * i}
+                className={`rounded-lg border p-5 transition-[border-color,opacity,background-color] duration-300 ${
+                  lit ? 'border-accent bg-accent/10' : 'border-white/10 bg-white/[0.02]'
+                } ${dim ? 'opacity-45' : ''}`}
+              >
+                <h3 className="m-0 text-(length:--text-xs) font-medium uppercase tracking-[0.18em] text-accent">
+                  {layer.title}
+                </h3>
+                <ul className="m-0 mt-3 flex list-none flex-wrap gap-1.5 p-0">
+                  {layer.items.map((item) => (
+                    <li key={item} className="rounded-full border border-white/10 px-3 py-1 text-(length:--text-xs) text-white/90">
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+                {layer.note && (
+                  <p className="mb-0 mt-3 text-(length:--text-sm) leading-(--vspace-0_75) text-content">
+                    {layer.note}
+                  </p>
+                )}
+              </Reveal>
+            )
+          })}
         </div>
       )}
 
@@ -579,16 +625,6 @@ function Architecture({ arch }) {
         </Reveal>
       )}
     </section>
-  )
-}
-
-/** Internal link to the sibling entry: the design case study of a build, or
- *  the build of a design. Same button, different destination. */
-function RelatedButton({ related }) {
-  return (
-    <Button to={`/project/${related.id}`} variant="stroke" withArrow className="btn--block-mobile">
-      {related.label}
-    </Button>
   )
 }
 
