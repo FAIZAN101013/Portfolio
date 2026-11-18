@@ -165,14 +165,6 @@ export function About() {
                         {entry.meta}
                       </span>
                     </span>
-                    <span
-                      aria-hidden="true"
-                      className={`mt-1 hidden size-7 shrink-0 place-items-center rounded-full border border-white/15 text-accent transition-transform duration-300 max-lg:grid ${
-                        open ? 'rotate-45' : ''
-                      }`}
-                    >
-                      +
-                    </span>
                   </button>
                   <p className={`m-0 mt-2 text-(length:--text-md) leading-(--vspace-1) text-content ${open ? '' : 'max-lg:hidden'}`}>
                     {entry.desc}
