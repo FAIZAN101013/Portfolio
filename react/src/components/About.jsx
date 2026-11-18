@@ -129,43 +129,36 @@ export function About() {
           <Reveal as="h2" className="text-pretitle">
             Experience
           </Reveal>
-          <div className="mt-(--vspace-0_75) hidden max-lg:flex" role="tablist" aria-label="Experience">
-            {experience.map((entry, i) => (
-              <button
-                key={entry.title}
-                type="button"
-                role="tab"
-                aria-selected={tab === i}
-                onClick={() => setTab(i)}
-                className={`flex-1 border-b-2 px-2 py-3 text-(length:--text-xs) font-medium uppercase tracking-[0.14em] transition-colors ${
-                  tab === i ? 'border-accent text-white' : 'border-white/10 text-content-light'
-                }`}
-              >
-                {entry.title.split(' ').slice(0, 2).join(' ')}
-              </button>
-            ))}
-          </div>
-          <ol className="m-0 mt-(--vspace-0_75) list-none divide-y divide-white/10 p-0 max-lg:mt-0 max-lg:divide-y-0">
-            {experience.map((entry, index) => (
-              <Reveal
-                key={entry.title}
-                as="li"
-                delay={0.06 * index}
-                className={`py-5 first:pt-0 max-lg:pt-4 ${tab === index ? '' : 'max-lg:hidden'}`}
-              >
-                <div className="flex flex-wrap items-baseline justify-between gap-x-4">
-                  <span className="font-display text-(length:--text-lg) text-white">
-                    {entry.title}
-                  </span>
-                  <span className="text-(length:--text-xs) uppercase tracking-[0.15em] text-content-light">
-                    {entry.meta}
-                  </span>
-                </div>
-                <p className="m-0 mt-1 text-(length:--text-md) leading-(--vspace-1) text-content">
-                  {entry.desc}
-                </p>
-              </Reveal>
-            ))}
+          <ol className="relative m-0 mt-(--vspace-0_75) list-none divide-y divide-white/10 p-0 max-lg:divide-y-0 max-lg:border-l max-lg:border-white/10 max-lg:pl-6">
+            {experience.map((entry, index) => {
+              const open = tab === index
+              return (
+                <Reveal key={entry.title} as="li" delay={0.06 * index} className="py-5 first:pt-0 max-lg:relative max-lg:py-3">
+                  <span
+                    aria-hidden="true"
+                    className={`absolute -left-[31px] top-[1.15rem] hidden size-[11px] rounded-full border-2 border-body max-lg:block ${
+                      open ? 'bg-accent' : 'bg-white/30'
+                    }`}
+                  />
+                  <button
+                    type="button"
+                    aria-expanded={open}
+                    onClick={() => setTab(open ? -1 : index)}
+                    className="flex w-full flex-wrap items-baseline justify-between gap-x-4 text-left lg:pointer-events-none"
+                  >
+                    <span className={`font-display text-(length:--text-lg) transition-colors ${open ? 'text-white' : 'text-white max-lg:text-content'}`}>
+                      {entry.title}
+                    </span>
+                    <span className="text-(length:--text-xs) uppercase tracking-[0.15em] text-content-light">
+                      {entry.meta}
+                    </span>
+                  </button>
+                  <p className={`m-0 mt-1 text-(length:--text-md) leading-(--vspace-1) text-content ${open ? '' : 'max-lg:hidden'}`}>
+                    {entry.desc}
+                  </p>
+                </Reveal>
+              )
+            })}
           </ol>
         </div>
       </div>
