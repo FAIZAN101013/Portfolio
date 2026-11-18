@@ -118,6 +118,30 @@
   color-scheme: light;
 }
 :root[data-theme="cream"] body { background: #f6f0e4; color: #0f2f4c; }
+/* ---- Teal theme: 60% raven teal, 30% seagrass, 10% apricot flare. Dark
+   like the default, so ink stays white-ish; seagrass carries cards, borders
+   and secondary text; apricot is the accent. ---- */
+:root[data-theme="teal"] {
+  --color-white: #eef4f1;
+  --color-black: #0b2a2e;
+  --color-body: #0b2a2e;            /* raven teal */
+  --color-content: #a9c9bd;         /* seagrass, light */
+  --color-content-light: #6f978a;   /* seagrass */
+  --color-hairline: rgb(169 201 189 / 0.14);
+  --color-accent: #f4a261;          /* apricot flare */
+  --color-accent-lighter: #fbe0c6;
+  --color-accent-light: #f7bd8a;
+  --color-accent-dark: #e8893c;
+  --color-accent-darker: #c86f26;
+  --color-teal: #3f8f78;
+  --color-teal-light: #5aab92;
+  --color-gray-9: #15403f;          /* seagrass-dark surfaces */
+  --color-gray-8: #1e4f4c;
+  --color-gray-7: #6f978a;
+  --color-gray-4: #a9c9bd;
+}
+:root[data-theme="teal"] body { background: #0b2a2e; color: #eef4f1; }
+
 /* Solid buttons: ink on paper reads; red on tan does not. Stroke stays red. */
 :root[data-theme="cream"] .btn:not(.btn--stroke) {
   background-color: var(--color-white);
