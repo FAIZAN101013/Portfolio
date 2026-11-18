@@ -11,9 +11,21 @@ import { useReducedMotion } from './hooks/useReducedMotion'
 import { EASE_OUT_SOFT } from './lib/motion'
 import { Home } from './pages/Home'
 import { ProjectDetail } from './pages/ProjectDetail'
+import { Stats } from './pages/Stats'
 
 export default function App() {
   const location = useLocation()
+
+  // One visit per page view; nothing stored about the visitor.
+  useEffect(() => {
+    if (location.pathname === '/stats') return
+    fetch('/api/visits', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ path: location.pathname }),
+      keepalive: true,
+    }).catch(() => {})
+  }, [location.pathname])
   const { pathname, hash } = location
   const isHome = pathname === '/'
   const reduced = useReducedMotion()
@@ -92,6 +104,7 @@ export default function App() {
             <Routes location={location}>
               <Route path="/" element={<Home />} />
               <Route path="/project/:id" element={<ProjectDetail />} />
+              <Route path="/stats" element={<Stats />} />
               {/* the old design-project.html route, kept working */}
               <Route path="/design/:id" element={<LegacyDesignRedirect />} />
               <Route path="*" element={<Navigate to="/" replace />} />

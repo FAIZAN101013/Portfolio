@@ -78,11 +78,11 @@ export function ProjectDetail() {
         project.githubLink && <ActionButton href={project.githubLink}>View Project</ActionButton>
       )}
       {project.liveLinks ? (
-        <ActionMenu label="Live Demo" items={project.liveLinks} variant="stroke" />
+        <ActionMenu label="Live sites" items={project.liveLinks} variant="stroke" />
       ) : (
         project.liveDemo && (
           <ActionButton href={project.liveDemo} variant="stroke">
-            Live Demo
+            {isFreelance ? 'Live site' : 'Live demo'}
           </ActionButton>
         )
       )}
