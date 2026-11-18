@@ -123,7 +123,7 @@ export function MediaGallery({ media = [], title }) {
       </div>
 
       {hasRail && (
-        <p className="mb-0 mt-2 hidden text-(length:--text-xs) uppercase tracking-[.2em] text-content-light touch:block">
+        <p className="mb-0 mt-2 hidden text-(length:--text-xs) tracking-(--tracking-label) text-content-light touch:block">
           Swipe to browse
         </p>
       )}

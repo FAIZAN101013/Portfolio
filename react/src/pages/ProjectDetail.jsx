@@ -124,7 +124,7 @@ export function ProjectDetail() {
             <dl className="m-0 grid grid-cols-4 gap-x-8 gap-y-5 border-t border-hairline pt-(--vspace-0_75) max-lg:grid-cols-2 max-xs:grid-cols-1">
               {Object.entries(facts).map(([label, value]) => (
                 <div key={label}>
-                  <dt className="text-(length:--text-xs) font-medium uppercase tracking-[0.18em] text-accent">
+                  <dt className="text-(length:--text-xs) font-medium tracking-(--tracking-label) text-accent">
                     {label}
                   </dt>
                   <dd className="m-0 mt-1 text-(length:--text-md) leading-(--vspace-1) text-white">
@@ -158,7 +158,7 @@ export function ProjectDetail() {
               {project.techStack.map((chip) => (
                 <li
                   key={chip}
-                  className="rounded-full border border-white/10 px-4 py-1.5 text-(length:--text-xs) uppercase tracking-[.16em] text-content"
+                  className="rounded-full border border-white/10 px-4 py-1.5 text-(length:--text-xs) tracking-(--tracking-label) text-content"
                 >
                   {chip}
                 </li>
@@ -320,7 +320,7 @@ function DesignDetail({ project, previous, next }) {
             <dl className="m-0 grid grid-cols-4 gap-x-8 gap-y-5 border-y border-hairline py-(--vspace-0_75) max-lg:grid-cols-2 max-xs:grid-cols-1">
               {Object.entries(facts).map(([label, value]) => (
                 <div key={label}>
-                  <dt className="text-(length:--text-xs) font-medium uppercase tracking-[0.18em] text-accent">
+                  <dt className="text-(length:--text-xs) font-medium tracking-(--tracking-label) text-accent">
                     {label}
                   </dt>
                   <dd className="m-0 mt-1 text-(length:--text-md) leading-(--vspace-1) text-white">
@@ -374,7 +374,7 @@ function DesignDetail({ project, previous, next }) {
               {project.techStack.map((chip) => (
                 <li
                   key={chip}
-                  className="rounded-full border border-white/10 px-4 py-1.5 text-(length:--text-xs) uppercase tracking-[.16em] text-content"
+                  className="rounded-full border border-white/10 px-4 py-1.5 text-(length:--text-xs) tracking-(--tracking-label) text-content"
                 >
                   {chip}
                 </li>
@@ -411,7 +411,7 @@ function DesignDetail({ project, previous, next }) {
                   href={project.prototypeLink}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-(length:--text-xs) uppercase tracking-[0.18em] text-content-light transition-colors hover:text-accent"
+                  className="text-(length:--text-xs) tracking-(--tracking-label) text-content-light transition-colors hover:text-accent"
                 >
                   Not loading? Open it in Figma →
                 </a>
@@ -450,7 +450,7 @@ function ProcessBlock({ block, index, id }) {
   return (
     <Reveal as="article" id={id} delay={index * 0.05} className="process-block scroll-mt-[calc(var(--header-height)+1rem)] grid grid-cols-[20rem_1fr] gap-x-(--vspace-2) max-xl:grid-cols-[16rem_1fr] max-lg:grid-cols-1 max-lg:gap-y-(--vspace-0_5)">
       <div>
-        <span className="block text-(length:--text-xs) uppercase tracking-[0.2em] text-accent">
+        <span className="block text-(length:--text-xs) tracking-(--tracking-label) text-accent">
           {String(index + 1).padStart(2, '0')}
         </span>
         <h3 className="m-0 mt-1 font-display text-(length:--text-lg) leading-tight text-white">
@@ -493,7 +493,7 @@ function ProcessBlock({ block, index, id }) {
                     />
                   </span>
                   {scroll && (
-                    <span className="mt-1 block text-(length:--text-xs) uppercase tracking-[0.18em] text-content-light/70">
+                    <span className="mt-1 block text-(length:--text-xs) tracking-(--tracking-label) text-content-light/70">
                       Scroll inside to see the whole page
                     </span>
                   )}
@@ -572,7 +572,7 @@ function Flow({ title, summary, flowLabel, flow, layers, decisions, scenarios, o
 
       {scenarios?.length > 0 && (
         <div className="mt-(--vspace-1) flex flex-wrap items-center gap-2">
-          <span className="mr-1 text-(length:--text-xs) uppercase tracking-[0.18em] text-content-light">Play</span>
+          <span className="mr-1 text-(length:--text-xs) tracking-(--tracking-label) text-content-light">Play</span>
           {scenarios.map((sc) => (
             <button
               key={sc.label}
@@ -650,7 +650,7 @@ function Flow({ title, summary, flowLabel, flow, layers, decisions, scenarios, o
                   lit ? 'border-accent bg-accent/10' : 'border-white/10 bg-white/[0.02]'
                 } ${dim ? 'opacity-45' : ''}`}
               >
-                <h3 className="m-0 text-(length:--text-xs) font-medium uppercase tracking-[0.18em] text-accent">
+                <h3 className="m-0 text-(length:--text-xs) font-medium tracking-(--tracking-label) text-accent">
                   {layer.title}
                 </h3>
                 {layer.items?.length > 0 && (
@@ -816,12 +816,12 @@ function ActionMenu({ label, items, variant }) {
                     href={item.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center justify-between gap-4 px-5 py-3.5 text-[14px] text-white/90 transition-colors hover:bg-white/[0.06] hover:text-accent"
+                    className="flex items-center justify-between gap-4 px-5 py-3.5 text-(length:--text-sm) text-white/90 transition-colors hover:bg-white/[0.06] hover:text-accent"
                   >
                     <span>
                       <span className="block font-semibold">{item.label}</span>
                       {item.note && (
-                        <span className="block text-[12px] text-content">{item.note}</span>
+                        <span className="block text-(length:--text-xs) text-content">{item.note}</span>
                       )}
                     </span>
                     <svg viewBox="0 0 24 24" className="size-3.5 shrink-0 opacity-60" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -842,7 +842,7 @@ function BackLink() {
   return (
     <Link
       to="/#works"
-      className="group inline-flex min-h-11 items-center gap-3 text-(length:--text-xs) uppercase tracking-[.25em] text-content-light transition-colors duration-300 hover:text-accent"
+      className="group inline-flex min-h-11 items-center gap-3 text-(length:--text-xs) tracking-(--tracking-nav) text-content-light transition-colors duration-300 hover:text-accent"
     >
       <span className="flex size-9 items-center justify-center rounded-full border border-white/15 transition-[border-color,transform] duration-300 ease-(--ease-out-soft) group-hover:-translate-x-1 group-hover:border-accent">
         <svg viewBox="0 0 24 24" className="size-4" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
@@ -916,7 +916,7 @@ function PagerLink({ project, direction }) {
         isNext ? 'items-end text-right' : 'items-start'
       }`}
     >
-      <span className="text-(length:--text-xs) uppercase tracking-[.25em] text-content-light">
+      <span className="text-(length:--text-xs) tracking-(--tracking-nav) text-content-light">
         {isNext ? 'Next' : 'Previous'}
       </span>
       <span className="font-display text-(length:--text-lg) leading-tight text-white transition-colors duration-300 group-hover:text-accent">

@@ -139,7 +139,7 @@ export function Intro() {
             <li className="flex w-full">
               <a
                 href="/project/modal-13"
-                className="tap-target inline-flex items-center gap-2 rounded-full border border-accent/40 bg-accent/10 px-5 text-(length:--text-xs) uppercase tracking-[.2em] text-accent"
+                className="tap-target inline-flex items-center gap-2 rounded-full border border-accent/40 bg-accent/10 px-5 text-(length:--text-xs) tracking-(--tracking-label) text-accent"
               >
                 Latest · Noted — Expense Tracker →
               </a>
@@ -161,7 +161,7 @@ export function Intro() {
                   rel="noopener noreferrer"
                   aria-label={label}
                   whileTap={reduced ? undefined : { scale: 0.9 }}
-                  className="tap-target flex items-center justify-center gap-2 rounded-full border border-white/10 bg-white/5 px-5 text-(length:--text-xs) uppercase tracking-[.2em] text-content-light transition-colors duration-300 active:border-accent/50 active:text-accent"
+                  className="tap-target flex items-center justify-center gap-2 rounded-full border border-white/10 bg-white/5 px-5 text-(length:--text-xs) tracking-(--tracking-label) text-content-light transition-colors duration-300 active:border-accent/50 active:text-accent"
                 >
                   <Icon name={icon} className="size-[1.6rem]" />
                   {label}
@@ -175,7 +175,7 @@ export function Intro() {
       {/* desktop vertical social rail — hidden below 800px, same as the
           original. The list is rotated -90deg, so each item's translateX
           reads as a vertical rise on screen. */}
-      <ul className="absolute left-[calc(100%-6rem)] top-1/2 z-1 m-0 flex origin-bottom-left list-none p-0 pl-[9.6rem] text-[1rem] font-normal uppercase tracking-[.3em] max-xl:left-[calc(100%-4rem)] max-md:hidden [transform:rotate(-90deg)_translateX(-50%)]">
+      <ul className="absolute left-[calc(100%-6rem)] top-1/2 z-1 m-0 flex origin-bottom-left list-none p-0 pl-[9.6rem] text-[1rem] font-normal tracking-(--tracking-nav) max-xl:left-[calc(100%-4rem)] max-md:hidden [transform:rotate(-90deg)_translateX(-50%)]">
         {socials.map(({ label, url }, index) => (
           <motion.li
             key={label}
@@ -321,7 +321,7 @@ function LatestPill({ reduced }) {
         <span className="relative block h-9 w-14 shrink-0 overflow-hidden rounded-full bg-black/40">
           {media('size-full object-cover')}
         </span>
-        <span className="text-[11px] uppercase tracking-[0.2em] text-accent">Latest</span>
+        <span className="text-(length:--text-xs) tracking-(--tracking-label) text-accent uppercase">Latest</span>
         <motion.span
           key={item.id}
           initial={{ opacity: 0, y: 4 }}

@@ -58,7 +58,7 @@ export function About() {
               About
             </Reveal>
 
-            <div className="attention-getter">
+            <div className="attention-getter max-w-[64ch]">
               {aboutParagraphs.map((html, index) => (
                 <Reveal
                   key={index}
@@ -115,7 +115,7 @@ export function About() {
           <dl className="m-0 mt-(--vspace-0_75) grid grid-cols-[auto_1fr] gap-x-6 gap-y-3 max-xs:grid-cols-1 max-xs:gap-y-1">
             {skillGroups.map(({ label, items }) => (
               <Reveal key={label} as="div" className="contents">
-                <dt className="text-(length:--text-xs) font-medium uppercase leading-(--vspace-1) tracking-[0.18em] text-accent max-xs:mt-3">
+                <dt className="text-(length:--text-xs) font-medium leading-(--vspace-1) tracking-(--tracking-label) text-accent max-xs:mt-3">
                   {label}
                 </dt>
                 <dd className="m-0 text-(length:--text-md) leading-(--vspace-1) text-content">
@@ -149,7 +149,7 @@ export function About() {
                     <span className={`font-display text-(length:--text-lg) ${open ? 'text-white' : 'text-white max-lg:text-content'}`}>
                       {entry.title}
                     </span>
-                    <span className="text-(length:--text-xs) uppercase tracking-[0.15em] text-content-light">
+                    <span className="text-(length:--text-xs) tracking-(--tracking-label) text-content-light">
                       {entry.meta}
                     </span>
                   </button>

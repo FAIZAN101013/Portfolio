@@ -49,7 +49,7 @@ export function Skills() {
                 {/* Every label reserves two lines, so a card with a wrapping
                     name (AI Development) can't make its row taller than the
                     rest — all cards stay exactly the same size. */}
-                <p className="m-0 flex min-h-[2lh] items-center justify-center text-center text-(length:--text-sm) leading-(--vspace-0_75) text-white/90 transition-colors group-hover:text-white max-md:text-[10px] max-md:leading-[1.4]">
+                <p className="m-0 flex min-h-[2lh] items-center justify-center text-center text-(length:--text-sm) leading-(--vspace-0_75) text-white/90 transition-colors group-hover:text-white max-md:text-(length:--text-xs) max-md:leading-[1.4]">
                   {skill.name}
                 </p>
               </motion.li>

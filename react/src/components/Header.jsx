@@ -86,7 +86,7 @@ export function Header({ isHome = true }) {
         <Link
           to="/"
           onClick={go('intro')}
-          className="inline-block px-[.4rem] py-3 text-[10px] font-normal uppercase tracking-[.35em] text-white hover:text-accent"
+          className="inline-block px-[.4rem] py-3 text-(length:--text-xs) font-normal uppercase tracking-(--tracking-nav) text-white hover:text-accent"
         >
           {site.name}
         </Link>
@@ -243,4 +243,4 @@ export function Header({ isHome = true }) {
  * header's fixed 6.4rem height.
  */
 const LINK_BASE =
-  'block whitespace-nowrap px-[2rem] pl-[2.4rem] text-[10px] font-normal uppercase leading-(--header-height) tracking-[.35em] text-white transition-colors duration-300 hover:text-accent max-xl:px-[1.2rem] max-xl:pl-[1.4rem] max-xl:tracking-[.2em]'
+  'block whitespace-nowrap px-[2rem] pl-[2.4rem] text-(length:--text-xs) font-normal uppercase leading-(--header-height) tracking-(--tracking-nav) text-white transition-colors duration-300 hover:text-accent max-xl:px-[1.2rem] max-xl:pl-[1.4rem] max-xl:tracking-(--tracking-label)'

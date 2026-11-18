@@ -134,7 +134,7 @@ export function Services() {
                     >
                       <span>
                         <span className="block font-display text-(length:--text-lg) leading-[1.15] text-white">{service.title}</span>
-                        <span className="mt-1 block text-(length:--text-xs) uppercase tracking-[0.18em] text-content-light">Usually {service.timeline}</span>
+                        <span className="mt-1 block text-(length:--text-xs) tracking-(--tracking-label) text-content-light">Usually {service.timeline}</span>
                       </span>
                     </button>
                   ) : (
@@ -142,7 +142,7 @@ export function Services() {
                       <h3 className="m-0 font-display text-(length:--text-xl) leading-[1.15] text-white transition-colors duration-300 group-hover:text-accent max-lg:text-(length:--text-lg)">
                         {service.title}
                       </h3>
-                      <p className="m-0 mt-2 text-(length:--text-xs) uppercase tracking-[0.18em] text-content-light">
+                      <p className="m-0 mt-2 text-(length:--text-xs) tracking-(--tracking-label) text-content-light">
                         Usually {service.timeline}
                       </p>
                     </>
@@ -155,7 +155,7 @@ export function Services() {
                   </p>
                   <a
                     href={formHref(service.form)}
-                    className="mt-2 inline-flex min-h-9 items-center gap-2 text-(length:--text-xs) uppercase tracking-[0.2em] text-accent transition-colors hover:text-white"
+                    className="mt-2 inline-flex min-h-9 items-center gap-2 text-(length:--text-xs) tracking-(--tracking-label) text-accent transition-colors hover:text-white"
                   >
                     Ask about this
                     <span aria-hidden="true">→</span>
@@ -211,7 +211,7 @@ export function Services() {
                     </span>
                     <Link
                       to={`/project/${r.project}`}
-                      className="text-(length:--text-xs) uppercase tracking-[0.18em] text-accent transition-colors hover:text-white"
+                      className="text-(length:--text-xs) tracking-(--tracking-label) text-accent transition-colors hover:text-white"
                     >
                       See the work →
                     </Link>
@@ -228,7 +228,7 @@ export function Services() {
           <ol className="m-0 mt-(--vspace-1_5) grid list-none grid-cols-4 gap-x-8 gap-y-6 p-0 max-lg:grid-cols-2 max-md:snap-rail max-md:no-scrollbar max-md:-mx-[4vw] max-md:flex max-md:gap-x-4 max-md:px-[4vw] max-md:[&>li]:snap-card max-md:[&>li]:w-[72vw]">
             {STEPS.map((step, index) => (
               <Reveal as="li" key={step.title} delay={0.08 * index} className="border-t border-white/10 pt-4">
-                <span className="block text-(length:--text-xs) uppercase tracking-[0.2em] text-accent">
+                <span className="block text-(length:--text-xs) tracking-(--tracking-label) text-accent">
                   Step {index + 1}
                 </span>
                 <span className="mt-1 block font-display text-(length:--text-lg) text-white">

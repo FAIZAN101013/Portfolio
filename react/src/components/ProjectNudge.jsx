@@ -93,14 +93,14 @@ export function ProjectNudge() {
             className="group flex items-center gap-4 px-5 py-4 pr-16 max-sm:px-4 max-sm:py-3 max-sm:pr-12 transition-colors hover:bg-white/[0.04]"
           >
             <span className="flex min-w-0 flex-1 flex-col gap-1">
-              <span className="flex items-center gap-2 text-[10px] font-semibold uppercase tracking-[0.22em] text-content/80">
+              <span className="flex items-center gap-2 text-(length:--text-xs) font-semibold tracking-(--tracking-label) text-content/80">
                 <span className="size-1.5 rounded-full bg-accent" />
                 Have you seen
               </span>
-              <span className="line-clamp-2 font-display text-[22px] leading-[1.15] text-accent max-sm:text-[17px]">
+              <span className="line-clamp-2 font-display text-(length:--text-lg) leading-[1.15] text-accent max-sm:text-(length:--text-md)">
                 {project.title}
               </span>
-              <span className="truncate text-[13px] text-content/80 max-sm:text-[12px]">{project.category}</span>
+              <span className="truncate text-(length:--text-sm) text-content/80 max-sm:text-(length:--text-xs)">{project.category}</span>
             </span>
             <span
               aria-hidden

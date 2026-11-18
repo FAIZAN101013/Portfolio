@@ -56,7 +56,7 @@ export function Stats() {
                     type="button"
                     onClick={() => pick(t)}
                     aria-pressed={theme === t}
-                    className={`rounded-full border px-4 py-1.5 text-(length:--text-xs) uppercase tracking-[0.16em] transition-colors ${
+                    className={`rounded-full border px-4 py-1.5 text-(length:--text-xs) tracking-(--tracking-label) transition-colors ${
                       theme === t ? 'border-accent bg-accent text-black' : 'border-white/15 text-content hover:border-accent/60'
                     }`}
                   >
@@ -73,7 +73,7 @@ export function Stats() {
                 ['Today', data.days[new Date().toISOString().slice(0, 10)] || 0],
               ].map(([label, n]) => (
                 <div key={label}>
-                  <dt className="text-(length:--text-xs) uppercase tracking-[0.18em] text-accent">{label}</dt>
+                  <dt className="text-(length:--text-xs) tracking-(--tracking-label) text-accent">{label}</dt>
                   <dd className="m-0 mt-1 font-display text-(length:--text-xxl) text-white">{n}</dd>
                 </div>
               ))}

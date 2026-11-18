@@ -41,7 +41,7 @@ export function Contact() {
           </Reveal>
           <TextReveal
             as="p"
-            className="text-h1 mt-0"
+            className="text-h1 mt-0 max-w-[24ch]"
             text="Have a project or a role in mind? Tell me about it and I'll reply within a day."
             delay={0.05}
           />
@@ -81,7 +81,7 @@ export function Contact() {
               <button
                 type="button"
                 onClick={sayHello}
-                className="inline-flex min-h-9 items-center rounded-full border border-white/10 px-3 text-(length:--text-xs) uppercase tracking-[0.18em] text-content-light transition-colors hover:border-accent/50 hover:text-accent"
+                className="inline-flex min-h-9 items-center rounded-full border border-white/10 px-3 text-(length:--text-xs) tracking-(--tracking-label) text-content-light transition-colors hover:border-accent/50 hover:text-accent"
               >
                 {status === 'copied' ? 'Copied' : 'Copy'}
               </button>
@@ -126,7 +126,7 @@ const INPUT_CLASSES =
 function Field({ label, children }) {
   return (
     <label className="block">
-      <span className="mb-1 block text-(length:--text-xs) font-medium uppercase tracking-[.2em] text-content-light">
+      <span className="mb-1 block text-(length:--text-xs) font-medium tracking-(--tracking-label) text-content-light">
         {label}
       </span>
       {children}
@@ -206,7 +206,7 @@ function ContactForm() {
       <div className="flex items-baseline justify-between">
         <h3 className="text-pretitle mb-0">Send a message</h3>
         {stepped && (
-          <span className="text-(length:--text-xs) uppercase tracking-[0.18em] text-content-light">
+          <span className="text-(length:--text-xs) tracking-(--tracking-label) text-content-light">
             Step {step} of 2
           </span>
         )}
@@ -294,7 +294,7 @@ function ContactForm() {
 
       <div className="flex items-center gap-5 max-xs:flex-col max-xs:items-stretch" hidden={stepped && step !== 2}>
         {stepped && (
-          <button type="button" onClick={() => setStep(1)} className="text-(length:--text-xs) uppercase tracking-[0.18em] text-content-light">
+          <button type="button" onClick={() => setStep(1)} className="text-(length:--text-xs) tracking-(--tracking-label) text-content-light">
             ← Back
           </button>
         )}

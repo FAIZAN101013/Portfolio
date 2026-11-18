@@ -247,6 +247,7 @@
   color-scheme: light;
 }
 :root[data-theme="blend-light"] body { background: #f6f0e4; color: #0b2a2e; }
+:root[data-theme="blend-light"] .font-light, :root[data-theme="cream"] .font-light, :root[data-theme="chantilly"] .font-light { font-weight: 400; }
 :root[data-theme="blend-light"] .btn:not(.btn--stroke) { background-color: var(--color-white); border-color: var(--color-white); color: var(--color-black); }
 :root[data-theme="blend-light"] .btn:not(.btn--stroke):hover,
 :root[data-theme="blend-light"] .btn:not(.btn--stroke):focus-visible { background-color: var(--color-accent); border-color: var(--color-accent); color: #fff; }
@@ -320,7 +321,9 @@
   /* type scale — ratio 1.2, base 19px */
   --text-scale-ratio: 1.2;
   --text-size: var(--base-font-size);
-  --text-xs: calc((var(--text-size) / var(--text-scale-ratio)) / var(--text-scale-ratio));
+  --tracking-label: 0.16em;
+  --tracking-nav: 0.25em;
+  --text-xs: calc(var(--text-size) / var(--text-scale-ratio) / 1.11); /* 14px, not 13: labels must stay legible */
   --text-sm: calc(var(--text-xs) * var(--text-scale-ratio));
   --text-md: calc(var(--text-sm) * var(--text-scale-ratio) * var(--text-scale-ratio));
   --text-lg: calc(var(--text-md) * var(--text-scale-ratio));

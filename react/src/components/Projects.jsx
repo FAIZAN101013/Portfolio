@@ -77,7 +77,7 @@ export function Projects() {
                     className={[
                       // min-h-11 is the 44px touch minimum; the original py-3
                       // came to 38px at the mobile type scale.
-                      'relative min-h-11 min-w-[170px] cursor-pointer rounded-full px-7 py-3 text-(length:--text-xs) font-semibold uppercase tracking-[.2em] transition-colors duration-300 max-xs:w-full max-xs:min-w-0 max-xs:tracking-[.12em]',
+                      'relative min-h-11 min-w-[170px] cursor-pointer rounded-full px-7 py-3 text-(length:--text-xs) font-semibold tracking-(--tracking-label) transition-colors duration-300 max-xs:w-full max-xs:min-w-0 max-xs:tracking-(--tracking-label)',
                       active ? 'text-black' : 'text-content hover:text-white',
                     ].join(' ')}
                   >

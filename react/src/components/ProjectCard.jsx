@@ -116,7 +116,7 @@ export function ProjectCard({ project }) {
           project grid where the names are hidden on phones is a grid of
           anonymous rectangles. */}
       <span className="mt-5 block max-md:mt-4">
-        <span className="mb-2 block text-(length:--text-xs) font-medium uppercase tracking-[0.2em] text-accent">
+        <span className="mb-2 block text-(length:--text-xs) font-medium tracking-(--tracking-label) text-accent">
           {project.category}
         </span>
         <span className="block font-display text-(length:--text-xl) leading-tight text-white transition-colors duration-300 group-hover/card:text-accent">

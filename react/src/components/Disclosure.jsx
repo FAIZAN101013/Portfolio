@@ -19,8 +19,8 @@ export function Disclosure({ summary, children, defaultOpen = false, className =
         onClick={() => setOpen((v) => !v)}
         className="flex min-h-12 w-full items-center justify-between gap-4 border-b border-white/10 py-3 text-left"
       >
-        <span className="text-(length:--text-xs) font-medium uppercase tracking-[0.18em] text-white">{summary}</span>
-        <span aria-hidden="true" className="text-(length:--text-xs) uppercase tracking-[0.18em] text-content-light">
+        <span className="text-(length:--text-xs) font-medium tracking-(--tracking-label) text-white">{summary}</span>
+        <span aria-hidden="true" className="text-(length:--text-xs) tracking-(--tracking-label) text-content-light">
           {open ? 'Hide' : 'Show'}
         </span>
       </button>
