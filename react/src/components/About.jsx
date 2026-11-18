@@ -1,8 +1,7 @@
-import { useRef } from 'react'
+import { useRef, useState } from 'react'
 import { motion } from 'framer-motion'
 import { Marquee } from './Marquee'
 import { Reveal } from './Reveal'
-import { Disclosure } from './Disclosure'
 import { Button } from './Button'
 import { aboutParagraphs, experience, site, skillGroups } from '../data/site'
 import { asset } from '../lib/asset'
@@ -17,6 +16,7 @@ const MARQUEE_WORDS = skills.map((skill) => skill.name)
  * square, with a thin accent frame offset behind its bottom-right corner.
  */
 export function About() {
+  const [tab, setTab] = useState('Skills')
   const photoRef = useRef(null)
   // Modest travel: the portrait sits in a fixed-height column, so anything
   // larger would visibly slide against its own frame.
@@ -105,13 +105,30 @@ export function About() {
       {/* Skills as four short lines and experience as three rows. The
           20-tile logo wall and the two-column timeline were a full screen each
           and said less than this does. Education lives in the CV. */}
-      <Disclosure summary="Skills & experience" className="row mt-(--vspace-1_5) mb-(--vspace-1)">
-      <div id="skills" className="row scroll-mt-(--header-height) pt-(--vspace-2) max-md:pt-0">
-        <div className="column col-6 max-lg:w-full">
-          <Reveal as="h2" className="text-pretitle">
+      {/* Skills and experience. Side by side on desktop; on phones two tabs,
+          one open at a time, skills first. */}
+      <div id="skills" className="row scroll-mt-(--header-height) pt-(--vspace-2)">
+        <div className="hidden max-lg:mb-(--vspace-0_75) max-lg:flex" role="tablist" aria-label="About details">
+          {['Skills', 'Experience'].map((t) => (
+            <button
+              key={t}
+              type="button"
+              role="tab"
+              aria-selected={tab === t}
+              onClick={() => setTab(t)}
+              className={`flex-1 border-b-2 py-3 text-(length:--text-xs) font-medium uppercase tracking-[0.18em] transition-colors ${
+                tab === t ? 'border-accent text-white' : 'border-white/10 text-content-light'
+              }`}
+            >
+              {t}
+            </button>
+          ))}
+        </div>
+        <div className={`column col-6 max-lg:w-full ${tab === 'Skills' ? '' : 'max-lg:hidden'}`}>
+          <Reveal as="h2" className="text-pretitle max-lg:hidden">
             Skills
           </Reveal>
-          <dl className="m-0 mt-(--vspace-0_75) grid grid-cols-[auto_1fr] gap-x-6 gap-y-3 max-xs:grid-cols-1 max-xs:gap-y-1">
+          <dl className="m-0 mt-(--vspace-0_75) grid grid-cols-[auto_1fr] gap-x-6 gap-y-3 max-lg:mt-0 max-xs:grid-cols-1 max-xs:gap-y-1">
             {skillGroups.map(({ label, items }) => (
               <Reveal key={label} as="div" className="contents">
                 <dt className="text-(length:--text-xs) font-medium uppercase leading-(--vspace-1) tracking-[0.18em] text-accent max-xs:mt-3">
@@ -124,11 +141,11 @@ export function About() {
             ))}
           </dl>
         </div>
-        <div className="column col-6 max-lg:w-full max-lg:pt-(--vspace-1_5)">
-          <Reveal as="h2" className="text-pretitle">
+        <div className={`column col-6 max-lg:w-full max-lg:pt-0 ${tab === 'Experience' ? '' : 'max-lg:hidden'}`}>
+          <Reveal as="h2" className="text-pretitle max-lg:hidden">
             Experience
           </Reveal>
-          <ol className="m-0 mt-(--vspace-0_75) list-none divide-y divide-white/10 p-0">
+          <ol className="m-0 mt-(--vspace-0_75) list-none divide-y divide-white/10 p-0 max-lg:mt-0">
             {experience.map((entry, index) => (
               <Reveal key={entry.title} as="li" delay={0.06 * index} className="py-5 first:pt-0">
                 <div className="flex flex-wrap items-baseline justify-between gap-x-4">
@@ -147,7 +164,6 @@ export function About() {
           </ol>
         </div>
       </div>
-      </Disclosure>
     </section>
   )
 }
