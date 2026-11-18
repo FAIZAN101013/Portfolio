@@ -212,6 +212,29 @@
 }
 :root[data-theme="bondi"] body { background: #0a84a6; color: #f2fbfd; }
 
+/* ---- Blend theme: the best of the six. 60% raven teal background,
+   30% ricotta cream for text and surfaces, 10% apricot flare accent. ---- */
+:root[data-theme="blend"] {
+  --color-white: #f6f0e4;           /* ricotta cream as ink */
+  --color-black: #0b2a2e;
+  --color-body: #0b2a2e;            /* raven teal */
+  --color-content: #d8d0c0;         /* cream, dimmed */
+  --color-content-light: #9c9484;
+  --color-hairline: rgb(246 240 228 / 0.14);
+  --color-accent: #f4a261;          /* apricot flare */
+  --color-accent-lighter: #fbe0c6;
+  --color-accent-light: #f7bd8a;
+  --color-accent-dark: #e8893c;
+  --color-accent-darker: #c86f26;
+  --color-teal: #3f8f78;
+  --color-teal-light: #5aab92;
+  --color-gray-9: #123a3d;
+  --color-gray-8: #1b4a4c;
+  --color-gray-7: #9c9484;
+  --color-gray-4: #d8d0c0;
+}
+:root[data-theme="blend"] body { background: #0b2a2e; color: #f6f0e4; }
+
 /* Solid buttons: ink on paper reads; red on tan does not. Stroke stays red. */
 :root[data-theme="cream"] .btn:not(.btn--stroke) {
   background-color: var(--color-white);
