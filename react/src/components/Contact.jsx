@@ -88,7 +88,7 @@ export function Contact() {
             </li>
           </ul>
 
-          <h3 className="text-pretitle mb-(--vspace-0_5) mt-(--vspace-1_5) max-md:mt-(--vspace-0_75)">Elsewhere</h3>
+          <h3 className="text-pretitle mb-(--vspace-0_5) mt-(--vspace-1_5) max-md:mt-(--vspace-0_75)">Find me on</h3>
           <ul className="m-0 list-none space-y-(--vspace-0_25) p-0 text-(length:--text-md) font-light leading-(--vspace-1_25) max-md:flex max-md:flex-wrap max-md:gap-x-5 max-md:space-y-0">
             {socials.map(({ label, url, icon }) => (
               <li key={label}>

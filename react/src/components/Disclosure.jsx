@@ -20,11 +20,8 @@ export function Disclosure({ summary, children, defaultOpen = false, className =
         className="flex min-h-12 w-full items-center justify-between gap-4 border-b border-white/10 py-3 text-left"
       >
         <span className="text-(length:--text-xs) font-medium uppercase tracking-[0.18em] text-white">{summary}</span>
-        <span
-          aria-hidden="true"
-          className={`grid size-7 shrink-0 place-items-center rounded-full border border-white/15 text-accent transition-transform duration-300 ${open ? 'rotate-45' : ''}`}
-        >
-          +
+        <span aria-hidden="true" className="text-(length:--text-xs) uppercase tracking-[0.18em] text-content-light">
+          {open ? 'Hide' : 'Show'}
         </span>
       </button>
       <div id={id} hidden={!open} className="pt-2">
