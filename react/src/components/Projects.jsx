@@ -1,6 +1,7 @@
 import { useMemo, useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { Button } from './Button'
+import { useMediaQuery } from '../hooks/useMediaQuery'
 import { ProjectCard } from './ProjectCard'
 import { Reveal } from './Reveal'
 import { TextReveal } from './TextReveal'
@@ -24,7 +25,10 @@ export function Projects() {
   const tab = TABS.find((t) => t.key === activeTab)
   const all = useMemo(() => getProjectsByTag(tab.tag), [tab.tag])
 
-  const visibleCount = visible[activeTab]
+  // Phones get every card in a sideways rail instead of a stack plus a
+  // "show more" button: a swipe is cheaper than a screen of scrolling.
+  const rail = useMediaQuery('(max-width: 800px)')
+  const visibleCount = rail ? all.length : visible[activeTab]
   const shown = all.slice(0, visibleCount)
   const hasMoreToToggle = all.length > INITIAL_COUNT
   const expanded = visibleCount >= all.length
@@ -102,7 +106,7 @@ export function Projects() {
             ) : (
               <motion.div
                 layout={!reduced}
-                className="grid grid-cols-3 gap-x-6 gap-y-10 max-lg:grid-cols-2 max-md:grid-cols-1 max-md:gap-y-8"
+                className="grid grid-cols-3 gap-x-6 gap-y-10 max-lg:grid-cols-2 max-md:snap-rail max-md:no-scrollbar max-md:-mx-[4vw] max-md:flex max-md:gap-x-4 max-md:px-[4vw] max-md:pb-2 max-md:[&>*]:snap-card max-md:[&>*]:w-[82vw]"
               >
                 <AnimatePresence mode="popLayout" initial={false}>
                   {shown.map((project, index) => (
@@ -125,7 +129,7 @@ export function Projects() {
               </motion.div>
             )}
 
-            {hasMoreToToggle && (
+            {hasMoreToToggle && !rail && (
               <div className="mt-(--vspace-1_5) flex justify-center">
                 <Button
                   onClick={toggleShowMore}

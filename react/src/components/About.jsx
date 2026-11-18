@@ -2,6 +2,7 @@ import { useRef } from 'react'
 import { motion } from 'framer-motion'
 import { Marquee } from './Marquee'
 import { Reveal } from './Reveal'
+import { Disclosure } from './Disclosure'
 import { Button } from './Button'
 import { aboutParagraphs, experience, site, skillGroups } from '../data/site'
 import { asset } from '../lib/asset'
@@ -104,7 +105,8 @@ export function About() {
       {/* Skills as four short lines and experience as three rows. The
           20-tile logo wall and the two-column timeline were a full screen each
           and said less than this does. Education lives in the CV. */}
-      <div id="skills" className="row scroll-mt-(--header-height) pt-(--vspace-2)">
+      <Disclosure summary="Skills & experience" className="row mt-(--vspace-1_5) mb-(--vspace-1)">
+      <div id="skills" className="row scroll-mt-(--header-height) pt-(--vspace-2) max-md:pt-0">
         <div className="column col-6 max-lg:w-full">
           <Reveal as="h2" className="text-pretitle">
             Skills
@@ -145,6 +147,7 @@ export function About() {
           </ol>
         </div>
       </div>
+      </Disclosure>
     </section>
   )
 }

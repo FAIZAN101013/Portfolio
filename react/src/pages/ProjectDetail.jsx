@@ -4,6 +4,7 @@ import { AnimatePresence, motion } from 'framer-motion'
 import { Button } from '../components/Button'
 import { MediaGallery } from '../components/MediaGallery'
 import { Reveal } from '../components/Reveal'
+import { Disclosure } from '../components/Disclosure'
 import { getProjectById, projects } from '../data/projects'
 import { asset } from '../lib/asset'
 import { useSeo } from '../lib/seo'
@@ -166,11 +167,16 @@ export function ProjectDetail() {
           </Reveal>
         )}
 
-        {project.architecture && <Architecture arch={project.architecture} />}
+        {project.architecture && (
+          <Disclosure summary="How it's built" className="mt-(--vspace-1_5)">
+            <Architecture arch={project.architecture} />
+          </Disclosure>
+        )}
 
         {project.features?.length > 0 && (
-          <section className="mt-(--vspace-2)">
-            <Reveal as="h2" className="text-pretitle">
+          <Disclosure summary={`Key features (${project.features.length})`} className="mt-(--vspace-1)">
+          <section className="mt-(--vspace-2) max-md:mt-0">
+            <Reveal as="h2" className="text-pretitle max-md:hidden">
               Key Features
             </Reveal>
             <ul className="m-0 mt-(--vspace-0_75) grid list-none grid-cols-2 gap-x-(--vspace-1_25) gap-y-(--vspace-0_5) p-0 max-lg:grid-cols-1">
@@ -196,6 +202,7 @@ export function ProjectDetail() {
               ))}
             </ul>
           </section>
+          </Disclosure>
         )}
 
         {project.wireframes?.length > 0 && (
@@ -536,7 +543,7 @@ function Architecture({ arch }) {
       )}
 
       {arch.layers?.length > 0 && (
-        <div className="mt-(--vspace-1) grid grid-cols-4 gap-4 max-lg:grid-cols-2 max-xs:grid-cols-1">
+        <div className="mt-(--vspace-1) grid grid-cols-4 gap-4 max-lg:grid-cols-2 max-md:snap-rail max-md:no-scrollbar max-md:-mx-[4vw] max-md:flex max-md:gap-x-3 max-md:px-[4vw] max-md:[&>*]:snap-card max-md:[&>*]:w-[78vw]">
           {arch.layers.map((layer, i) => (
             <Reveal key={layer.title} delay={0.06 * i} className="rounded-lg border border-white/10 bg-white/[0.02] p-5">
               <h3 className="m-0 text-(length:--text-xs) font-medium uppercase tracking-[0.18em] text-accent">

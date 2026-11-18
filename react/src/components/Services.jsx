@@ -1,8 +1,10 @@
 import { Reveal } from './Reveal'
 import { TextReveal } from './TextReveal'
+import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { Button } from './Button'
 import { Marquee } from './Marquee'
+import { useMediaQuery } from '../hooks/useMediaQuery'
 import { asset } from '../lib/asset'
 
 /**
@@ -91,6 +93,8 @@ const REVIEWS = [
 const formHref = (service) => `#contact?need=${encodeURIComponent(service)}`
 
 export function Services() {
+  const compact = useMediaQuery('(max-width: 800px)')
+  const [openRow, setOpenRow] = useState(null)
   return (
     <section id="services" className="scroll-mt-(--header-height) pt-(--vspace-3)">
       <div className="row">
@@ -121,15 +125,32 @@ export function Services() {
                 </span>
 
                 <div className="max-lg:col-start-2">
-                  <h3 className="m-0 font-display text-(length:--text-xl) leading-[1.15] text-white transition-colors duration-300 group-hover:text-accent max-lg:text-(length:--text-lg)">
-                    {service.title}
-                  </h3>
-                  <p className="m-0 mt-2 text-(length:--text-xs) uppercase tracking-[0.18em] text-content-light">
-                    Usually {service.timeline}
-                  </p>
+                  {compact ? (
+                    <button
+                      type="button"
+                      aria-expanded={openRow === index}
+                      onClick={() => setOpenRow(openRow === index ? null : index)}
+                      className="flex w-full items-start justify-between gap-3 text-left"
+                    >
+                      <span>
+                        <span className="block font-display text-(length:--text-lg) leading-[1.15] text-white">{service.title}</span>
+                        <span className="mt-1 block text-(length:--text-xs) uppercase tracking-[0.18em] text-content-light">Usually {service.timeline}</span>
+                      </span>
+                      <span aria-hidden="true" className={`mt-1 grid size-7 shrink-0 place-items-center rounded-full border border-white/15 text-accent transition-transform duration-300 ${openRow === index ? 'rotate-45' : ''}`}>+</span>
+                    </button>
+                  ) : (
+                    <>
+                      <h3 className="m-0 font-display text-(length:--text-xl) leading-[1.15] text-white transition-colors duration-300 group-hover:text-accent max-lg:text-(length:--text-lg)">
+                        {service.title}
+                      </h3>
+                      <p className="m-0 mt-2 text-(length:--text-xs) uppercase tracking-[0.18em] text-content-light">
+                        Usually {service.timeline}
+                      </p>
+                    </>
+                  )}
                 </div>
 
-                <div className="max-lg:col-span-2 max-lg:col-start-2">
+                <div className="max-lg:col-span-2 max-lg:col-start-2" hidden={compact && openRow !== index}>
                   <p className="m-0 max-w-[58ch] text-(length:--text-md) font-light leading-(--vspace-1) text-content">
                     {service.desc}
                   </p>
@@ -145,6 +166,7 @@ export function Services() {
                 {/* Proof: the shipped project that shows this service done. */}
                 <Link
                   to={`/project/${service.proof.id}`}
+                  hidden={compact && openRow !== index}
                   className="group/proof block max-lg:col-start-3 max-lg:row-start-1 max-lg:row-span-2 max-md:col-start-2 max-md:row-start-auto max-md:row-span-1 max-md:w-[14rem]"
                   aria-label={`See ${service.proof.label}`}
                 >
@@ -204,7 +226,7 @@ export function Services() {
           </div>
 
           {/* How we work */}
-          <ol className="m-0 mt-(--vspace-1_5) grid list-none grid-cols-4 gap-x-8 gap-y-6 p-0 max-lg:grid-cols-2 max-xs:grid-cols-1">
+          <ol className="m-0 mt-(--vspace-1_5) grid list-none grid-cols-4 gap-x-8 gap-y-6 p-0 max-lg:grid-cols-2 max-md:snap-rail max-md:no-scrollbar max-md:-mx-[4vw] max-md:flex max-md:gap-x-4 max-md:px-[4vw] max-md:[&>li]:snap-card max-md:[&>li]:w-[72vw]">
             {STEPS.map((step, index) => (
               <Reveal as="li" key={step.title} delay={0.08 * index} className="border-t border-white/10 pt-4">
                 <span className="block text-(length:--text-xs) uppercase tracking-[0.2em] text-accent">
