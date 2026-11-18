@@ -13,6 +13,7 @@ export const projects = [
     architecture: {
       summary: 'A static React site and a one-endpoint Express API. The only thing that runs on a server is the enquiry handler, and it stores nothing.',
       flow: ['Visitor', 'React site on Netlify', 'POST /enquiry', 'Express API', 'Resend', 'Client inbox'],
+      scenarios: [{ label: 'A visitor asks for a quote', steps: [0, 1, 2, 3, 4, 5] }, { label: 'Just browsing', steps: [0, 1] }],
       layers: [
         { title: 'Frontend', items: ['React 19', 'Vite', 'Tailwind CSS v4', 'Anime.js'], note: 'Single page, sections animated on scroll, static build.' },
         { title: 'API', items: ['Express 5', 'Zod validation', 'Rate limit'], note: 'One route. Validates, sends the email, returns 200. No queue, no retries to manage.' },
@@ -60,6 +61,7 @@ export const projects = [
     architecture: {
       summary: 'One Next.js app with two faces: the public catalogue, and the CRM behind NextAuth. They share a PostgreSQL database through Prisma so an enquiry on the site is a lead in the console the same second.',
       flow: ['Buyer', 'Catalogue (Next.js)', 'Enquiry form', 'Server action', 'Prisma', 'PostgreSQL', 'CRM lead list'],
+      scenarios: [{ label: 'A buyer sends an enquiry', steps: [0, 1, 2, 3, 4, 5, 6] }, { label: 'Sales opens the CRM', steps: [6, 4, 5] }],
       layers: [
         { title: 'Frontend', items: ['Next.js App Router', 'Tailwind CSS', 'React Hook Form', 'Zod'], note: 'Public pages are server-rendered for SEO. The console is a client app behind a login.' },
         { title: 'Auth', items: ['NextAuth', 'Role-based access', 'Middleware'], note: 'Admin, sales and viewer roles. Routes and server actions check the role, not just the UI.' },
@@ -110,6 +112,7 @@ export const projects = [
     architecture: {
       summary: 'A React single-page app on Supabase. Auth, the database and row-level security are Supabase; the AI features call a model through a small server function so the key never reaches the browser.',
       flow: ['User', 'React app', 'Supabase Auth', 'Postgres (RLS)', 'Edge function', 'AI model', 'Back to the UI'],
+      scenarios: [{ label: 'Score a resume', steps: [0, 1, 3, 4, 5, 6] }, { label: 'Sign in with Google', steps: [0, 1, 2, 3] }],
       layers: [
         { title: 'Frontend', items: ['React', 'Vite', 'Tailwind CSS', 'Framer Motion'], note: 'Six modules in one app: tracker, optimizer, builder, prep, assistant, analytics.' },
         { title: 'Auth', items: ['Supabase Auth', 'Google OAuth', 'Protected routes'], note: 'Email and Google sign-in with persistent sessions.' },
@@ -161,6 +164,7 @@ export const projects = [
     architecture: {
       summary: 'A MERN store: React in front, Express and MongoDB behind, with Stripe and Razorpay for payment so Indian and international cards both work.',
       flow: ['Shopper', 'React app', 'Express API', 'MongoDB', 'Stripe / Razorpay', 'Order confirmed'],
+      scenarios: [{ label: 'Checkout', steps: [0, 1, 2, 3, 4, 5] }, { label: 'Browse the catalogue', steps: [0, 1, 2, 3] }],
       layers: [
         { title: 'Frontend', items: ['React', 'React Router', 'Context for cart'], note: 'Listings, search, filters and a cart held in context so it survives navigation.' },
         { title: 'API', items: ['Node', 'Express', 'REST routes'], note: 'Products, cart, orders and payment intents.' },
@@ -226,6 +230,7 @@ export const projects = [
     architecture: {
       summary: 'The landing page is a static React site. The app is designed mobile-first for Android with an offline-first data model: entries live on the phone until the user chooses to back them up.',
       flow: ['Visitor', 'Landing page (React, Netlify)', 'Download', 'Android app', 'Local store', 'Optional sync'],
+      scenarios: [{ label: 'First launch, offline', steps: [0, 1, 2, 3, 4] }, { label: 'Split a bill', steps: [3, 4, 5] }],
       layers: [
         { title: 'Landing page', items: ['React', 'Vite', 'Tailwind CSS'], note: 'Static, fast, one call to action. The promo plays inline.' },
         { title: 'App UI', items: ['Design system', 'Phosphor icons', 'Manrope'], note: 'Every screen built from the tokens and components in the design case study.' },
@@ -253,6 +258,7 @@ export const projects = [
     architecture: {
       summary: 'Three static sites. The Solar Co. is React with GSAP for scroll animation; Vybemation is hand-written HTML and CSS with a pinned scroll sequence; the Solar Shop gallery is a static index of design exports. All deploy on Vercel from Git.',
       flow: ['Git push', 'Vercel build', 'Static files on the edge', 'Visitor'],
+      scenarios: [{ label: 'Ship a pitch', steps: [0, 1, 2, 3] }],
       layers: [
         { title: 'The Solar Co.', items: ['React', 'Vite', 'Tailwind CSS', 'GSAP'], note: 'Lead form, price-history chart, two hero versions switched by route.' },
         { title: 'Vybemation', items: ['HTML', 'CSS', 'Vanilla JS'], note: 'Scroll-pinned hero animating a note into code, no framework.' },
@@ -311,6 +317,7 @@ export const projects = [
     architecture: {
       summary: 'A React admin console over an Express API with JWT sessions, backed by MongoDB, with Chart.js for the dashboard numbers.',
       flow: ['Admin', 'React console', 'JWT in header', 'Express API', 'MongoDB', 'Charts'],
+      scenarios: [{ label: 'Admin logs in', steps: [0, 1, 2, 3] }, { label: 'Dashboard loads', steps: [0, 1, 3, 4, 5] }],
       layers: [
         { title: 'Frontend', items: ['React', 'Chart.js', 'Protected routes'], note: 'Dashboard, customers, deals and reports.' },
         { title: 'Auth', items: ['JWT', 'bcrypt', 'Role middleware'], note: 'Token issued at login, checked on every API route.' },
@@ -352,6 +359,7 @@ export const projects = [
     architecture: {
       summary: 'A Django platform with Django REST Framework endpoints, PostgreSQL for data and AWS S3 for uploaded photos, served through Gunicorn.',
       flow: ['Customer', 'Django views / DRF', 'PostgreSQL', 'S3 for images', 'Booking confirmed'],
+      scenarios: [{ label: 'Book a plumber', steps: [0, 1, 2, 4] }, { label: 'Provider uploads a photo', steps: [0, 1, 3] }],
       layers: [
         { title: 'App', items: ['Django', 'Django REST Framework', 'Templates'], note: 'Customer and provider sides share the same models.' },
         { title: 'Auth', items: ['Django auth', 'Profiles', 'Permissions'], note: 'Customers book, providers manage requests and approvals.' },
@@ -390,6 +398,7 @@ export const projects = [
     architecture: {
       summary: 'A React app with one serverless function. The function fetches a subreddit from the Reddit API, scores each post with an AFINN word list, and returns the numbers; the browser never calls Reddit directly.',
       flow: ['User types a subreddit', 'React app', 'Vercel function', 'Reddit API', 'AFINN scoring', 'Chart'],
+      scenarios: [{ label: 'Check a subreddit', steps: [0, 1, 2, 3, 4, 5] }],
       layers: [
         { title: 'Frontend', items: ['React 19', 'Vite'], note: 'Input, loading state, and the sentiment breakdown.' },
         { title: 'Function', items: ['Vercel Serverless', 'Reddit JSON API'], note: 'Avoids browser CORS limits and keeps request headers off the client.' },
@@ -447,6 +456,7 @@ export const projects = [
     architecture: {
       summary: 'React front end with React Router, Express API with JWT auth, MongoDB Atlas for storage.',
       flow: ['User', 'React (Router 7)', 'Express 5 API', 'JWT check', 'MongoDB Atlas'],
+      scenarios: [{ label: 'Add a task', steps: [0, 1, 2, 3, 4] }],
       layers: [
         { title: 'Frontend', items: ['React 19', 'React Router 7', 'Vite'], note: 'Lists, filters and task detail as routes.' },
         { title: 'API', items: ['Node', 'Express 5', 'JWT'], note: 'Tasks scoped to the signed-in user on every route.' },
@@ -532,6 +542,12 @@ export const projects = [
 
   {
     id: 'modal-figma-07',
+    designSummary: 'A mark that scales from 16px to a billboard, then every file a partner site could ask for.',
+    designLayers: [
+      { title: 'Mark', match: ['mark'], items: ['Interlocking links', '3 lockups', '5 colours'] },
+      { title: 'Favicons', match: ['favicon'], items: ['9 sizes', 'ICO', 'SVG', 'Manifest'] },
+      { title: 'Banners', match: ['banner'], items: ['9 sizes', 'Light', 'Dark', 'Embed codes'] },
+    ],
     title: 'Finlinks.de — Logo & Banner Package',
     category: 'Brand & Graphic Design',
     liveDemo: 'https://www.finlinks.de/',
@@ -569,6 +585,11 @@ export const projects = [
   },
   {
     id: 'modal-figma-08',
+    designSummary: 'One system scaled by rules, then signed off size by size.',
+    designLayers: [
+      { title: 'System', match: ['sizes', 'system'], items: ['12 sizes', 'Blue', 'White', '1x and 2x'] },
+      { title: 'Sign-off', match: ['sign-off'], items: ['24 files checked', '2 tweaks', 'Same day'] },
+    ],
     title: 'LehrerLinks.net — Banner Set',
     category: 'Brand & Graphic Design',
     liveDemo: 'https://www.lehrerlinks.net/',
@@ -599,6 +620,13 @@ export const projects = [
   },
   {
     id: 'modal-figma-09',
+    designSummary: 'A mark that works on a moving scooter, then everything a startup needs to use it on day one. Step through the package.',
+    designLayers: [
+      { title: 'Identity', match: ['guide', 'wordmark', 'colour'], items: ['Wordmark', 'Chevron', 'Deep green', 'Lime'], note: 'Custom lettering, one slant; the chevron is the K, an arrow and the app icon.' },
+      { title: 'Digital', match: ['app icons', 'developer'], items: ['iOS', 'Android', 'Favicon', 'Tokens'], note: 'Every icon size, the web kit, and colours as CSS, JSON, Tailwind and ASE.' },
+      { title: 'Physical', match: ['rider', 'spec'], items: ['Jacket', 'Helmet', 'Bag', 'Box'], note: 'Tech flats with sizes in mm so a supplier can quote without questions.' },
+      { title: 'Launch', match: ['misuse', 'social'], items: ['Profile', 'Post', 'Story', 'Covers'], note: 'Ready-to-upload assets and the rules for what not to do.' },
+    ],
     title: 'QUICKK — Delivery Brand Concept',
     category: 'Brand Concept (Pitch)',
     tags: ['design'],
@@ -666,6 +694,13 @@ export const projects = [
   },
   {
     id: 'modal-figma-06',
+    designSummary: 'Brand first, then the system, then every screen from it. Step through the process; each step opens the matching section below.',
+    designLayers: [
+      { title: 'Brand', match: ['brand', 'voice'], items: ['Logo', 'Colour', 'Type', 'Voice'], note: 'The N tile and lime tick, Manrope, and four rules for how Noted talks.' },
+      { title: 'System', match: ['system', 'icons'], items: ['Tokens', 'Components', 'Phosphor icons'], note: 'Colour roles, type scale with tabular numbers, buttons, inputs, cards, feedback.' },
+      { title: 'Flows', match: ['onboarding', 'tabs', 'split'], items: ['Onboarding', 'Home', 'Add', 'Budgets', 'Splits'], note: 'The happy paths, built from the system.' },
+      { title: 'Edge cases', match: ['unhappy', 'upgrade', 'empty', 'error'], items: ['Empty', 'Offline', 'Sync failed', 'Paywall'], note: 'Most of what a money app shows on a bad day.' },
+    ],
     title: 'Noted — Brand & Product Design',
     category: 'UI/UX Design',
     related: { id: 'modal-13', label: 'See the build' },
@@ -783,6 +818,11 @@ export const projects = [
   },
   {
     id: 'modal-figma-02',
+    designSummary: 'Hierarchy settled in wireframe, then colour.',
+    designLayers: [
+      { title: 'Wireframe', match: ['wireframe'], items: ['Amount', 'Swap', 'Result'] },
+      { title: 'Final', match: ['final'], items: ['Converter', 'History chart', 'Responsive'] },
+    ],
     brief: 'A currency converter web app with live rates and a history chart, designed for daily use.',
     facts: { Role: 'UI/UX designer', Tools: 'Figma', Deliverables: 'Wireframes, 4 screens, prototype' },
     title: 'CurrencyEx – Currency Converter UI',
@@ -821,6 +861,12 @@ export const projects = [
   },
   {
     id: 'modal-figma-03',
+    designSummary: 'One job for the page, booking, and every section built to support it.',
+    designLayers: [
+      { title: 'Hero', match: ['hero'], items: ['3 directions', 'Booking form'] },
+      { title: 'Components', match: ['components', 'rooms'], items: ['Room cards', 'Hotel cards', 'Amenity tiles'] },
+      { title: 'Conversion', match: ['proof', 'capture', 'full page'], items: ['Reviews', 'Newsletter'] },
+    ],
     brief: 'A hotel landing page built to drive bookings, with a clear hierarchy and one call to action.',
     facts: { Role: 'UI/UX designer', Tools: 'Figma', Deliverables: 'Landing page, 3 hero directions, component set, prototype' },
     title: 'Hotel Landing Page (Figma Design)',
@@ -877,6 +923,12 @@ export const projects = [
   },
   {
     id: 'modal-figma-04',
+    designSummary: 'From a journey map to high-fidelity screens, with every state planned before any was drawn.',
+    designLayers: [
+      { title: 'Research', match: ['research'], items: ['Persona', 'Problem', 'Journey map'] },
+      { title: 'Structure', match: ['flow', 'plan'], items: ['User flow', 'Wireframe plan'] },
+      { title: 'Wireframes', match: ['wireframe'], items: ['Home', 'Search', 'Hotel', 'Booking', 'Cancel'] },
+    ],
     brief: 'A hotel booking app that takes a guest from search to a confirmed room in as few taps as possible.',
     facts: { Role: 'UI/UX designer', Tools: 'Figma', Deliverables: 'Research, journey map, user flow, 9 wireframes, hi-fi screens' },
     title: 'Hotel App (Figma Design)',
@@ -935,6 +987,12 @@ export const projects = [
   },
   {
     id: 'modal-figma-05',
+    designSummary: 'Calm comes from spacing and imagery, not from hiding the shop.',
+    designLayers: [
+      { title: 'Mood', match: ['imagery', 'tone'], items: ['Photography', 'Dark surfaces', 'Air'] },
+      { title: 'Catalogue', match: ['product'], items: ['Product cards', '3 grid states'] },
+      { title: 'Trust', match: ['social', 'full page'], items: ['Quote block', 'Review variants'] },
+    ],
     brief: 'A tea shop web app with a calm, unhurried ordering flow.',
     facts: { Role: 'UI/UX designer', Tools: 'Figma', Deliverables: 'Logo, landing page, product grid, review components, prototype' },
     title: 'ZenSip (Figma Design)',

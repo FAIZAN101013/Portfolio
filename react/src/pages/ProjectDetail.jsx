@@ -1,6 +1,6 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
-import { AnimatePresence, motion } from 'framer-motion'
+import { AnimatePresence, motion, useInView } from 'framer-motion'
 import { Button } from '../components/Button'
 import { MediaGallery } from '../components/MediaGallery'
 import { Reveal } from '../components/Reveal'
@@ -383,6 +383,8 @@ function DesignDetail({ project, previous, next }) {
           </Reveal>
         )}
 
+        {process.length > 1 && <DesignFlow project={project} process={process} />}
+
         {/* ---------- process ---------- */}
         {process.length > 0 && (
           <section className="mt-(--vspace-2) border-t border-hairline pt-(--vspace-1_5)">
@@ -391,7 +393,7 @@ function DesignDetail({ project, previous, next }) {
             </Reveal>
             <div className="mt-(--vspace-1) space-y-(--vspace-2)">
               {process.map((block, index) => (
-                <ProcessBlock key={block.title} block={block} index={index} />
+                <ProcessBlock key={block.title} block={block} index={index} id={`process-${index}`} />
               ))}
             </div>
           </section>
@@ -443,10 +445,10 @@ function DesignDetail({ project, previous, next }) {
 
 /** One step of the process: a heading, a sentence, then the artefacts large
  *  enough to read. One image spans the width; more sit two across. */
-function ProcessBlock({ block, index }) {
+function ProcessBlock({ block, index, id }) {
   const images = block.images || []
   return (
-    <Reveal as="article" delay={index * 0.05} className="grid grid-cols-[20rem_1fr] gap-x-(--vspace-2) max-xl:grid-cols-[16rem_1fr] max-lg:grid-cols-1 max-lg:gap-y-(--vspace-0_5)">
+    <Reveal as="article" id={id} delay={index * 0.05} className="process-block scroll-mt-[calc(var(--header-height)+1rem)] grid grid-cols-[20rem_1fr] gap-x-(--vspace-2) max-xl:grid-cols-[16rem_1fr] max-lg:grid-cols-1 max-lg:gap-y-(--vspace-0_5)">
       <div>
         <span className="block text-(length:--text-xs) uppercase tracking-[0.2em] text-accent">
           {String(index + 1).padStart(2, '0')}
@@ -512,53 +514,110 @@ function ProcessBlock({ block, index }) {
 
 /** Architecture: the request flow as a chain, the layers with what each
  *  uses, and the decisions that shaped them. Only the parts given render. */
-function Architecture({ arch }) {
-  // Click a step in the flow and the layer it belongs to lights up, with a
-  // one-line note on what happens there. Steps map to layers by keyword
-  // match; `active` is null when nothing is selected.
+/**
+ * Interactive flow. Used as "How it's built" on code pages (request flow →
+ * stack layers) and "How it's designed" on design pages (process steps →
+ * process sections). Auto-plays once when scrolled into view; scenarios
+ * replay a chosen path; tapping a step takes over.
+ */
+function Flow({ title, summary, flowLabel, flow, layers, decisions, scenarios, onStep, layerFor }) {
+  const ref = useRef(null)
+  const inView = useInView(ref, { once: true, margin: '0px 0px -30% 0px' })
   const [active, setActive] = useState(null)
-  const layers = arch.layers || []
-  const flow = arch.flow || []
-  const layerFor = (step) => {
-    const t = step.toLowerCase()
-    const idx = layers.findIndex((l) =>
-      [l.title, ...(l.items || [])].some((w) => {
-        const k = String(w).toLowerCase().split(/[\s(]/)[0]
-        return k.length > 2 && t.includes(k)
-      }),
-    )
-    return idx
+  const [playing, setPlaying] = useState(false)
+  const [path, setPath] = useState(null) // indexes for the current scenario, or null = whole flow
+  const timer = useRef(null)
+
+  const steps = path ? path.map((i) => flow[i]) : flow
+  const stepIndex = (i) => (path ? path[i] : i)
+
+  const play = (indexes) => {
+    clearTimeout(timer.current)
+    setPath(indexes)
+    setPlaying(true)
+    const seq = indexes || flow.map((_, i) => i)
+    let k = 0
+    const tick = () => {
+      setActive(k)
+      k += 1
+      if (k < seq.length) timer.current = setTimeout(tick, 650)
+      else setPlaying(false)
+    }
+    tick()
   }
-  const activeLayer = active == null ? -1 : layerFor(flow[active])
+
+  useEffect(() => {
+    if (inView && active === null) play(null)
+    return () => clearTimeout(timer.current)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [inView])
+
+  useEffect(() => {
+    if (active != null && onStep) onStep(stepIndex(active))
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [active])
+
+  const activeLayer = active == null ? -1 : layerFor(flow[stepIndex(active)])
 
   return (
-    <section className="mt-(--vspace-2) border-t border-hairline pt-(--vspace-1_5)">
+    <section ref={ref} className="mt-(--vspace-2) border-t border-hairline pt-(--vspace-1_5)">
       <Reveal as="h2" className="text-pretitle">
-        How it&apos;s built
+        {title}
       </Reveal>
-      {arch.summary && (
+      {summary && (
         <Reveal as="p" delay={0.05} className="mb-0 mt-(--vspace-0_5) max-w-[64ch] text-(length:--text-md) leading-(--vspace-1) text-content">
-          {arch.summary}
+          {summary}
         </Reveal>
+      )}
+
+      {scenarios?.length > 0 && (
+        <div className="mt-(--vspace-1) flex flex-wrap items-center gap-2">
+          <span className="mr-1 text-(length:--text-xs) uppercase tracking-[0.18em] text-content-light">Play</span>
+          {scenarios.map((sc) => (
+            <button
+              key={sc.label}
+              type="button"
+              onClick={() => play(sc.steps)}
+              className={`rounded-full border px-4 py-1.5 text-(length:--text-xs) transition-colors ${
+                path === sc.steps ? 'border-accent bg-accent text-black' : 'border-white/15 text-white hover:border-accent/60'
+              }`}
+            >
+              {sc.label}
+            </button>
+          ))}
+          <button
+            type="button"
+            onClick={() => play(null)}
+            className={`rounded-full border px-4 py-1.5 text-(length:--text-xs) transition-colors ${
+              path === null && playing ? 'border-accent bg-accent text-black' : 'border-white/15 text-white hover:border-accent/60'
+            }`}
+          >
+            Whole flow
+          </button>
+        </div>
       )}
 
       {flow.length > 0 && (
         <Reveal delay={0.1} className="mt-(--vspace-1)">
           <div className="flex items-baseline justify-between gap-4">
-            <h3 className="text-pretitle mb-(--vspace-0_375) text-(length:--text-xs)">Request flow</h3>
+            <h3 className="text-pretitle mb-(--vspace-0_375) text-(length:--text-xs)">{flowLabel}</h3>
             <span className="text-(length:--text-xs) text-content-light">Tap a step to follow it</span>
           </div>
           <ol className="m-0 flex list-none flex-wrap items-center gap-y-3 p-0">
-            {flow.map((step, i) => {
+            {steps.map((step, i) => {
               const on = active === i
               const reached = active != null && i <= active
               return (
                 <li key={step} className="flex items-center">
                   <button
                     type="button"
-                    onClick={() => setActive(on ? null : i)}
+                    onClick={() => {
+                      clearTimeout(timer.current)
+                      setPlaying(false)
+                      setActive(on ? null : i)
+                    }}
                     aria-pressed={on}
-                    className={`rounded-md border px-3.5 py-2 text-(length:--text-sm) transition-colors ${
+                    className={`rounded-md border px-3.5 py-2 text-(length:--text-sm) transition-colors duration-300 ${
                       on
                         ? 'border-accent bg-accent text-black'
                         : reached
@@ -568,8 +627,8 @@ function Architecture({ arch }) {
                   >
                     {step}
                   </button>
-                  {i < flow.length - 1 && (
-                    <span aria-hidden="true" className={`px-2.5 transition-colors ${reached && i < active ? 'text-accent' : 'text-accent/40'}`}>→</span>
+                  {i < steps.length - 1 && (
+                    <span aria-hidden="true" className={`px-2.5 transition-colors duration-300 ${reached && i < active ? 'text-accent' : 'text-accent/40'}`}>→</span>
                   )}
                 </li>
               )
@@ -578,7 +637,7 @@ function Architecture({ arch }) {
         </Reveal>
       )}
 
-      {layers.length > 0 && (
+      {layers?.length > 0 && (
         <div className="mt-(--vspace-1) grid grid-cols-4 gap-4 max-lg:grid-cols-2 max-md:snap-rail max-md:no-scrollbar max-md:-mx-[4vw] max-md:flex max-md:gap-x-3 max-md:px-[4vw] max-md:[&>*]:snap-card max-md:[&>*]:w-[78vw]">
           {layers.map((layer, i) => {
             const lit = activeLayer === i
@@ -594,13 +653,15 @@ function Architecture({ arch }) {
                 <h3 className="m-0 text-(length:--text-xs) font-medium uppercase tracking-[0.18em] text-accent">
                   {layer.title}
                 </h3>
-                <ul className="m-0 mt-3 flex list-none flex-wrap gap-1.5 p-0">
-                  {layer.items.map((item) => (
-                    <li key={item} className="rounded-full border border-white/10 px-3 py-1 text-(length:--text-xs) text-white/90">
-                      {item}
-                    </li>
-                  ))}
-                </ul>
+                {layer.items?.length > 0 && (
+                  <ul className="m-0 mt-3 flex list-none flex-wrap gap-1.5 p-0">
+                    {layer.items.map((item) => (
+                      <li key={item} className="rounded-full border border-white/10 px-3 py-1 text-(length:--text-xs) text-white/90">
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+                )}
                 {layer.note && (
                   <p className="mb-0 mt-3 text-(length:--text-sm) leading-(--vspace-0_75) text-content">
                     {layer.note}
@@ -612,11 +673,11 @@ function Architecture({ arch }) {
         </div>
       )}
 
-      {arch.decisions?.length > 0 && (
+      {decisions?.length > 0 && (
         <Reveal delay={0.15} className="mt-(--vspace-1)">
           <h3 className="text-pretitle mb-(--vspace-0_375) text-(length:--text-xs)">Decisions</h3>
           <ul className="m-0 grid list-none grid-cols-2 gap-x-(--vspace-1_25) gap-y-(--vspace-0_5) p-0 max-lg:grid-cols-1">
-            {arch.decisions.map((d) => (
+            {decisions.map((d) => (
               <li key={d} className="relative pl-6 text-(length:--text-md) leading-(--vspace-1) text-content before:absolute before:left-0 before:top-[0.6em] before:size-1.5 before:rounded-full before:bg-accent">
                 {d}
               </li>
@@ -625,6 +686,73 @@ function Architecture({ arch }) {
         </Reveal>
       )}
     </section>
+  )
+}
+
+/** Code pages: layer match by keyword. */
+const keywordLayer = (layers) => (step) => {
+  const t = String(step).toLowerCase()
+  return layers.findIndex((l) =>
+    [l.title, ...(l.items || [])].some((w) => {
+      const k = String(w).toLowerCase().split(/[\s(]/)[0]
+      return k.length > 2 && t.includes(k)
+    }),
+  )
+}
+
+function Architecture({ arch }) {
+  const layers = arch.layers || []
+  return (
+    <Flow
+      title="How it's built"
+      summary={arch.summary}
+      flowLabel="Request flow"
+      flow={arch.flow || []}
+      layers={layers}
+      decisions={arch.decisions}
+      scenarios={arch.scenarios}
+      layerFor={keywordLayer(layers)}
+    />
+  )
+}
+
+/** Design pages: the process blocks are the flow; stepping scrolls to and
+ *  highlights the matching block. */
+function DesignFlow({ project, process }) {
+  const flow = process.map((b) => b.title)
+  const layers = project.designLayers || []
+  const onStep = (i) => {
+    const el = document.getElementById(`process-${i}`)
+    if (!el) return
+    document.querySelectorAll('[id^="process-"]').forEach((n) => n.classList.remove('process-lit'))
+    el.classList.add('process-lit')
+  }
+  const layerFor = (step) => {
+    const t = String(step).toLowerCase()
+    return layers.findIndex((l) => (l.match || [l.title]).some((m) => t.includes(String(m).toLowerCase())))
+  }
+  return (
+    <Flow
+      title="How it's designed"
+      summary={project.designSummary}
+      flowLabel="Process"
+      flow={flow}
+      layers={layers}
+      decisions={null}
+      scenarios={null}
+      onStep={onStep}
+      layerFor={layerFor}
+    />
+  )
+}
+
+/** Internal link to the sibling entry: the design case study of a build, or
+ *  the build of a design. Same button, different destination. */
+function RelatedButton({ related }) {
+  return (
+    <Button to={`/project/${related.id}`} variant="stroke" withArrow className="btn--block-mobile">
+      {related.label}
+    </Button>
   )
 }
 

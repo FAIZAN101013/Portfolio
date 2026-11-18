@@ -905,3 +905,11 @@
   min-width: 44px;
   min-height: 44px;
 }
+
+/* A process step the flow has stepped to: brief accent rule on the left. */
+.process-block { position: relative; transition: opacity 0.3s; }
+.process-block::before {
+  content: ""; position: absolute; left: -1.25rem; top: 0.35rem; bottom: 0.35rem; width: 2px;
+  background: var(--color-accent); opacity: 0; transition: opacity 0.3s;
+}
+.process-lit::before { opacity: 1; }
