@@ -5,6 +5,7 @@ import { Reveal } from './Reveal'
 import { TextReveal } from './TextReveal'
 import { Icon } from './Icon'
 import { useReducedMotion } from '../hooks/useReducedMotion'
+import { useMediaQuery } from '../hooks/useMediaQuery'
 import { site, socials } from '../data/site'
 
 export function Contact() {
@@ -62,13 +63,13 @@ export function Contact() {
         </div>
       </div>
 
-      <div className="row mt-(--vspace-2) items-start border-b border-hairline pb-(--vspace-3) max-md:mt-(--vspace-1) max-md:flex-col-reverse max-md:pb-(--vspace-2)">
-        <Reveal className="column col-7 max-xl:w-full">
+      <div className="row mt-(--vspace-2) items-start border-b border-hairline pb-(--vspace-3) max-md:mt-(--vspace-1) max-md:pb-(--vspace-2)">
+        <Reveal className="column col-12 lg:w-[58%] lg:flex-none">
           <ContactForm />
         </Reveal>
 
         <Reveal
-          className="column col-5 pl-[4vw] max-xl:mt-(--vspace-2) max-xl:w-full max-xl:pl-0 max-md:mt-0 max-md:mb-(--vspace-1)"
+          className="column col-12 lg:w-[42%] lg:flex-none lg:pl-[4vw] max-lg:mt-(--vspace-2) max-md:mt-(--vspace-1_5)"
           delay={0.1}
         >
           <h3 className="text-pretitle mb-(--vspace-0_5)">Or reach me directly</h3>
@@ -143,6 +144,9 @@ function ContactForm() {
   // "Ask about this" links in Services arrive as #contact?need=<option>.
   // Read it on mount and on every hash change, then scroll the form in.
   const [need, setNeed] = useState('')
+  // Phones: the form in two steps so it never runs a screen and a half.
+  const stepped = useMediaQuery('(max-width: 800px)')
+  const [step, setStep] = useState(1)
   useEffect(() => {
     const read = () => {
       const m = window.location.hash.match(/need=([^&]+)/)
@@ -199,7 +203,14 @@ function ContactForm() {
 
   return (
     <form onSubmit={onSubmit} className="flex flex-col gap-8">
-      <h3 className="text-pretitle mb-0">Send a message</h3>
+      <div className="flex items-baseline justify-between">
+        <h3 className="text-pretitle mb-0">Send a message</h3>
+        {stepped && (
+          <span className="text-(length:--text-xs) uppercase tracking-[0.18em] text-content-light">
+            Step {step} of 2
+          </span>
+        )}
+      </div>
 
       {/* Honeypot — visually hidden, real visitors never fill it. */}
       <input
@@ -211,7 +222,7 @@ function ContactForm() {
         className="absolute -left-[9999px] h-0 w-0 opacity-0"
       />
 
-      <div className="grid grid-cols-2 gap-x-10 gap-y-8 max-sm:grid-cols-1 max-sm:gap-y-5">
+      <div className="grid grid-cols-2 gap-x-10 gap-y-8 max-sm:grid-cols-1 max-sm:gap-y-5" hidden={stepped && step !== 1}>
         <Field label="Name">
           <input
             type="text"
@@ -234,6 +245,7 @@ function ContactForm() {
         </Field>
       </div>
 
+      <div hidden={stepped && step !== 1}>
       <Field label="What do you need?">
         <select
           name="service"
@@ -249,7 +261,25 @@ function ContactForm() {
           <option>Something else</option>
         </select>
       </Field>
+      </div>
 
+      {stepped && step === 1 && (
+        <Button
+          type="button"
+          withArrow
+          className="btn--block-mobile"
+          onClick={(e) => {
+            const form = e.currentTarget.closest('form')
+            const first = [...form.querySelectorAll('input[name=name],input[name=email]')].find((el) => !el.checkValidity())
+            if (first) { first.reportValidity(); return }
+            setStep(2)
+          }}
+        >
+          Next
+        </Button>
+      )}
+
+      <div hidden={stepped && step !== 2}>
       <Field label="Message">
         <textarea
           name="message"
@@ -260,8 +290,14 @@ function ContactForm() {
           className={`${INPUT_CLASSES} resize-y`}
         />
       </Field>
+      </div>
 
-      <div className="flex items-center gap-5 max-xs:flex-col max-xs:items-stretch">
+      <div className="flex items-center gap-5 max-xs:flex-col max-xs:items-stretch" hidden={stepped && step !== 2}>
+        {stepped && (
+          <button type="button" onClick={() => setStep(1)} className="text-(length:--text-xs) uppercase tracking-[0.18em] text-content-light">
+            ← Back
+          </button>
+        )}
         <Button
           type="submit"
           withArrow
