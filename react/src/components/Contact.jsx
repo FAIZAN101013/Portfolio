@@ -33,7 +33,7 @@ export function Contact() {
 
   return (
     <section id="contact" className="scroll-mt-(--header-height) pt-(--vspace-3)">
-      <div className="row border-t border-hairline pt-(--vspace-5) max-md:pt-(--vspace-4)">
+      <div className="row border-t border-hairline pt-(--vspace-5) max-md:pt-(--vspace-2)">
         <div className="column col-12">
           <Reveal as="h2" className="text-pretitle">
             Get In Touch
@@ -62,13 +62,13 @@ export function Contact() {
         </div>
       </div>
 
-      <div className="row mt-(--vspace-2) items-start border-b border-hairline pb-(--vspace-3) max-md:flex-col-reverse">
+      <div className="row mt-(--vspace-2) items-start border-b border-hairline pb-(--vspace-3) max-md:mt-(--vspace-1) max-md:flex-col-reverse max-md:pb-(--vspace-2)">
         <Reveal className="column col-7 max-xl:w-full">
           <ContactForm />
         </Reveal>
 
         <Reveal
-          className="column col-5 pl-[4vw] max-xl:mt-(--vspace-2) max-xl:w-full max-xl:pl-0 max-md:mt-0 max-md:mb-(--vspace-2)"
+          className="column col-5 pl-[4vw] max-xl:mt-(--vspace-2) max-xl:w-full max-xl:pl-0 max-md:mt-0 max-md:mb-(--vspace-1)"
           delay={0.1}
         >
           <h3 className="text-pretitle mb-(--vspace-0_5)">Or reach me directly</h3>
@@ -87,8 +87,8 @@ export function Contact() {
             </li>
           </ul>
 
-          <h3 className="text-pretitle mb-(--vspace-0_5) mt-(--vspace-1_5)">Elsewhere</h3>
-          <ul className="m-0 list-none space-y-(--vspace-0_25) p-0 text-(length:--text-md) font-light leading-(--vspace-1_25)">
+          <h3 className="text-pretitle mb-(--vspace-0_5) mt-(--vspace-1_5) max-md:mt-(--vspace-0_75)">Elsewhere</h3>
+          <ul className="m-0 list-none space-y-(--vspace-0_25) p-0 text-(length:--text-md) font-light leading-(--vspace-1_25) max-md:flex max-md:flex-wrap max-md:gap-x-5 max-md:space-y-0">
             {socials.map(({ label, url, icon }) => (
               <li key={label}>
                 <ContactLink href={url} icon={icon} external>
@@ -211,7 +211,7 @@ function ContactForm() {
         className="absolute -left-[9999px] h-0 w-0 opacity-0"
       />
 
-      <div className="grid grid-cols-2 gap-x-10 gap-y-8 max-sm:grid-cols-1">
+      <div className="grid grid-cols-2 gap-x-10 gap-y-8 max-sm:grid-cols-1 max-sm:gap-y-5">
         <Field label="Name">
           <input
             type="text"
@@ -254,7 +254,7 @@ function ContactForm() {
         <textarea
           name="message"
           required
-          rows={4}
+          rows={3}
           maxLength={5000}
           placeholder="What is it, who is it for, rough timeline, and a link to anything that exists already"
           className={`${INPUT_CLASSES} resize-y`}
