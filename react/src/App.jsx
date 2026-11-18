@@ -16,16 +16,14 @@ import { Stats } from './pages/Stats'
 export default function App() {
   const location = useLocation()
 
-  // Theme: ?theme=cream sets it, then it sticks in localStorage.
+  // Theme: blend-light for everyone. The owner can pick another from the
+  // stats page; that choice lives in this browser only.
   useEffect(() => {
-    const q = (new URLSearchParams(window.location.search).get('theme') || '').toLowerCase() || null
-    let t = q
+    let t = 'blend-light'
     try {
-      if (q) localStorage.setItem('theme', q)
-      t = t || localStorage.getItem('theme')
+      t = localStorage.getItem('theme') || t
     } catch {}
-    if (['cream', 'teal', 'chantilly', 'walnut', 'bondi', 'blend', 'blend-light', 'blend-deep', 'blend-green'].includes(t)) document.documentElement.dataset.theme = t
-    else delete document.documentElement.dataset.theme
+    document.documentElement.dataset.theme = t
   }, [])
 
   // One visit per page view; nothing stored about the visitor.

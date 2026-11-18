@@ -1,6 +1,9 @@
 import { useEffect, useState } from 'react'
 import { useSeo } from '../lib/seo'
 
+const THEMES = ['dark', 'cream', 'teal', 'chantilly', 'walnut', 'bondi', 'blend', 'blend-light', 'blend-deep', 'blend-green']
+const DEFAULT_THEME = 'blend-light'
+
 /**
  * Owner-only visit stats at /stats?key=… The key is checked by the function,
  * not here; without it the page just shows "not found". Not linked anywhere
@@ -9,6 +12,20 @@ import { useSeo } from '../lib/seo'
 export function Stats() {
   useSeo({ title: 'Stats', noindex: true })
   const [data, setData] = useState(null)
+  const [theme, setTheme] = useState(() => {
+    try {
+      return localStorage.getItem('theme') || DEFAULT_THEME
+    } catch {
+      return DEFAULT_THEME
+    }
+  })
+  const pick = (t) => {
+    setTheme(t)
+    document.documentElement.dataset.theme = t
+    try {
+      localStorage.setItem('theme', t)
+    } catch {}
+  }
   const [error, setError] = useState('')
 
   useEffect(() => {
@@ -30,6 +47,25 @@ export function Stats() {
         {error && <p className="text-content">{error}</p>}
         {data && (
           <>
+            <section className="mb-(--vspace-1_5)">
+              <h2 className="text-pretitle">Theme (this browser only)</h2>
+              <div className="mt-3 flex flex-wrap gap-2">
+                {THEMES.map((t) => (
+                  <button
+                    key={t}
+                    type="button"
+                    onClick={() => pick(t)}
+                    aria-pressed={theme === t}
+                    className={`rounded-full border px-4 py-1.5 text-(length:--text-xs) uppercase tracking-[0.16em] transition-colors ${
+                      theme === t ? 'border-accent bg-accent text-black' : 'border-white/15 text-content hover:border-accent/60'
+                    }`}
+                  >
+                    {t}
+                    {t === DEFAULT_THEME ? ' · default' : ''}
+                  </button>
+                ))}
+              </div>
+            </section>
             <dl className="m-0 grid grid-cols-3 gap-6 border-y border-hairline py-(--vspace-0_75) max-xs:grid-cols-1">
               {[
                 ['All time', data.total],
