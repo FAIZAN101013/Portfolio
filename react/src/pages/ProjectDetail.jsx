@@ -644,7 +644,7 @@ function ActionMenu({ label, items, variant }) {
             transition={{ duration: 0.2 }}
             className="absolute bottom-full left-0 z-20 min-w-full w-max max-w-[min(320px,90vw)] pb-2"
           >
-            <div className="overflow-hidden rounded-xl border border-white/10 bg-[#1b1c1e]/95 shadow-[0_16px_40px_rgba(0,0,0,.45)] backdrop-blur-md">
+            <div className="overflow-hidden rounded-xl border border-white/10 bg-gray-9/95 shadow-[0_16px_40px_rgba(0,0,0,.45)] backdrop-blur-md">
               {items.map((item) => (
                 <li key={item.url} role="none">
                   <a

@@ -251,7 +251,7 @@ function ContactForm() {
           name="service"
           value={need}
           onChange={(e) => setNeed(e.target.value)}
-          className={`${INPUT_CLASSES} cursor-pointer appearance-none [&_option]:bg-[#161616] [&_option]:text-white`}
+          className={`${INPUT_CLASSES} cursor-pointer appearance-none [&_option]:bg-black [&_option]:text-white`}
         >
           <option value="">Just saying hi</option>
           <option>Marketing website</option>

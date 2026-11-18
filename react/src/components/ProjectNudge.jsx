@@ -86,7 +86,7 @@ export function ProjectNudge() {
           animate={{ opacity: 1, y: 0, scale: 1 }}
           exit={{ opacity: 0, y: reduced ? 0 : 12, scale: reduced ? 1 : 0.98 }}
           transition={{ duration: reduced ? 0 : 0.45, ease: EASE_OUT_SOFT }}
-          className="fixed bottom-3 left-3 right-3 z-40 max-sm:left-auto max-sm:max-w-[300px] overflow-hidden rounded-xl border border-white/10 bg-[#1b1c1e]/90 shadow-[0_12px_32px_rgba(0,0,0,.4)] backdrop-blur-md sm:left-auto sm:right-6 sm:bottom-6 sm:w-[340px]"
+          className="fixed bottom-3 left-3 right-3 z-40 max-sm:left-auto max-sm:max-w-[300px] overflow-hidden rounded-xl border border-white/10 bg-gray-9/90 shadow-[0_12px_32px_rgba(0,0,0,.4)] backdrop-blur-md sm:left-auto sm:right-6 sm:bottom-6 sm:w-[340px]"
         >
           <Link
             to={`/project/${project.id}`}

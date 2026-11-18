@@ -70,6 +70,11 @@
   --color-gray-2: #d0d0d0;
   --color-gray-1: #e8e8e8;
 
+  /* ---- ink & paper: every text-white / bg-black utility resolves through
+     these, so a theme can flip them without touching components ---- */
+  --color-white: #ffffff;
+  --color-black: #000000;
+
   /* ---- semantic ---- */
   --color-body: #141516;
   --color-content: #a1a1a2;
@@ -87,6 +92,43 @@
    * ----------------------------------------------------------------- */
   --ease-out-soft: cubic-bezier(0.215, 0.61, 0.355, 1);
   --ease-in-out-soft: cubic-bezier(0.645, 0.045, 0.355, 1);
+}
+
+/* ---- Cream theme: 60% ricotta cream, 30% Prussian blue, 10% lobster red.
+   Flip "white" to ink and "black" to paper so every existing utility reads
+   correctly, then re-point the semantic colours and the accent. ---- */
+:root[data-theme="cream"] {
+  --color-white: #0f2f4c;          /* ink: Prussian blue */
+  --color-black: #f6f0e4;          /* paper: ricotta cream */
+  --color-body: #f6f0e4;
+  --color-content: #35506a;
+  --color-content-light: #6b7f93;
+  --color-hairline: rgb(15 47 76 / 0.12);
+  --color-accent: #c8361f;          /* lobster red */
+  --color-accent-lighter: #f3d3cc;
+  --color-accent-light: #e58a79;
+  --color-accent-dark: #a92b16;
+  --color-accent-darker: #86210f;
+  --color-teal: #0f2f4c;
+  --color-teal-light: #1d4a73;
+  --color-gray-9: #e9e1d2;
+  --color-gray-8: #d9cfbd;
+  --color-gray-7: #6b7f93;
+  --color-gray-4: #35506a;
+  color-scheme: light;
+}
+:root[data-theme="cream"] body { background: #f6f0e4; color: #0f2f4c; }
+/* Solid buttons: ink on paper reads; red on tan does not. Stroke stays red. */
+:root[data-theme="cream"] .btn:not(.btn--stroke) {
+  background-color: var(--color-white);
+  border-color: var(--color-white);
+  color: var(--color-black);
+}
+:root[data-theme="cream"] .btn:not(.btn--stroke):hover,
+:root[data-theme="cream"] .btn:not(.btn--stroke):focus-visible {
+  background-color: var(--color-accent);
+  border-color: var(--color-accent);
+  color: #fff;
 }
 
 /* ------------------------------------------------------------------
@@ -189,7 +231,7 @@
   h6 {
     font-family: var(--font-display);
     font-weight: 400;
-    color: #fff;
+    color: var(--color-white);
     font-variant-ligatures: common-ligatures;
     text-rendering: optimizeLegibility;
   }
@@ -250,7 +292,7 @@
 
   ::selection {
     background-color: var(--color-accent);
-    color: #000;
+    color: var(--color-black);
   }
 
   /* Polish: the scrollbar was default-light against a near-black page. */
@@ -346,7 +388,7 @@
     font-size: var(--text-display-1);
     line-height: var(--vspace-2);
     letter-spacing: -0.01em;
-    color: #fff;
+    color: var(--color-white);
     margin-top: var(--vspace-2_5);
     margin-bottom: var(--vspace-0_75);
   }
@@ -374,7 +416,7 @@
     font-family: var(--font-sans);
     font-size: var(--text-sm);
     font-weight: 400;
-    color: #fff;
+    color: var(--color-white);
     text-transform: uppercase;
     letter-spacing: 0.3em;
     margin-top: 0;
@@ -398,7 +440,7 @@
     display: block;
     height: 1px;
     width: 4rem;
-    background-color: rgb(255 255 255 / 0.5);
+    background-color: color-mix(in srgb, var(--color-white) 50%, transparent);
     position: absolute;
     top: 50%;
     left: 0;
@@ -411,7 +453,7 @@
     font-size: calc(var(--text-huge) * var(--text-huge-multiplier));
     line-height: 1.074;
     letter-spacing: -0.01em;
-    color: #fff;
+    color: var(--color-white);
     margin-top: 0;
     /* .text-huge-title only resets margin-top; the bottom margin still comes
        from the base h1 rule, and it is what centres the hero block. */
@@ -455,7 +497,7 @@
   }
 
   .attention-getter strong {
-    color: #fff;
+    color: var(--color-white);
     font-weight: 500;
   }
 
@@ -506,7 +548,7 @@
     background: linear-gradient(
       105deg,
       transparent 38%,
-      rgb(255 255 255 / 0.3) 50%,
+      color-mix(in srgb, var(--color-white) 30%, transparent) 50%,
       transparent 62%
     );
     transform: translateX(-130%);
@@ -520,9 +562,9 @@
 
   .btn:hover,
   .btn:focus-visible {
-    background-color: #fff;
-    border-color: #fff;
-    color: #000;
+    background-color: var(--color-white);
+    border-color: var(--color-white);
+    color: var(--color-black);
     transform: translateY(-2px);
     box-shadow: 0 12px 26px -14px rgb(0 0 0 / 0.9);
   }
@@ -554,7 +596,7 @@
   .btn--stroke:focus-visible {
     background-color: var(--color-accent);
     border-color: var(--color-accent);
-    color: #000;
+    color: var(--color-black);
   }
 
   /* Below 500px the 0.35em tracking plus 3.6rem of padding pushes the longer

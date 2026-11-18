@@ -16,6 +16,18 @@ import { Stats } from './pages/Stats'
 export default function App() {
   const location = useLocation()
 
+  // Theme: ?theme=cream sets it, then it sticks in localStorage.
+  useEffect(() => {
+    const q = new URLSearchParams(window.location.search).get('theme')
+    let t = q
+    try {
+      if (q) localStorage.setItem('theme', q)
+      t = t || localStorage.getItem('theme')
+    } catch {}
+    if (t === 'cream') document.documentElement.dataset.theme = 'cream'
+    else delete document.documentElement.dataset.theme
+  }, [])
+
   // One visit per page view; nothing stored about the visitor.
   useEffect(() => {
     if (location.pathname === '/stats') return
