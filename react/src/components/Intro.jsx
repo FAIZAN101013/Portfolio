@@ -128,13 +128,6 @@ export function Intro() {
             <Button href="#contact" onClick={scrollTo('contact')} variant="stroke" withArrow className="btn--block-mobile">
               Hire me
             </Button>
-            <a
-              href="/project/modal-13"
-              className="hidden items-center gap-2 text-(length:--text-sm) text-content md:hidden max-md:flex max-xs:justify-center"
-            >
-              <span className="text-[11px] uppercase tracking-[0.2em] text-accent">Latest</span>
-              Noted — Expense Tracker →
-            </a>
           {/* "Latest" pill: a thumbnail-sized loop that expands to the full
               promo on hover or focus. Keeps motion above the fold without
               giving the hero's width to a video card. On touch it is a link. */}
@@ -143,6 +136,14 @@ export function Intro() {
 
           {/* ---- mobile social row (< 800px) ---- */}
           <ul className="mt-(--vspace-1) hidden list-none flex-wrap gap-3 p-0 max-md:flex">
+            <li className="flex w-full">
+              <a
+                href="/project/modal-13"
+                className="tap-target inline-flex items-center gap-2 rounded-full border border-accent/40 bg-accent/10 px-5 text-(length:--text-xs) uppercase tracking-[.2em] text-accent"
+              >
+                Latest · Noted — Expense Tracker →
+              </a>
+            </li>
             {socials.map(({ label, url, icon }, index) => (
               <motion.li
                 key={label}

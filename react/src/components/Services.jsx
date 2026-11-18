@@ -136,7 +136,6 @@ export function Services() {
                         <span className="block font-display text-(length:--text-lg) leading-[1.15] text-white">{service.title}</span>
                         <span className="mt-1 block text-(length:--text-xs) uppercase tracking-[0.18em] text-content-light">Usually {service.timeline}</span>
                       </span>
-                      <span aria-hidden="true" className={`mt-1 grid size-7 shrink-0 place-items-center rounded-full border border-white/15 text-accent transition-transform duration-300 ${openRow === index ? 'rotate-45' : ''}`}>+</span>
                     </button>
                   ) : (
                     <>
