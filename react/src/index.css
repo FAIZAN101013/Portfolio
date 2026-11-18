@@ -142,6 +142,76 @@
 }
 :root[data-theme="teal"] body { background: #0b2a2e; color: #eef4f1; }
 
+/* ---- Chantilly theme: 60% chantilly cream, 30% wellington green, 10% amalfi green. Light. ---- */
+:root[data-theme="chantilly"] {
+  --color-white: #16352b;           /* ink: wellington green */
+  --color-black: #f7f3e8;           /* paper: chantilly cream */
+  --color-body: #f7f3e8;
+  --color-content: #3c5a4e;
+  --color-content-light: #6f8a7e;
+  --color-hairline: rgb(22 53 43 / 0.12);
+  --color-accent: #2f8f5b;          /* amalfi green */
+  --color-accent-lighter: #d6efe0;
+  --color-accent-light: #7fc49c;
+  --color-accent-dark: #247547;
+  --color-accent-darker: #1b5b37;
+  --color-teal: #16352b;
+  --color-teal-light: #2a5443;
+  --color-gray-9: #ebe5d6;
+  --color-gray-8: #ddd5c2;
+  --color-gray-7: #6f8a7e;
+  --color-gray-4: #3c5a4e;
+  color-scheme: light;
+}
+:root[data-theme="chantilly"] body { background: #f7f3e8; color: #16352b; }
+:root[data-theme="chantilly"] .btn:not(.btn--stroke) { background-color: var(--color-white); border-color: var(--color-white); color: var(--color-black); }
+:root[data-theme="chantilly"] .btn:not(.btn--stroke):hover,
+:root[data-theme="chantilly"] .btn:not(.btn--stroke):focus-visible { background-color: var(--color-accent); border-color: var(--color-accent); color: #fff; }
+
+/* ---- Walnut theme: 60% smoked walnut, 30% satin aluminium, 10% lime flash. Dark, warm. ---- */
+:root[data-theme="walnut"] {
+  --color-white: #f1ece6;
+  --color-black: #2b2420;           /* smoked walnut */
+  --color-body: #2b2420;
+  --color-content: #c9c3bd;         /* satin aluminium, light */
+  --color-content-light: #948d86;   /* satin aluminium */
+  --color-hairline: rgb(201 195 189 / 0.14);
+  --color-accent: #c6f12e;          /* lime flash */
+  --color-accent-lighter: #eefbc2;
+  --color-accent-light: #d9f66f;
+  --color-accent-dark: #a8d01a;
+  --color-accent-darker: #86a812;
+  --color-teal: #948d86;
+  --color-teal-light: #b0a9a2;
+  --color-gray-9: #3a312c;
+  --color-gray-8: #4a403a;
+  --color-gray-7: #948d86;
+  --color-gray-4: #c9c3bd;
+}
+:root[data-theme="walnut"] body { background: #2b2420; color: #f1ece6; }
+
+/* ---- Bondi theme: 60% bondi blue, 30% obsidian ink, 10% bugle neon. Saturated. ---- */
+:root[data-theme="bondi"] {
+  --color-white: #f2fbfd;
+  --color-black: #0b1a24;           /* obsidian ink */
+  --color-body: #0a84a6;            /* bondi blue */
+  --color-content: #d6eef5;
+  --color-content-light: #9fd0e0;
+  --color-hairline: rgb(242 251 253 / 0.18);
+  --color-accent: #e4ff3a;          /* bugle neon */
+  --color-accent-lighter: #f7ffc4;
+  --color-accent-light: #eeff7a;
+  --color-accent-dark: #c9e41f;
+  --color-accent-darker: #a3bb14;
+  --color-teal: #0b1a24;
+  --color-teal-light: #16303f;
+  --color-gray-9: #0b1a24;          /* obsidian surfaces on the blue */
+  --color-gray-8: #16303f;
+  --color-gray-7: #9fd0e0;
+  --color-gray-4: #d6eef5;
+}
+:root[data-theme="bondi"] body { background: #0a84a6; color: #f2fbfd; }
+
 /* Solid buttons: ink on paper reads; red on tan does not. Stroke stays red. */
 :root[data-theme="cream"] .btn:not(.btn--stroke) {
   background-color: var(--color-white);

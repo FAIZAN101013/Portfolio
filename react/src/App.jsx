@@ -24,7 +24,7 @@ export default function App() {
       if (q) localStorage.setItem('theme', q)
       t = t || localStorage.getItem('theme')
     } catch {}
-    if (t === 'cream' || t === 'teal') document.documentElement.dataset.theme = t
+    if (['cream', 'teal', 'chantilly', 'walnut', 'bondi'].includes(t)) document.documentElement.dataset.theme = t
     else delete document.documentElement.dataset.theme
   }, [])
 
