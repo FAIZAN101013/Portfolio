@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import { AnimatePresence, motion, useInView } from 'framer-motion'
 import { Button } from '../components/Button'
@@ -8,6 +8,7 @@ import { Disclosure } from '../components/Disclosure'
 import { getProjectById, projects } from '../data/projects'
 import { asset } from '../lib/asset'
 import { useSeo } from '../lib/seo'
+import { useMediaQuery } from '../hooks/useMediaQuery'
 
 /**
  * One detail page for every project, design or development.
@@ -515,49 +516,67 @@ function ProcessBlock({ block, index, id }) {
 /** Architecture: the request flow as a chain, the layers with what each
  *  uses, and the decisions that shaped them. Only the parts given render. */
 /**
- * Interactive flow. Used as "How it's built" on code pages (request flow →
- * stack layers) and "How it's designed" on design pages (process steps →
- * process sections). Auto-plays once when scrolled into view; scenarios
- * replay a chosen path; tapping a step takes over.
+ * System map. Layers are nodes on a track; the current flow step rides along
+ * it as a pulse with its own caption, lighting the node it reaches. Used as
+ * "How it's built" (request flow over stack layers) and "How it's designed"
+ * (process steps over design layers). Auto-plays once in view; scenarios
+ * replay a chosen path; tapping a node or a step takes over. Vertical on
+ * phones.
  */
 function Flow({ title, summary, flowLabel, flow, layers, decisions, scenarios, onStep, layerFor }) {
   const ref = useRef(null)
   const inView = useInView(ref, { once: true, margin: '0px 0px -30% 0px' })
+  const vertical = useMediaQuery('(max-width: 800px)')
   const [active, setActive] = useState(null)
-  const [playing, setPlaying] = useState(false)
-  const [path, setPath] = useState(null) // indexes for the current scenario, or null = whole flow
+  const [path, setPath] = useState(null)
   const timer = useRef(null)
+  const nodeRefs = useRef([])
+  const [offsets, setOffsets] = useState([])
 
-  const steps = path ? path.map((i) => flow[i]) : flow
-  const stepIndex = (i) => (path ? path[i] : i)
+  const seq = path || flow.map((_, i) => i)
+  const n = layers.length
+  // Each step lands on a node; a step with no match stays at the previous one.
+  const nodeOf = []
+  flow.forEach((step, i) => {
+    const l = layerFor(step)
+    nodeOf[i] = l >= 0 ? l : i > 0 ? nodeOf[i - 1] : 0
+  })
 
-  const play = (indexes) => {
+  const stop = () => {
     clearTimeout(timer.current)
+  }
+  const play = (indexes) => {
+    stop()
     setPath(indexes)
-    setPlaying(true)
-    const seq = indexes || flow.map((_, i) => i)
+    const run = indexes || flow.map((_, i) => i)
     let k = 0
     const tick = () => {
-      setActive(k)
+      setActive(run[k])
       k += 1
-      if (k < seq.length) timer.current = setTimeout(tick, 650)
-      else setPlaying(false)
+      if (k < run.length) timer.current = setTimeout(tick, 1100)
     }
     tick()
   }
 
   useEffect(() => {
     if (inView && active === null) play(null)
-    return () => clearTimeout(timer.current)
+    return stop
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [inView])
 
   useEffect(() => {
-    if (active != null && onStep) onStep(stepIndex(active))
+    if (active != null && onStep) onStep(active)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [active])
 
-  const activeLayer = active == null ? -1 : layerFor(flow[stepIndex(active)])
+  const lit = active == null ? -1 : nodeOf[active]
+  useLayoutEffect(() => {
+    if (!vertical) return
+    setOffsets(nodeRefs.current.map((el) => (el ? el.offsetTop + 18 : 0)))
+  }, [vertical, n, inView])
+  const pos = (i) => (vertical ? `${offsets[i] || 0}px` : `${((i + 0.5) / n) * 100}%`)
+  const spring = { type: 'spring', stiffness: 90, damping: 18 }
+  const axis = vertical ? 'top' : 'left'
 
   return (
     <section ref={ref} className="mt-(--vspace-2) border-t border-hairline pt-(--vspace-1_5)">
@@ -573,104 +592,156 @@ function Flow({ title, summary, flowLabel, flow, layers, decisions, scenarios, o
       {scenarios?.length > 0 && (
         <div className="mt-(--vspace-1) flex flex-wrap items-center gap-2">
           <span className="mr-1 text-(length:--text-xs) tracking-(--tracking-label) text-content-light">Play</span>
-          {scenarios.map((sc) => (
+          {[...scenarios, { label: 'Whole flow', steps: null }].map((sc) => (
             <button
               key={sc.label}
               type="button"
               onClick={() => play(sc.steps)}
               className={`rounded-full border px-4 py-1.5 text-(length:--text-xs) transition-colors ${
-                path === sc.steps ? 'border-accent bg-accent text-black' : 'border-white/15 text-white hover:border-accent/60'
+                path === sc.steps && active != null ? 'border-accent bg-accent text-black' : 'border-white/15 text-white hover:border-accent/60'
               }`}
             >
               {sc.label}
             </button>
           ))}
-          <button
-            type="button"
-            onClick={() => play(null)}
-            className={`rounded-full border px-4 py-1.5 text-(length:--text-xs) transition-colors ${
-              path === null && playing ? 'border-accent bg-accent text-black' : 'border-white/15 text-white hover:border-accent/60'
-            }`}
-          >
-            Whole flow
-          </button>
         </div>
       )}
 
-      {flow.length > 0 && (
+      {n > 0 && (
         <Reveal delay={0.1} className="mt-(--vspace-1)">
           <div className="flex items-baseline justify-between gap-4">
             <h3 className="text-pretitle mb-(--vspace-0_375) text-(length:--text-xs)">{flowLabel}</h3>
-            <span className="text-(length:--text-xs) text-content-light">Tap a step to follow it</span>
+            <span className="text-(length:--text-xs) text-content-light">Tap a node or a step</span>
           </div>
-          <ol className="m-0 flex list-none flex-wrap items-center gap-y-3 p-0">
-            {steps.map((step, i) => {
-              const on = active === i
-              const reached = active != null && i <= active
-              return (
-                <li key={step} className="flex items-center">
-                  <button
-                    type="button"
-                    onClick={() => {
-                      clearTimeout(timer.current)
-                      setPlaying(false)
-                      setActive(on ? null : i)
-                    }}
-                    aria-pressed={on}
-                    className={`rounded-md border px-3.5 py-2 text-(length:--text-sm) transition-colors duration-300 ${
-                      on
-                        ? 'border-accent bg-accent text-black'
-                        : reached
-                          ? 'border-accent/50 bg-white/[0.04] text-white'
-                          : 'border-white/10 bg-white/[0.04] text-white hover:border-accent/50'
-                    }`}
-                  >
-                    {step}
-                  </button>
-                  {i < steps.length - 1 && (
-                    <span aria-hidden="true" className={`px-2.5 transition-colors duration-300 ${reached && i < active ? 'text-accent' : 'text-accent/40'}`}>→</span>
-                  )}
-                </li>
-              )
-            })}
+
+          {/* track */}
+          <div className={`relative ${vertical ? 'ml-5 pt-2' : 'pt-14'}`}>
+            <div aria-hidden className={`absolute bg-white/10 ${vertical ? 'left-0 top-0 h-full w-px' : 'left-0 top-[calc(3.5rem+28px)] h-px w-full'}`} />
+            <motion.div
+              aria-hidden
+              className={`absolute bg-accent ${vertical ? 'left-0 top-0 w-px' : 'left-0 top-[calc(3.5rem+28px)] h-px'}`}
+              animate={vertical ? { height: lit < 0 ? '0%' : pos(lit) } : { width: lit < 0 ? '0%' : pos(lit) }}
+              transition={spring}
+            />
+
+            {/* pulse carrying the step caption */}
+            <AnimatePresence>
+              {lit >= 0 && (
+                <motion.div
+                  key="pulse"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1, [axis]: pos(lit) }}
+                  exit={{ opacity: 0 }}
+                  transition={spring}
+                  className={`pointer-events-none absolute z-10 ${vertical ? 'left-0 right-0 -translate-y-1/2' : 'top-0 -translate-x-1/2'}`}
+                >
+                  <div className={`flex items-center gap-3 ${vertical ? 'flex-row justify-between' : 'flex-col'}`}>
+                    <AnimatePresence mode="wait">
+                      <motion.span
+                        key={active}
+                        initial={{ opacity: 0, y: vertical ? 0 : 6, x: vertical ? 6 : 0 }}
+                        animate={{ opacity: 1, y: 0, x: 0 }}
+                        exit={{ opacity: 0 }}
+                        transition={{ duration: 0.25 }}
+                        className={`whitespace-nowrap rounded-full bg-accent px-3.5 py-1.5 text-(length:--text-xs) font-medium text-black shadow-[0_6px_20px_rgba(0,0,0,.25)] ${vertical ? 'order-2 max-w-[62%] truncate' : ''}`}
+                      >
+                        {active + 1}/{flow.length} · {flow[active]}
+                      </motion.span>
+                    </AnimatePresence>
+                    <span className={`relative grid size-3 place-items-center ${vertical ? 'order-1 -ml-1.5' : ''}`}>
+                      <span className="absolute size-3 animate-ping rounded-full bg-accent/50" />
+                      <span className="size-2 rounded-full bg-accent" />
+                    </span>
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
+
+            {/* nodes */}
+            <ol className={`relative m-0 list-none p-0 ${vertical ? '' : 'grid'}`} style={vertical ? undefined : { gridTemplateColumns: `repeat(${n}, minmax(0,1fr))` }}>
+              {layers.map((layer, i) => {
+                const on = lit === i
+                const reached = lit >= i
+                return (
+                  <li key={layer.title} ref={(el) => (nodeRefs.current[i] = el)} className={vertical ? 'relative mb-4 pl-8' : 'flex flex-col items-center px-2'}>
+                    <button
+                      type="button"
+                      aria-pressed={on}
+                      onClick={() => {
+                        stop()
+                        const first = flow.findIndex((_, k) => nodeOf[k] === i)
+                        setActive(first >= 0 ? first : 0)
+                      }}
+                      className={`group text-left ${vertical ? 'block w-full' : 'flex w-full flex-col items-center'}`}
+                    >
+                      <motion.span
+                        aria-hidden
+                        animate={{ scale: on ? 1.25 : 1 }}
+                        transition={spring}
+                        className={`grid size-14 place-items-center rounded-full border-2 bg-body transition-colors duration-300 ${
+                          on ? 'border-accent shadow-[0_0_0_8px_var(--color-accent)]/10' : reached ? 'border-accent/60' : 'border-white/15 group-hover:border-accent/60'
+                        } ${vertical ? 'absolute -left-[1.85rem] top-0 size-9' : 'relative'}`}
+                      >
+                        <span className={`font-display text-(length:--text-md) ${on ? 'text-accent' : 'text-white'}`}>{i + 1}</span>
+                      </motion.span>
+                      <span className={`block text-(length:--text-sm) font-medium transition-colors ${on ? 'text-accent' : 'text-white'} ${vertical ? 'pt-1.5' : 'mt-4 text-center'}`}>
+                        {layer.title}
+                      </span>
+                    </button>
+                    <ul className={`m-0 flex list-none flex-wrap gap-1.5 p-0 ${vertical ? 'mt-2' : 'mt-2 justify-center'}`}>
+                      {layer.items?.map((item) => (
+                        <li key={item} className={`rounded-full border px-2.5 py-0.5 text-(length:--text-xs) transition-colors duration-300 ${on ? 'border-accent/60 text-white' : 'border-white/10 text-white/70'}`}>
+                          {item}
+                        </li>
+                      ))}
+                    </ul>
+                  </li>
+                )
+              })}
+            </ol>
+          </div>
+
+          {/* detail for the lit node */}
+          <div className="relative mt-(--vspace-0_75) min-h-[4.5rem] rounded-lg border border-white/10 bg-white/[0.02] p-5">
+            <AnimatePresence mode="wait">
+              <motion.p
+                key={lit}
+                initial={{ opacity: 0, y: 6 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -6 }}
+                transition={{ duration: 0.25 }}
+                className="mb-0 text-(length:--text-sm) leading-(--vspace-0_75) text-content"
+              >
+                {lit >= 0 ? (
+                  <>
+                    <span className="mr-2 text-accent">{layers[lit].title}</span>
+                    {layers[lit].note}
+                  </>
+                ) : (
+                  'Scroll to play the flow.'
+                )}
+              </motion.p>
+            </AnimatePresence>
+          </div>
+
+          {/* step dots */}
+          <ol className="m-0 mt-(--vspace-0_5) flex list-none flex-wrap gap-2 p-0">
+            {seq.map((i) => (
+              <li key={i}>
+                <button
+                  type="button"
+                  onClick={() => {
+                    stop()
+                    setActive(i)
+                  }}
+                  aria-label={flow[i]}
+                  aria-pressed={active === i}
+                  className={`h-1.5 rounded-full transition-all duration-300 ${active === i ? 'w-8 bg-accent' : 'w-3 bg-white/20 hover:bg-accent/60'}`}
+                />
+              </li>
+            ))}
           </ol>
         </Reveal>
-      )}
-
-      {layers?.length > 0 && (
-        <div className="mt-(--vspace-1) grid grid-cols-4 gap-4 max-lg:grid-cols-2 max-md:snap-rail max-md:no-scrollbar max-md:-mx-[4vw] max-md:flex max-md:gap-x-3 max-md:px-[4vw] max-md:[&>*]:snap-card max-md:[&>*]:w-[78vw]">
-          {layers.map((layer, i) => {
-            const lit = activeLayer === i
-            const dim = activeLayer >= 0 && !lit
-            return (
-              <Reveal
-                key={layer.title}
-                delay={0.06 * i}
-                className={`rounded-lg border p-5 transition-[border-color,opacity,background-color] duration-300 ${
-                  lit ? 'border-accent bg-accent/10' : 'border-white/10 bg-white/[0.02]'
-                } ${dim ? 'opacity-45' : ''}`}
-              >
-                <h3 className="m-0 text-(length:--text-xs) font-medium tracking-(--tracking-label) text-accent">
-                  {layer.title}
-                </h3>
-                {layer.items?.length > 0 && (
-                  <ul className="m-0 mt-3 flex list-none flex-wrap gap-1.5 p-0">
-                    {layer.items.map((item) => (
-                      <li key={item} className="rounded-full border border-white/10 px-3 py-1 text-(length:--text-xs) text-white/90">
-                        {item}
-                      </li>
-                    ))}
-                  </ul>
-                )}
-                {layer.note && (
-                  <p className="mb-0 mt-3 text-(length:--text-sm) leading-(--vspace-0_75) text-content">
-                    {layer.note}
-                  </p>
-                )}
-              </Reveal>
-            )
-          })}
-        </div>
       )}
 
       {decisions?.length > 0 && (
