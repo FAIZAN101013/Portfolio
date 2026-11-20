@@ -1,10 +1,11 @@
-import { useEffect, useLayoutEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import { AnimatePresence, motion, useInView } from 'framer-motion'
 import { Button } from '../components/Button'
 import { MediaGallery } from '../components/MediaGallery'
 import { Reveal } from '../components/Reveal'
 import { Disclosure } from '../components/Disclosure'
+import { Scene } from '../components/FlowScenes'
 import { getProjectById, projects } from '../data/projects'
 import { asset } from '../lib/asset'
 import { useSeo } from '../lib/seo'
@@ -530,8 +531,6 @@ function Flow({ title, summary, flowLabel, flow, layers, decisions, scenarios, o
   const [active, setActive] = useState(null)
   const [path, setPath] = useState(null)
   const timer = useRef(null)
-  const nodeRefs = useRef([])
-  const [offsets, setOffsets] = useState([])
 
   const seq = path || flow.map((_, i) => i)
   const n = layers.length
@@ -570,13 +569,8 @@ function Flow({ title, summary, flowLabel, flow, layers, decisions, scenarios, o
   }, [active])
 
   const lit = active == null ? -1 : nodeOf[active]
-  useLayoutEffect(() => {
-    if (!vertical) return
-    setOffsets(nodeRefs.current.map((el) => (el ? el.offsetTop + 18 : 0)))
-  }, [vertical, n, inView])
-  const pos = (i) => (vertical ? `${offsets[i] || 0}px` : `${((i + 0.5) / n) * 100}%`)
+  const pos = (i) => `${((i + 0.5) / n) * 100}%`
   const spring = { type: 'spring', stiffness: 90, damping: 18 }
-  const axis = vertical ? 'top' : 'left'
 
   return (
     <section ref={ref} className="mt-(--vspace-2) border-t border-hairline pt-(--vspace-1_5)">
@@ -611,95 +605,80 @@ function Flow({ title, summary, flowLabel, flow, layers, decisions, scenarios, o
         <Reveal delay={0.1} className="mt-(--vspace-1)">
           <div className="flex items-baseline justify-between gap-4">
             <h3 className="text-pretitle mb-(--vspace-0_375) text-(length:--text-xs)">{flowLabel}</h3>
-            <span className="text-(length:--text-xs) text-content-light">Tap a node or a step</span>
+            <span className="text-(length:--text-xs) text-content-light">Tap a layer or a step</span>
           </div>
 
-          {/* track */}
-          <div className={`relative ${vertical ? 'ml-5 pt-2' : 'pt-14'}`}>
-            <div aria-hidden className={`absolute bg-white/10 ${vertical ? 'left-0 top-0 h-full w-px' : 'left-0 top-[calc(3.5rem+28px)] h-px w-full'}`} />
-            <motion.div
-              aria-hidden
-              className={`absolute bg-accent ${vertical ? 'left-0 top-0 w-px' : 'left-0 top-[calc(3.5rem+28px)] h-px'}`}
-              animate={vertical ? { height: lit < 0 ? '0%' : pos(lit) } : { width: lit < 0 ? '0%' : pos(lit) }}
-              transition={spring}
-            />
-
-            {/* pulse carrying the step caption */}
-            <AnimatePresence>
-              {lit >= 0 && (
-                <motion.div
-                  key="pulse"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1, [axis]: pos(lit) }}
-                  exit={{ opacity: 0 }}
-                  transition={spring}
-                  className={`pointer-events-none absolute z-10 ${vertical ? 'left-0 right-0 -translate-y-1/2' : 'top-0 -translate-x-1/2'}`}
-                >
-                  <div className={`flex items-center gap-3 ${vertical ? 'flex-row justify-between' : 'flex-col'}`}>
-                    <AnimatePresence mode="wait">
-                      <motion.span
-                        key={active}
-                        initial={{ opacity: 0, y: vertical ? 0 : 6, x: vertical ? 6 : 0 }}
-                        animate={{ opacity: 1, y: 0, x: 0 }}
-                        exit={{ opacity: 0 }}
-                        transition={{ duration: 0.25 }}
-                        className={`whitespace-nowrap rounded-full bg-accent px-3.5 py-1.5 text-(length:--text-xs) font-medium text-black shadow-[0_6px_20px_rgba(0,0,0,.25)] ${vertical ? 'order-2 max-w-[62%] truncate' : ''}`}
-                      >
-                        {active + 1}/{flow.length} · {flow[active]}
-                      </motion.span>
-                    </AnimatePresence>
-                    <span className={`relative grid size-3 place-items-center ${vertical ? 'order-1 -ml-1.5' : ''}`}>
-                      <span className="absolute size-3 animate-ping rounded-full bg-accent/50" />
-                      <span className="size-2 rounded-full bg-accent" />
-                    </span>
-                  </div>
-                </motion.div>
-              )}
-            </AnimatePresence>
-
-            {/* nodes */}
-            <ol className={`relative m-0 list-none p-0 ${vertical ? '' : 'grid'}`} style={vertical ? undefined : { gridTemplateColumns: `repeat(${n}, minmax(0,1fr))` }}>
-              {layers.map((layer, i) => {
-                const on = lit === i
-                const reached = lit >= i
-                return (
-                  <li key={layer.title} ref={(el) => (nodeRefs.current[i] = el)} className={vertical ? 'relative mb-4 pl-8' : 'flex flex-col items-center px-2'}>
+          {/* scenes */}
+          {vertical ? (
+            <div>
+              <ol className="m-0 flex list-none gap-2 overflow-x-auto p-0 no-scrollbar">
+                {layers.map((layer, i) => (
+                  <li key={layer.title} className="shrink-0">
                     <button
                       type="button"
-                      aria-pressed={on}
+                      aria-pressed={lit === i}
                       onClick={() => {
                         stop()
                         const first = flow.findIndex((_, k) => nodeOf[k] === i)
                         setActive(first >= 0 ? first : 0)
                       }}
-                      className={`group text-left ${vertical ? 'block w-full' : 'flex w-full flex-col items-center'}`}
+                      className={`rounded-full border px-3 py-1.5 text-(length:--text-xs) transition-colors ${lit === i ? 'border-accent bg-accent text-black' : lit > i ? 'border-accent/50 text-white' : 'border-white/15 text-white'}`}
                     >
-                      <motion.span
-                        aria-hidden
-                        animate={{ scale: on ? 1.25 : 1 }}
-                        transition={spring}
-                        className={`grid size-14 place-items-center rounded-full border-2 bg-body transition-colors duration-300 ${
-                          on ? 'border-accent shadow-[0_0_0_8px_var(--color-accent)]/10' : reached ? 'border-accent/60' : 'border-white/15 group-hover:border-accent/60'
-                        } ${vertical ? 'absolute -left-[1.85rem] top-0 size-9' : 'relative'}`}
-                      >
-                        <span className={`font-display text-(length:--text-md) ${on ? 'text-accent' : 'text-white'}`}>{i + 1}</span>
-                      </motion.span>
-                      <span className={`block text-(length:--text-sm) font-medium transition-colors ${on ? 'text-accent' : 'text-white'} ${vertical ? 'pt-1.5' : 'mt-4 text-center'}`}>
-                        {layer.title}
-                      </span>
+                      {i + 1} · {layer.title}
                     </button>
-                    <ul className={`m-0 flex list-none flex-wrap gap-1.5 p-0 ${vertical ? 'mt-2' : 'mt-2 justify-center'}`}>
-                      {layer.items?.map((item) => (
-                        <li key={item} className={`rounded-full border px-2.5 py-0.5 text-(length:--text-xs) transition-colors duration-300 ${on ? 'border-accent/60 text-white' : 'border-white/10 text-white/70'}`}>
-                          {item}
-                        </li>
-                      ))}
-                    </ul>
                   </li>
-                )
-              })}
-            </ol>
-          </div>
+                ))}
+              </ol>
+              <div className="mt-3 max-w-[260px]">
+                {lit >= 0 ? <Scene layer={layers[lit]} label={flow[active]} step={active} /> : <div className="aspect-[16/10] rounded-md border border-white/10" />}
+              </div>
+              {lit >= 0 && (
+                <ul className="m-0 mt-2 flex list-none flex-wrap gap-1.5 p-0">
+                  {layers[lit].items?.map((item) => (
+                    <li key={item} className="rounded-full border border-accent/50 px-2.5 py-0.5 text-(length:--text-xs) text-white">{item}</li>
+                  ))}
+                </ul>
+              )}
+            </div>
+          ) : (
+            <div className="relative">
+              <div aria-hidden className="absolute left-0 top-3 h-px w-full bg-white/10" />
+              <motion.div aria-hidden className="absolute left-0 top-3 h-px bg-accent" animate={{ width: lit < 0 ? '0%' : pos(lit) }} transition={spring} />
+              <motion.span aria-hidden animate={{ left: pos(Math.max(lit, 0)), opacity: lit < 0 ? 0 : 1 }} transition={spring} className="absolute top-3 z-10 grid size-3 -translate-x-1/2 -translate-y-1/2 place-items-center">
+                <span className="absolute size-3 animate-ping rounded-full bg-accent/50" />
+                <span className="size-2 rounded-full bg-accent" />
+              </motion.span>
+              <ol className="relative m-0 grid list-none gap-4 p-0 pt-8" style={{ gridTemplateColumns: `repeat(${n}, minmax(0,1fr))` }}>
+                {layers.map((layer, i) => {
+                  const on = lit === i
+                  return (
+                    <li key={layer.title} className={`transition-opacity duration-300 ${lit >= 0 && !on ? 'opacity-45' : ''}`}>
+                      <button
+                        type="button"
+                        aria-pressed={on}
+                        onClick={() => {
+                          stop()
+                          const first = flow.findIndex((_, k) => nodeOf[k] === i)
+                          setActive(first >= 0 ? first : 0)
+                        }}
+                        className={`block w-full rounded-lg border p-2 text-left transition-colors duration-300 ${on ? 'border-accent bg-accent/10' : 'border-white/10 hover:border-accent/50'}`}
+                      >
+                        <Scene layer={layer} label={on ? flow[active] : flow[flow.findIndex((_, k) => nodeOf[k] === i)] || layer.title} step={on ? active : 'idle'} />
+                        <span className={`mt-2.5 block text-(length:--text-sm) font-medium ${on ? 'text-accent' : 'text-white'}`}>
+                          {i + 1} · {layer.title}
+                        </span>
+                      </button>
+                      <ul className="m-0 mt-2 flex list-none flex-wrap gap-1.5 p-0">
+                        {layer.items?.map((item) => (
+                          <li key={item} className={`rounded-full border px-2.5 py-0.5 text-(length:--text-xs) ${on ? 'border-accent/60 text-white' : 'border-white/10 text-white/70'}`}>{item}</li>
+                        ))}
+                      </ul>
+                    </li>
+                  )
+                })}
+              </ol>
+            </div>
+          )}
 
           {/* detail for the lit node */}
           <div className="relative mt-(--vspace-0_75) min-h-[4.5rem] rounded-lg border border-white/10 bg-white/[0.02] p-5">
@@ -714,7 +693,7 @@ function Flow({ title, summary, flowLabel, flow, layers, decisions, scenarios, o
               >
                 {lit >= 0 ? (
                   <>
-                    <span className="mr-2 text-accent">{layers[lit].title}</span>
+                    <span className="mr-2 text-accent">{active + 1}/{flow.length} {flow[active]}</span>
                     {layers[lit].note}
                   </>
                 ) : (
