@@ -517,42 +517,47 @@ function ProcessBlock({ block, index, id }) {
 /** Architecture: the request flow as a chain, the layers with what each
  *  uses, and the decisions that shaped them. Only the parts given render. */
 /**
- * System map. Layers are nodes on a track; the current flow step rides along
- * it as a pulse with its own caption, lighting the node it reaches. Used as
- * "How it's built" (request flow over stack layers) and "How it's designed"
- * (process steps over design layers). Auto-plays once in view; scenarios
- * replay a chosen path; tapping a node or a step takes over. Vertical on
- * phones.
+ * The flow as a sequence of event cards, dealt out one per step as the
+ * section scrolls into view. Each card is a moment ("Visitor fills the form",
+ * "Mail lands in the inbox") with a scene showing it, a line of real detail,
+ * and the layer plus tools in the footer. The last card is the outcome.
+ * Scenarios replay a chosen path; tapping a card selects it. Phones get a
+ * snap rail with the same cards.
  */
-function Flow({ title, summary, flowLabel, flow, layers, decisions, scenarios, onStep, layerFor }) {
+function Flow({ title, summary, flowLabel, flow, details, outcome, images, layers, decisions, scenarios, onStep, layerFor, diagram }) {
   const ref = useRef(null)
-  const inView = useInView(ref, { once: true, margin: '0px 0px -30% 0px' })
   const vertical = useMediaQuery('(max-width: 800px)')
+  const inView = useInView(ref, { once: true, margin: '0px 0px -20% 0px' })
+  const [revealed, setRevealed] = useState(0)
   const [active, setActive] = useState(null)
   const [path, setPath] = useState(null)
   const timer = useRef(null)
+  const railRef = useRef(null)
+  const total = flow.length + (outcome ? 1 : 0)
 
-  const seq = path || flow.map((_, i) => i)
-  const n = layers.length
-  // Each step lands on a node; a step with no match stays at the previous one.
   const nodeOf = []
   flow.forEach((step, i) => {
     const l = layerFor(step)
     nodeOf[i] = l >= 0 ? l : i > 0 ? nodeOf[i - 1] : 0
   })
 
-  const stop = () => {
-    clearTimeout(timer.current)
-  }
+
+  const stop = () => clearTimeout(timer.current)
   const play = (indexes) => {
     stop()
     setPath(indexes)
+    if (indexes) setRevealed(total)
     const run = indexes || flow.map((_, i) => i)
     let k = 0
     const tick = () => {
       setActive(run[k])
+      setRevealed((r) => Math.max(r, run[k] + 1))
       k += 1
-      if (k < run.length) timer.current = setTimeout(tick, 1100)
+      if (k < run.length) timer.current = setTimeout(tick, 1400)
+      else {
+        setRevealed(total)
+        timer.current = setTimeout(() => setPath(null), 1400)
+      }
     }
     tick()
   }
@@ -564,13 +569,19 @@ function Flow({ title, summary, flowLabel, flow, layers, decisions, scenarios, o
   }, [inView])
 
   useEffect(() => {
-    if (active != null && onStep) onStep(active)
+    if (active == null) return
+    if (onStep) onStep(active)
+    const el = railRef.current?.children[active]
+    if (el && railRef.current) {
+      const rail = railRef.current
+      rail.scrollTo({ left: el.offsetLeft - (rail.clientWidth - el.clientWidth) / 2, behavior: 'smooth' })
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [active])
 
-  const lit = active == null ? -1 : nodeOf[active]
-  const pos = (i) => `${((i + 0.5) / n) * 100}%`
-  const spring = { type: 'spring', stiffness: 90, damping: 18 }
+  const inPath = (i) => !path || path.includes(i)
+
+  const cards = flow.map((step, i) => ({ step, i, layer: layers[nodeOf[i]], detail: details?.[i], image: images?.[i] }))
 
   return (
     <section ref={ref} className="mt-(--vspace-2) border-t border-hairline pt-(--vspace-1_5)">
@@ -583,6 +594,8 @@ function Flow({ title, summary, flowLabel, flow, layers, decisions, scenarios, o
         </Reveal>
       )}
 
+      {diagram && layers.length > 0 && <ArchDiagram layers={layers} />}
+
       {scenarios?.length > 0 && (
         <div className="mt-(--vspace-1) flex flex-wrap items-center gap-2">
           <span className="mr-1 text-(length:--text-xs) tracking-(--tracking-label) text-content-light">Play</span>
@@ -592,7 +605,7 @@ function Flow({ title, summary, flowLabel, flow, layers, decisions, scenarios, o
               type="button"
               onClick={() => play(sc.steps)}
               className={`rounded-full border px-4 py-1.5 text-(length:--text-xs) transition-colors ${
-                path === sc.steps && active != null ? 'border-accent bg-accent text-black' : 'border-white/15 text-white hover:border-accent/60'
+                path === sc.steps && path !== null ? 'border-accent bg-accent text-black' : 'border-white/15 text-white hover:border-accent/60'
               }`}
             >
               {sc.label}
@@ -601,126 +614,78 @@ function Flow({ title, summary, flowLabel, flow, layers, decisions, scenarios, o
         </div>
       )}
 
-      {n > 0 && (
-        <Reveal delay={0.1} className="mt-(--vspace-1)">
+      {flow.length > 0 && (
+        <div className="mt-(--vspace-1)">
           <div className="flex items-baseline justify-between gap-4">
             <h3 className="text-pretitle mb-(--vspace-0_375) text-(length:--text-xs)">{flowLabel}</h3>
-            <span className="text-(length:--text-xs) text-content-light">Tap a layer or a step</span>
+            <span className="text-(length:--text-xs) text-content-light">{vertical ? 'Swipe through' : 'Scroll sideways or tap a card'}</span>
           </div>
 
-          {/* scenes */}
-          {vertical ? (
-            <div>
-              <ol className="m-0 flex list-none gap-2 overflow-x-auto p-0 no-scrollbar">
-                {layers.map((layer, i) => (
-                  <li key={layer.title} className="shrink-0">
-                    <button
-                      type="button"
-                      aria-pressed={lit === i}
-                      onClick={() => {
-                        stop()
-                        const first = flow.findIndex((_, k) => nodeOf[k] === i)
-                        setActive(first >= 0 ? first : 0)
-                      }}
-                      className={`rounded-full border px-3 py-1.5 text-(length:--text-xs) transition-colors ${lit === i ? 'border-accent bg-accent text-black' : lit > i ? 'border-accent/50 text-white' : 'border-white/15 text-white'}`}
-                    >
-                      {i + 1} · {layer.title}
-                    </button>
-                  </li>
-                ))}
-              </ol>
-              <div className="mt-3 max-w-[260px]">
-                {lit >= 0 ? <Scene layer={layers[lit]} label={flow[active]} step={active} /> : <div className="aspect-[16/10] rounded-md border border-white/10" />}
-              </div>
-              {lit >= 0 && (
-                <ul className="m-0 mt-2 flex list-none flex-wrap gap-1.5 p-0">
-                  {layers[lit].items?.map((item) => (
-                    <li key={item} className="rounded-full border border-accent/50 px-2.5 py-0.5 text-(length:--text-xs) text-white">{item}</li>
-                  ))}
-                </ul>
-              )}
-            </div>
-          ) : (
-            <div className="relative">
-              <div aria-hidden className="absolute left-0 top-3 h-px w-full bg-white/10" />
-              <motion.div aria-hidden className="absolute left-0 top-3 h-px bg-accent" animate={{ width: lit < 0 ? '0%' : pos(lit) }} transition={spring} />
-              <motion.span aria-hidden animate={{ left: pos(Math.max(lit, 0)), opacity: lit < 0 ? 0 : 1 }} transition={spring} className="absolute top-3 z-10 grid size-3 -translate-x-1/2 -translate-y-1/2 place-items-center">
-                <span className="absolute size-3 animate-ping rounded-full bg-accent/50" />
-                <span className="size-2 rounded-full bg-accent" />
-              </motion.span>
-              <ol className="relative m-0 grid list-none gap-4 p-0 pt-8" style={{ gridTemplateColumns: `repeat(${n}, minmax(0,1fr))` }}>
-                {layers.map((layer, i) => {
-                  const on = lit === i
-                  return (
-                    <li key={layer.title} className={`transition-opacity duration-300 ${lit >= 0 && !on ? 'opacity-45' : ''}`}>
-                      <button
-                        type="button"
-                        aria-pressed={on}
-                        onClick={() => {
-                          stop()
-                          const first = flow.findIndex((_, k) => nodeOf[k] === i)
-                          setActive(first >= 0 ? first : 0)
-                        }}
-                        className={`block w-full rounded-lg border p-2 text-left transition-colors duration-300 ${on ? 'border-accent bg-accent/10' : 'border-white/10 hover:border-accent/50'}`}
-                      >
-                        <Scene layer={layer} label={on ? flow[active] : flow[flow.findIndex((_, k) => nodeOf[k] === i)] || layer.title} step={on ? active : 'idle'} />
-                        <span className={`mt-2.5 block text-(length:--text-sm) font-medium ${on ? 'text-accent' : 'text-white'}`}>
-                          {i + 1} · {layer.title}
-                        </span>
-                      </button>
-                      <ul className="m-0 mt-2 flex list-none flex-wrap gap-1.5 p-0">
-                        {layer.items?.map((item) => (
-                          <li key={item} className={`rounded-full border px-2.5 py-0.5 text-(length:--text-xs) ${on ? 'border-accent/60 text-white' : 'border-white/10 text-white/70'}`}>{item}</li>
+          <ol
+            ref={railRef} className="snap-rail no-scrollbar m-0 flex list-none gap-3 p-0 pb-2 [&>*]:snap-card [&>*]:shrink-0 [&>*]:w-[300px] max-md:-mx-[4vw] max-md:px-[4vw] max-md:[&>*]:w-[82vw]"
+
+          >
+            {cards.map(({ step, i, layer, detail, image }) => {
+              const dealt = i < revealed
+              const on = active === i
+              const dim = path && !inPath(i)
+              return (
+                <motion.li
+                  key={step}
+                  initial={false}
+                  animate={dealt ? { opacity: dim ? 0.35 : 1, y: 0, rotate: 0, scale: 1 } : { opacity: 0, y: 28, rotate: -1.5, scale: 0.97 }}
+                  transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+                >
+                  <button
+                    type="button"
+                    aria-pressed={on}
+                    onClick={() => {
+                      stop()
+                      setPath(null)
+                      setActive(i)
+                    }}
+                    className={`flex h-full w-full flex-col rounded-lg border p-3 text-left transition-colors duration-300 ${on ? 'border-accent bg-accent/10' : 'border-white/10 bg-white/[0.02] hover:border-accent/50'}`}
+                  >
+                    <span className="mb-2 flex items-baseline justify-between text-(length:--text-xs)">
+                      <span className={on ? 'text-accent' : 'text-content-light'}>{String(i + 1).padStart(2, '0')}</span>
+                      <span className="text-content-light">{layer?.title}</span>
+                    </span>
+                    {image ? (
+                      <span className="block aspect-[16/9] w-full overflow-hidden rounded-md border border-white/10 bg-black/5">
+                        <img src={image} alt="" className="size-full object-cover object-top" loading="lazy" />
+                      </span>
+                    ) : (
+                      layer && <Scene layer={layer} label={step} step={on ? `${active}-${path ? 'p' : 's'}` : 'idle'} />
+                    )}
+                    <span className={`mt-3 block font-display text-(length:--text-md) leading-tight ${on ? 'text-accent' : 'text-white'}`}>{step}</span>
+                    {detail && <span className="mt-1.5 block text-(length:--text-xs) leading-(--vspace-0_75) text-content">{detail}</span>}
+                    {layer?.items?.length > 0 && (
+                      <span className="mt-auto flex flex-wrap gap-1 pt-3">
+                        {layer.items.map((item) => (
+                          <span key={item} className={`rounded-full border px-2 py-0.5 text-[11px] ${on ? 'border-accent/60 text-white' : 'border-white/10 text-white/70'}`}>
+                            {item}
+                          </span>
                         ))}
-                      </ul>
-                    </li>
-                  )
-                })}
-              </ol>
-            </div>
-          )}
-
-          {/* detail for the lit node */}
-          <div className="relative mt-(--vspace-0_75) min-h-[4.5rem] rounded-lg border border-white/10 bg-white/[0.02] p-5">
-            <AnimatePresence mode="wait">
-              <motion.p
-                key={lit}
-                initial={{ opacity: 0, y: 6 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -6 }}
-                transition={{ duration: 0.25 }}
-                className="mb-0 text-(length:--text-sm) leading-(--vspace-0_75) text-content"
+                      </span>
+                    )}
+                  </button>
+                </motion.li>
+              )
+            })}
+            {outcome && (
+              <motion.li
+                initial={false}
+                animate={revealed >= total ? { opacity: 1, y: 0, scale: 1 } : { opacity: 0, y: 28, scale: 0.97 }}
+                transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
               >
-                {lit >= 0 ? (
-                  <>
-                    <span className="mr-2 text-accent">{active + 1}/{flow.length} {flow[active]}</span>
-                    {layers[lit].note}
-                  </>
-                ) : (
-                  'Scroll to play the flow.'
-                )}
-              </motion.p>
-            </AnimatePresence>
-          </div>
-
-          {/* step dots */}
-          <ol className="m-0 mt-(--vspace-0_5) flex list-none flex-wrap gap-2 p-0">
-            {seq.map((i) => (
-              <li key={i}>
-                <button
-                  type="button"
-                  onClick={() => {
-                    stop()
-                    setActive(i)
-                  }}
-                  aria-label={flow[i]}
-                  aria-pressed={active === i}
-                  className={`h-1.5 rounded-full transition-all duration-300 ${active === i ? 'w-8 bg-accent' : 'w-3 bg-white/20 hover:bg-accent/60'}`}
-                />
-              </li>
-            ))}
+                <div className="flex h-full flex-col justify-end rounded-lg border border-accent bg-accent p-4 text-black">
+                  <span className="text-(length:--text-xs) tracking-(--tracking-label) opacity-70">Outcome</span>
+                  <span className="mt-2 block font-display text-(length:--text-lg) leading-tight">{outcome}</span>
+                </div>
+              </motion.li>
+            )}
           </ol>
-        </Reveal>
+        </div>
       )}
 
       {decisions?.length > 0 && (
@@ -736,6 +701,41 @@ function Flow({ title, summary, flowLabel, flow, layers, decisions, scenarios, o
         </Reveal>
       )}
     </section>
+  )
+}
+
+
+/** Static architecture diagram: one box per layer, joined in order. Reads
+ *  left to right on desktop and top to bottom on phones. */
+function ArchDiagram({ layers }) {
+  return (
+    <Reveal delay={0.08} className="mt-(--vspace-1)">
+      <h3 className="text-pretitle mb-(--vspace-0_375) text-(length:--text-xs)">Architecture</h3>
+      <ol className="m-0 flex list-none items-stretch gap-0 p-0 max-md:grid max-md:grid-cols-2 max-md:gap-2">
+        {layers.map((layer, i) => (
+          <li key={layer.title} className="flex min-w-0 flex-1 items-stretch">
+            <div className="flex min-w-0 flex-1 flex-col rounded-lg border border-white/15 bg-white/[0.03] p-4 max-md:p-3">
+              <span className="text-(length:--text-xs) tracking-(--tracking-label) text-accent">{String(i + 1).padStart(2, '0')}</span>
+              <span className="mt-1 font-display text-(length:--text-md) text-white">{layer.title}</span>
+              {layer.items?.length > 0 && (
+                <span className="mt-2 flex flex-wrap gap-1">
+                  {layer.items.map((item) => (
+                    <span key={item} className="rounded border border-white/10 px-1.5 py-0.5 text-[11px] text-white/80">{item}</span>
+                  ))}
+                </span>
+              )}
+            </div>
+            {i < layers.length - 1 && (
+              <span aria-hidden className="flex w-8 shrink-0 items-center justify-center text-accent max-md:hidden">
+                <svg viewBox="0 0 24 24" className="size-4" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M4 12h16M14 6l6 6-6 6" />
+                </svg>
+              </span>
+            )}
+          </li>
+        ))}
+      </ol>
+    </Reveal>
   )
 }
 
@@ -758,10 +758,13 @@ function Architecture({ arch }) {
       summary={arch.summary}
       flowLabel="Request flow"
       flow={arch.flow || []}
+      details={arch.details}
+      outcome={arch.outcome}
       layers={layers}
       decisions={arch.decisions}
       scenarios={arch.scenarios}
       layerFor={keywordLayer(layers)}
+      diagram
     />
   )
 }
@@ -787,6 +790,8 @@ function DesignFlow({ project, process }) {
       summary={project.designSummary}
       flowLabel="Process"
       flow={flow}
+      details={process.map((b) => b.text)}
+      images={process.map((b) => (b.images?.[0]?.src ? asset(b.images[0].src) : null))}
       layers={layers}
       decisions={null}
       scenarios={null}

@@ -13,6 +13,8 @@ export const projects = [
     architecture: {
       summary: 'A static React site and a one-endpoint Express API. The only thing that runs on a server is the enquiry handler, and it stores nothing.',
       flow: ['Visitor', 'React site on Netlify', 'POST /enquiry', 'Express API', 'Resend', 'Client inbox'],
+      details: ["Lands on the home page from a Google search for jewellery packaging.", "Static build served from the CDN, animated sections, quote form at the end.", "{ \"name\": \"…\", \"company\": \"…\", \"quantity\": \"5,000\", \"message\": \"…\" }", "Zod checks the fields, rate limit per IP, nothing written to disk.", "Subject: \"New enquiry from Mehta Jewels\" with the fields laid out.", "Sales replies from their own mailbox. No admin panel to log into."],
+      outcome: "Enquiry in the inbox in under a second, nothing stored anywhere.",
       scenarios: [{ label: 'A visitor asks for a quote', steps: [0, 1, 2, 3, 4, 5] }, { label: 'Just browsing', steps: [0, 1] }],
       layers: [
         { title: 'Frontend', items: ['React 19', 'Vite', 'Tailwind CSS v4', 'Anime.js'], note: 'Single page, sections animated on scroll, static build.' },
@@ -61,6 +63,8 @@ export const projects = [
     architecture: {
       summary: 'One Next.js app with two faces: the public catalogue, and the CRM behind NextAuth. They share a PostgreSQL database through Prisma so an enquiry on the site is a lead in the console the same second.',
       flow: ['Buyer', 'Catalogue (Next.js)', 'Enquiry form', 'Server action', 'Prisma', 'PostgreSQL', 'CRM lead list'],
+      details: ["Searches for a display stand and opens a product page.", "Server-rendered page with price, sizes and photos, indexed by Google.", "Picks a quantity, adds a note, submits the enquiry.", "Validates with Zod, checks the session role, runs on the server only.", "prisma.lead.create() plus an audit row with who and when.", "Leads, quotes, notes and users in one database with a full history.", "Sales see the new lead at the top, assign it, and send a quote."],
+      outcome: "Every enquiry becomes a tracked lead with an audit trail.",
       scenarios: [{ label: 'A buyer sends an enquiry', steps: [0, 1, 2, 3, 4, 5, 6] }, { label: 'Sales opens the CRM', steps: [6, 4, 5] }],
       layers: [
         { title: 'Frontend', items: ['Next.js App Router', 'Tailwind CSS', 'React Hook Form', 'Zod'], note: 'Public pages are server-rendered for SEO. The console is a client app behind a login.' },
@@ -112,6 +116,8 @@ export const projects = [
     architecture: {
       summary: 'A React single-page app on Supabase. Auth, the database and row-level security are Supabase; the AI features call a model through a small server function so the key never reaches the browser.',
       flow: ['User', 'React app', 'Supabase Auth', 'Postgres (RLS)', 'Edge function', 'AI model', 'Back to the UI'],
+      details: ["Pastes a job description once, then a resume.", "Tracker, optimizer, builder and prep modules share one JD context.", "Email or Google sign-in, session kept across reloads.", "Every row is scoped by policy to its owner, not by app code.", "Builds the prompt server-side so the key never reaches the browser.", "Returns a score, missing keywords and three rewrites.", "Score and suggestions render next to the resume text."],
+      outcome: "Resume scored against the JD in about six seconds, data never leaves the user's rows.",
       scenarios: [{ label: 'Score a resume', steps: [0, 1, 3, 4, 5, 6] }, { label: 'Sign in with Google', steps: [0, 1, 2, 3] }],
       layers: [
         { title: 'Frontend', items: ['React', 'Vite', 'Tailwind CSS', 'Framer Motion'], note: 'Six modules in one app: tracker, optimizer, builder, prep, assistant, analytics.' },
@@ -164,6 +170,8 @@ export const projects = [
     architecture: {
       summary: 'A MERN store: React in front, Express and MongoDB behind, with Stripe and Razorpay for payment so Indian and international cards both work.',
       flow: ['Shopper', 'React app', 'Express API', 'MongoDB', 'Stripe / Razorpay', 'Order confirmed'],
+      details: ["Browses listings, filters by category, adds to cart.", "Cart lives in context so it survives navigation.", "REST routes for products, cart, orders and payment intents.", "Products and orders as documents, which suits a changing catalogue.", "One checkout, two gateways behind it; the buyer never picks.", "Order saved, stock reduced, confirmation shown."],
+      outcome: "From cart to paid order through either gateway with one checkout.",
       scenarios: [{ label: 'Checkout', steps: [0, 1, 2, 3, 4, 5] }, { label: 'Browse the catalogue', steps: [0, 1, 2, 3] }],
       layers: [
         { title: 'Frontend', items: ['React', 'React Router', 'Context for cart'], note: 'Listings, search, filters and a cart held in context so it survives navigation.' },
@@ -230,6 +238,8 @@ export const projects = [
     architecture: {
       summary: 'The landing page is a static React site. The app is designed mobile-first for Android with an offline-first data model: entries live on the phone until the user chooses to back them up.',
       flow: ['Visitor', 'Landing page (React, Netlify)', 'Download', 'Android app', 'Local store', 'Optional sync'],
+      details: ["Arrives from the promo video and reads the one-screen pitch.", "Static React page on Netlify with the promo playing inline.", "Taps download, gets the Android build.", "Add an expense in two taps; split it with friends by link.", "Entries stay on the device; no sign-up to start.", "Signs in later to back up and sync across devices."],
+      outcome: "Expense tracked offline in two taps; sync only when the user wants it.",
       scenarios: [{ label: 'First launch, offline', steps: [0, 1, 2, 3, 4] }, { label: 'Split a bill', steps: [3, 4, 5] }],
       layers: [
         { title: 'Landing page', items: ['React', 'Vite', 'Tailwind CSS'], note: 'Static, fast, one call to action. The promo plays inline.' },
@@ -258,6 +268,8 @@ export const projects = [
     architecture: {
       summary: 'Three static sites. The Solar Co. is React with GSAP for scroll animation; Vybemation is hand-written HTML and CSS with a pinned scroll sequence; the Solar Shop gallery is a static index of design exports. All deploy on Vercel from Git.',
       flow: ['Git push', 'Vercel build', 'Static files on the edge', 'Visitor'],
+      details: ["Each pitch is its own repo; a push triggers a build.", "Vite or plain HTML built to static files with a preview URL per commit.", "Served from the edge, no server to keep warm.", "The client opens the preview link and reviews on their phone."],
+      outcome: "Three pitches, each reviewable from a link within minutes of a push.",
       scenarios: [{ label: 'Ship a pitch', steps: [0, 1, 2, 3] }],
       layers: [
         { title: 'The Solar Co.', items: ['React', 'Vite', 'Tailwind CSS', 'GSAP'], note: 'Lead form, price-history chart, two hero versions switched by route.' },
@@ -317,6 +329,8 @@ export const projects = [
     architecture: {
       summary: 'A React admin console over an Express API with JWT sessions, backed by MongoDB, with Chart.js for the dashboard numbers.',
       flow: ['Admin', 'React console', 'JWT in header', 'Express API', 'MongoDB', 'Charts'],
+      details: ["Logs into the console to see today's numbers.", "Dashboard, customers, orders and charts in one React app.", "Token sent with every request; expired tokens bounce to login.", "Routes check the role before touching data.", "Customers, orders and events as collections.", "Aggregated server-side, rendered as charts on the dashboard."],
+      outcome: "Admin sees live numbers behind a login, nothing exposed without a token.",
       scenarios: [{ label: 'Admin logs in', steps: [0, 1, 2, 3] }, { label: 'Dashboard loads', steps: [0, 1, 3, 4, 5] }],
       layers: [
         { title: 'Frontend', items: ['React', 'Chart.js', 'Protected routes'], note: 'Dashboard, customers, deals and reports.' },
@@ -359,6 +373,8 @@ export const projects = [
     architecture: {
       summary: 'A Django platform with Django REST Framework endpoints, PostgreSQL for data and AWS S3 for uploaded photos, served through Gunicorn.',
       flow: ['Customer', 'Django views / DRF', 'PostgreSQL', 'S3 for images', 'Booking confirmed'],
+      details: ["Picks a service, a slot and a handyman.", "Django handles the forms; DRF serves the booking endpoints.", "Bookings, users and reviews in Postgres with constraints on slots.", "Job photos uploaded straight to S3, only the URL stored.", "Both sides get the booking details; the slot is locked."],
+      outcome: "A booking that cannot double-book a slot, with photos off the server.",
       scenarios: [{ label: 'Book a plumber', steps: [0, 1, 2, 4] }, { label: 'Provider uploads a photo', steps: [0, 1, 3] }],
       layers: [
         { title: 'App', items: ['Django', 'Django REST Framework', 'Templates'], note: 'Customer and provider sides share the same models.' },
@@ -398,6 +414,8 @@ export const projects = [
     architecture: {
       summary: 'A React app with one serverless function. The function fetches a subreddit from the Reddit API, scores each post with an AFINN word list, and returns the numbers; the browser never calls Reddit directly.',
       flow: ['User types a subreddit', 'React app', 'Vercel function', 'Reddit API', 'AFINN scoring', 'Chart'],
+      details: ["Types r/wallstreetbets and hits enter.", "Shows a loading state and calls the function.", "Fetches the latest posts server-side so the Reddit token stays private.", "Returns the newest 100 posts with titles and bodies.", "Each post scored word by word; totals bucketed by hour.", "Mood over time drawn as a line, with the extremes called out."],
+      outcome: "A subreddit's mood over the last day, in one request, no keys in the browser.",
       scenarios: [{ label: 'Check a subreddit', steps: [0, 1, 2, 3, 4, 5] }],
       layers: [
         { title: 'Frontend', items: ['React 19', 'Vite'], note: 'Input, loading state, and the sentiment breakdown.' },
@@ -456,6 +474,8 @@ export const projects = [
     architecture: {
       summary: 'React front end with React Router, Express API with JWT auth, MongoDB Atlas for storage.',
       flow: ['User', 'React (Router 7)', 'Express 5 API', 'JWT check', 'MongoDB Atlas'],
+      details: ["Adds a task, drags it to in-progress.", "Router 7 with loaders, optimistic updates on drag.", "CRUD routes for boards, lists and tasks.", "Every route verifies the token and scopes to the user.", "Tasks stored per user in Atlas, indexed by board."],
+      outcome: "Task moved and saved before the drop animation finishes.",
       scenarios: [{ label: 'Add a task', steps: [0, 1, 2, 3, 4] }],
       layers: [
         { title: 'Frontend', items: ['React 19', 'React Router 7', 'Vite'], note: 'Lists, filters and task detail as routes.' },

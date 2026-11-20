@@ -24,7 +24,15 @@ const kinds = [
   ['wire', /wire|flow|sketch|lo-fi|structure|ia\b/],
   ['proto', /proto|hi-fi|visual|handoff|launch|ship/],
 ]
-export function sceneKind(layer) {
+const stepKinds = [
+  ['visit', /^(visitor|user|buyer|shopper|customer|admin|lands|types|arrives|picks|browses|searches|pastes|adds|logs)/],
+  ['req', /^(post|get|put|enquiry form|submit|download|git push|jwt|token)/],
+  ['done', /(confirmed|back to the ui|chart|inbox|lead list|charts|^visitor$)/],
+]
+export function sceneKind(layer, label = '') {
+  const l = String(label).toLowerCase()
+  const byStep = stepKinds.find(([, re]) => re.test(l))
+  if (byStep && !(byStep[0] === 'done' && /^visitor$/.test(l))) return byStep[0]
   const t = [layer.title, ...(layer.items || [])].join(' ').toLowerCase()
   return (kinds.find(([, re]) => re.test(t)) || ['default'])[0]
 }
@@ -219,12 +227,43 @@ const scenes = {
     </Frame>
   ),
 }
+scenes.visit = ({ label }) => (
+  <Frame>
+    <div className="relative h-full">
+      <div className="flex flex-col gap-1.5"><Line w="50%" i={0} /><Line w="80%" i={0} /></div>
+      <motion.span initial={{ scale: 0.6, opacity: 0.4 }} animate={{ scale: 1, opacity: 1 }} transition={{ delay: 1, duration: 0.3 }} className="absolute bottom-2 left-2 rounded bg-accent px-2 py-1 text-[11px] font-medium text-black">{label}</motion.span>
+      <motion.svg viewBox="0 0 24 24" className="absolute size-5 text-white" fill="currentColor" initial={{ x: 120, y: 10, opacity: 0 }} animate={{ x: 44, y: 54, opacity: 1 }} transition={{ duration: 0.9, ease }}>
+        <path d="M4 3l7 17 2-7 7-2z" />
+      </motion.svg>
+      <motion.span initial={{ scale: 0, opacity: 0.6 }} animate={{ scale: 2.4, opacity: 0 }} transition={{ delay: 1, duration: 0.6 }} className="absolute bottom-3 left-3 size-3 rounded-full border border-accent" />
+    </div>
+  </Frame>
+)
+scenes.req = ({ label }) => (
+  <Frame>
+    <div className="relative flex h-full items-center">
+      <span className="h-px w-full bg-white/20" />
+      <motion.span initial={{ left: '0%', opacity: 0 }} animate={{ left: ['0%', '60%'], opacity: 1 }} transition={{ duration: 1, ease }} className="absolute -translate-y-1/2 rounded border border-accent bg-accent/15 px-2 py-1 font-mono text-[10px] text-white">
+        {label}
+      </motion.span>
+      <span className="absolute right-0 top-1/2 size-2.5 -translate-y-1/2 rounded-full bg-white/40" />
+    </div>
+  </Frame>
+)
+scenes.done = ({ label }) => (
+  <Frame>
+    <div className="flex h-full flex-col items-center justify-center gap-1.5">
+      <Check i={1} />
+      <span className="text-[11px] text-accent">{label}</span>
+    </div>
+  </Frame>
+)
 scenes.default = scenes.proto
 
 export function Scene({ layer, label, step }) {
-  const S = scenes[sceneKind(layer)]
+  const S = scenes[sceneKind(layer, label)]
   return (
-    <div key={step} className="aspect-[16/10] w-full">
+    <div key={step} className="aspect-[16/9] w-full">
       <S label={label} />
     </div>
   )

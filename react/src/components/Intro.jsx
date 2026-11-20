@@ -139,9 +139,11 @@ export function Intro() {
             <li className="flex w-full">
               <a
                 href="/project/modal-13"
-                className="tap-target inline-flex items-center gap-2 rounded-full border border-accent/40 bg-accent/10 px-5 text-(length:--text-xs) tracking-(--tracking-label) text-accent"
+                className="tap-target inline-flex max-w-full items-center gap-2 rounded-full border border-accent/40 bg-accent/10 px-5 text-(length:--text-xs) tracking-(--tracking-label) text-accent"
               >
-                Latest · Noted — Expense Tracker →
+                <span className="shrink-0 uppercase">Latest</span>
+                <span className="min-w-0 truncate">· Noted — Expense Tracker</span>
+                <span className="shrink-0">→</span>
               </a>
             </li>
             {socials.map(({ label, url, icon }, index) => (
