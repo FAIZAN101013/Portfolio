@@ -16,14 +16,28 @@ import { Stats } from './pages/Stats'
 export default function App() {
   const location = useLocation()
 
-  // Theme: blend-light for everyone. The owner can pick another from the
-  // stats page; that choice lives in this browser only.
+  // Theme: the live default comes from /api/theme (set by the owner on the
+  // stats page). The last known value is cached in this browser so repeat
+  // visits paint the right theme at once; 'theme' is the owner's local
+  // preview and wins while it is set.
   useEffect(() => {
-    let t = 'blend-light'
+    let preview = null
+    let cached = 'blend-light'
     try {
-      t = localStorage.getItem('theme') || t
+      preview = localStorage.getItem('theme')
+      cached = localStorage.getItem('site-theme') || cached
     } catch {}
-    document.documentElement.dataset.theme = t
+    document.documentElement.dataset.theme = preview || cached
+    fetch('/api/theme')
+      .then((r) => (r.ok ? r.json() : null))
+      .then((d) => {
+        if (!d?.theme) return
+        try {
+          localStorage.setItem('site-theme', d.theme)
+        } catch {}
+        if (!preview) document.documentElement.dataset.theme = d.theme
+      })
+      .catch(() => {})
   }, [])
 
   // One visit per page view; nothing stored about the visitor.

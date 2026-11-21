@@ -19,6 +19,11 @@ export function Stats() {
       return DEFAULT_THEME
     }
   })
+  const [live, setLive] = useState(null)
+  const [saving, setSaving] = useState('')
+  const key = new URLSearchParams(window.location.search).get('key') || ''
+
+  // Preview: this browser only.
   const pick = (t) => {
     setTheme(t)
     document.documentElement.dataset.theme = t
@@ -26,14 +31,39 @@ export function Stats() {
       localStorage.setItem('theme', t)
     } catch {}
   }
+
+  // Confirm: every visitor from now on.
+  const makeLive = async () => {
+    if (!window.confirm(`Set "${theme}" as the theme for every visitor?`)) return
+    setSaving('Saving…')
+    const r = await fetch(`/api/theme?key=${encodeURIComponent(key)}`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ theme }),
+    }).catch(() => null)
+    if (!r?.ok) {
+      setSaving('Could not save')
+      return
+    }
+    setLive(theme)
+    try {
+      localStorage.removeItem('theme')
+      localStorage.setItem('site-theme', theme)
+    } catch {}
+    setSaving('Live. Visitors may see the old theme for up to a minute.')
+  }
   const [error, setError] = useState('')
 
   useEffect(() => {
-    const key = new URLSearchParams(window.location.search).get('key') || ''
     fetch(`/api/visits?key=${encodeURIComponent(key)}`)
       .then((r) => (r.ok ? r.json() : Promise.reject(new Error('Not found'))))
       .then(setData)
       .catch((e) => setError(e.message))
+    fetch('/api/theme', { cache: 'no-store' })
+      .then((r) => (r.ok ? r.json() : null))
+      .then((d) => d?.theme && setLive(d.theme))
+      .catch(() => {})
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const days = data ? Object.entries(data.days).sort((a, b) => (a[0] < b[0] ? 1 : -1)).slice(0, 30) : []
@@ -48,7 +78,10 @@ export function Stats() {
         {data && (
           <>
             <section className="mb-(--vspace-1_5)">
-              <h2 className="text-pretitle">Theme (this browser only)</h2>
+              <h2 className="text-pretitle">Theme</h2>
+              <p className="mb-0 mt-2 text-(length:--text-sm) text-content">
+                Tap to preview in this browser. Live for visitors: <span className="text-white">{live || '…'}</span>
+              </p>
               <div className="mt-3 flex flex-wrap gap-2">
                 {THEMES.map((t) => (
                   <button
@@ -61,10 +94,29 @@ export function Stats() {
                     }`}
                   >
                     {t}
-                    {t === DEFAULT_THEME ? ' · default' : ''}
+                    {t === live ? ' · live' : ''}
                   </button>
                 ))}
               </div>
+              {theme !== live && (
+                <div className="mt-4 flex flex-wrap items-center gap-3">
+                  <button
+                    type="button"
+                    onClick={makeLive}
+                    className="rounded-full border border-accent bg-accent px-5 py-2 text-(length:--text-sm) font-medium text-black"
+                  >
+                    Set {theme} as live theme
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => pick(live || DEFAULT_THEME)}
+                    className="rounded-full border border-white/15 px-5 py-2 text-(length:--text-sm) text-content"
+                  >
+                    Back to live
+                  </button>
+                </div>
+              )}
+              {saving && <p className="mb-0 mt-3 text-(length:--text-sm) text-content">{saving}</p>}
             </section>
             <dl className="m-0 grid grid-cols-3 gap-6 border-y border-hairline py-(--vspace-0_75) max-xs:grid-cols-1">
               {[
