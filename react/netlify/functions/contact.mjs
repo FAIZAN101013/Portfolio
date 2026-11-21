@@ -74,7 +74,7 @@ const buildEmail = ({ name, email, service, message }) => {
       </tr>
       <tr>
         <td style="padding:16px 32px;border-top:1px solid #2a2a2a;color:#7a7a7a;font-size:12px;">
-          Sent from the contact form at <a href="https://faziansportfolio.netlify.app" style="color:#9a9a9a;">faziansportfolio.netlify.app</a> — replying goes straight to the sender.
+          Sent from the contact form at <a href="https://faizanpatel-dev.netlify.app" style="color:#9a9a9a;">faizanpatel-dev.netlify.app</a> — replying goes straight to the sender.
         </td>
       </tr>
     </table>

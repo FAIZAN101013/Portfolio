@@ -542,7 +542,7 @@ export const projects = [
     id: 'modal-12',
     title: 'Portfolio Website',
     category: 'Website · First portfolio',
-    githubLink: 'https://faziansportfolio.netlify.app/',
+    githubLink: 'https://faizanpatel-dev.netlify.app/',
     tags: ['project'],
     media: [{ type: 'image', src: '/images/portiflito.png' }],
     description: `The first version of this site: a single responsive page in HTML, CSS and Bootstrap. The fundamentals this portfolio was later rebuilt on.`,

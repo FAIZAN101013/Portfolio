@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 
-export const SITE_URL = 'https://faziansportfolio.netlify.app'
+export const SITE_URL = 'https://faizanpatel-dev.netlify.app'
 const DEFAULT_TITLE = 'Faizan Patel | Software Developer & UI/UX Designer'
 const DEFAULT_DESCRIPTION =
   'Portfolio of Faizan Patel, a software developer and UI/UX designer building fast React websites, web apps and Figma designs for clients and startups.'

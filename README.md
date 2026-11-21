@@ -1,3 +1,3 @@
 # Portfolio
 My Portfolio
-https://faziansportfolio.netlify.app/
+https://faizanpatel-dev.netlify.app/

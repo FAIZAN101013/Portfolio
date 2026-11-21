@@ -1,5 +1,5 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://faziansportfolio.netlify.app/sitemap.xml
+Sitemap: https://faizanpatel-dev.netlify.app/sitemap.xml
 Disallow: /stats

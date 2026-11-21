@@ -6,7 +6,7 @@ touching anything; read ARCHITECTURE.md for how the code is laid out.
 ## What this is
 
 Faizan Patel's personal portfolio: full-stack developer, also does design and
-freelance client builds. Live at https://faziansportfolio.netlify.app
+freelance client builds. Live at https://faizanpatel-dev.netlify.app
 (GitHub: FAIZAN101013/Portfolio, branch `main`, auto-deployed by Netlify on
 push).
 

@@ -33,7 +33,7 @@ const projectsData = [
         id: 'modal-02',
         title: 'Portfolio Website',
         category: 'Web Application',
-        githubLink: 'https://faziansportfolio.netlify.app/',
+        githubLink: 'https://faizanpatel-dev.netlify.app/',
         tags: ['project'],
         media: [
             { type: 'image', src: 'images/portiflito.png' }
