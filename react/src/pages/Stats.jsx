@@ -57,7 +57,13 @@ export function Stats() {
   useEffect(() => {
     fetch(`/api/visits?key=${encodeURIComponent(key)}`)
       .then((r) => (r.ok ? r.json() : Promise.reject(new Error('Not found'))))
-      .then(setData)
+      .then((d) => {
+        setData(d)
+        // This browser belongs to the owner: stop counting its visits.
+        try {
+          localStorage.setItem('owner', '1')
+        } catch {}
+      })
       .catch((e) => setError(e.message))
     fetch('/api/theme', { cache: 'no-store' })
       .then((r) => (r.ok ? r.json() : null))

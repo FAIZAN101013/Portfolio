@@ -43,6 +43,9 @@ export default function App() {
   // One visit per page view; nothing stored about the visitor.
   useEffect(() => {
     if (location.pathname === '/stats') return
+    try {
+      if (localStorage.getItem('owner') === '1') return
+    } catch {}
     fetch('/api/visits', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
