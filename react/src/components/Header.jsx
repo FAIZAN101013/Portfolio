@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { Link, useNavigate } from 'react-router-dom'
-import { navLinks, site } from '../data/site'
+import { navLinks } from '../data/site'
+import { BrandLogo } from './BrandLogo'
 import { useScrollSpy } from '../hooks/useScrollSpy'
 import { EASE_IN_OUT_CUBIC, EASE_OUT_SOFT, HERO_DELAY, HERO_DURATION } from '../lib/motion'
 
@@ -85,10 +86,10 @@ export function Header({ isHome = true }) {
       >
         <Link
           to="/"
-          onClick={go('intro')}
+          onClick={go('intro')} aria-label="Faizan Patel home"
           className="inline-block px-[.4rem] py-3 text-(length:--text-xs) font-normal uppercase tracking-(--tracking-nav) text-white hover:text-accent"
         >
-          {site.name}
+          <BrandLogo />
         </Link>
 
         {/* 48px round hit area rather than the bare 1px-tall burger glyph the
@@ -131,8 +132,8 @@ export function Header({ isHome = true }) {
               }`}
             >
               <li className="flex-1 border-r border-hairline">
-                <Link to="/" onClick={go('intro')} className={LINK_BASE}>
-                  {site.name}
+                <Link to="/" onClick={go('intro')} aria-label="Faizan Patel home" className={LINK_BASE}>
+                  <BrandLogo />
                 </Link>
               </li>
 
