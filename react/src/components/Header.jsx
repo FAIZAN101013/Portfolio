@@ -87,7 +87,7 @@ export function Header({ isHome = true }) {
         <Link
           to="/"
           onClick={go('intro')} aria-label="Faizan Patel home"
-          className="inline-block px-[.4rem] py-3 text-(length:--text-xs) font-normal uppercase tracking-(--tracking-nav) text-white hover:text-accent"
+          className="flex h-full min-w-0 items-center px-[.4rem] text-white"
         >
           <BrandLogo />
         </Link>
@@ -131,8 +131,8 @@ export function Header({ isHome = true }) {
                 scrolled ? 'bg-body/92 backdrop-blur-md' : 'bg-body'
               }`}
             >
-              <li className="flex-1 border-r border-hairline">
-                <Link to="/" onClick={go('intro')} aria-label="Faizan Patel home" className={LINK_BASE}>
+              <li className="min-w-0 flex-1 border-r border-hairline">
+                <Link to="/" onClick={go('intro')} aria-label="Faizan Patel home" className="flex h-(--header-height) items-center px-[2.4rem] text-white max-xl:px-[1.4rem]">
                   <BrandLogo />
                 </Link>
               </li>
