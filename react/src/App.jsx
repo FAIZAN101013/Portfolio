@@ -8,6 +8,7 @@ import { Preloader } from './components/Preloader'
 import { ProjectNudge } from './components/ProjectNudge'
 import { ScrollProgress } from './components/ScrollProgress'
 import { useReducedMotion } from './hooks/useReducedMotion'
+import { useThemeFavicon } from './hooks/useThemeFavicon'
 import { EASE_OUT_SOFT } from './lib/motion'
 import { Home } from './pages/Home'
 import { ProjectDetail } from './pages/ProjectDetail'
@@ -15,6 +16,7 @@ import { Stats } from './pages/Stats'
 
 export default function App() {
   const location = useLocation()
+  useThemeFavicon()
 
   // Theme: the live default comes from /api/theme (set by the owner on the
   // stats page). The last known value is cached in this browser so repeat

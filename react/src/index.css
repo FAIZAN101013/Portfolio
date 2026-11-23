@@ -917,19 +917,22 @@
 }
 .process-lit::before { opacity: 1; }
 
-.portfolio-wordmark {
+:root {
   --wordmark-tile: var(--color-accent);
   --wordmark-surname: var(--color-black);
+}
+
+:root[data-theme="blend-light"] {
+  --wordmark-surname: var(--color-white);
+}
+
+:root:is([data-theme="cream"], [data-theme="chantilly"]) {
+  --wordmark-tile: color-mix(in srgb, var(--color-accent) 78%, var(--color-white));
+}
+
+.portfolio-wordmark {
   display: block;
   width: clamp(14rem, 14vw, 18rem);
   max-width: 100%;
   height: auto;
-}
-
-:root[data-theme="blend-light"] .portfolio-wordmark {
-  --wordmark-surname: var(--color-white);
-}
-
-:root:is([data-theme="cream"], [data-theme="chantilly"]) .portfolio-wordmark {
-  --wordmark-tile: color-mix(in srgb, var(--color-accent) 78%, var(--color-white));
 }
