@@ -21,8 +21,8 @@ export const socials = [
 ]
 
 export const navLinks = [
-  { id: 'works', label: 'Work' },
   { id: 'about', label: 'About' },
+  { id: 'works', label: 'Work' },
   { id: 'services', label: 'Services' },
   { id: 'contact', label: 'Contact' },
 ]

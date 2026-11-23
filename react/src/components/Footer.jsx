@@ -1,9 +1,10 @@
 import { motion, useScroll, useTransform } from 'framer-motion'
+import { BrandLogo } from './BrandLogo'
 import { Icon } from './Icon'
 import { useReducedMotion } from '../hooks/useReducedMotion'
 
 /**
- * The original footer, kept as designed: one copyright line and a back-to-top
+ * The original footer, kept as designed: the logo, copyright line, and a back-to-top
  * box that sits half outside the row, pulled up by --vspace-1.
  *
  * The box now also reacts to scroll — it is dim and slightly shrunk near the
@@ -25,7 +26,8 @@ export function Footer() {
   return (
     <footer className="mt-auto pb-(--vspace-3) pt-(--vspace-1) text-content-light">
       <div className="row relative">
-        <div className="column -mt-(--vspace-0_25) mr-[5.2rem] leading-(--vspace-0_875) max-sm:mr-0">
+        <div className="column -mt-(--vspace-0_25) mr-[5.2rem] leading-(--vspace-0_875) max-sm:mr-[5.2rem]">
+          <div className="mb-3 text-white"><BrandLogo /></div>
           <span className="inline-block text-(length:--text-sm)">© {new Date().getFullYear()} Faizan Patel · Pune, India</span>
         </div>
 
